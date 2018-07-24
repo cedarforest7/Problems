@@ -248,5 +248,98 @@ public class TreeNode {
         return (root.left == null) && (root.right == null);
     }
 
+    //No.235
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        LinkedList<TreeNode> ancp = ancestors(root, p);
+        LinkedList<TreeNode> ancq = ancestors(root, q);
+        if (ancp.size() < ancq.size()) {
+            for (TreeNode t : ancp) {
+                if (ancq.contains(t)) {
+                    return t;
+                }
+            }
+        } else {
+            for (TreeNode t : ancq) {
+                if (ancp.contains(t)) {
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+
+    private LinkedList<TreeNode> ancestors (TreeNode root, TreeNode p) {
+        LinkedList<TreeNode> anc = new LinkedList<>();
+        if (root == null) {
+            return anc;
+        }
+        if (root == p) {
+            anc.add(root);
+            return anc;
+        }
+        LinkedList<TreeNode> left = ancestors(root.left, p);
+        anc.addAll(left);
+        LinkedList<TreeNode> right = ancestors(root.right, p);
+        anc.addAll(right);
+        if (!(left.isEmpty() && right.isEmpty())) {
+            anc.add(root);
+        }
+        return anc;
+    }
+
+    //above is for binary tree, below for BST
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        if (p.val == q.val) {
+            return p;
+        }
+        if (p.val > q.val) {
+            return ancHelper(root, q, p);
+        } else {
+            return ancHelper(root, p, q);
+        }
+    }
+    //p<q
+    private TreeNode ancHelper (TreeNode root, TreeNode p, TreeNode q) {
+        if (root.val >= p.val && root.val <= q.val) {
+            return root;
+        }
+        if (root.val > q.val) {
+            return ancHelper(root.left, p, q);
+        } else {
+            return ancHelper(root.right, p, q);
+        }
+
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root.val > p.val && root.val > q.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        } else if (root.val < p.val && root.val < q.val){
+            return lowestCommonAncestor(root.right, p, q);
+        } else {
+            return root;
+        }
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        TreeNode t2 = new TreeNode(2);
+        TreeNode t3 = new TreeNode(3);
+        TreeNode t4 = new TreeNode(4);
+        TreeNode t5 = new TreeNode(5);
+        TreeNode t6 = new TreeNode(6);
+        TreeNode t7 = new TreeNode(7);
+        root.left = t2;
+        root.right = t3;
+        t2.left = t4;
+        t2.right = t5;
+        t3.left = t6;
+        t3.right = t7;
+        LinkedList<TreeNode> anc2 = root.ancestors(root, t2);
+        for (TreeNode t : anc2) {
+            System.out.print(t.val + " ");
+        }
+
+    }
 
 }
