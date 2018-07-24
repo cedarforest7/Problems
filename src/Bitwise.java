@@ -12,6 +12,6 @@ public class Bitwise {
     }
 
     public static void main(String[] args) {
-        //System.out.println(hammingWeight(11));
+        System.out.println(hammingWeight(11));
     }
 }
