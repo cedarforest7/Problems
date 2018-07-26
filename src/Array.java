@@ -267,7 +267,29 @@ public class Array {
         return Math.max(rob[n - 1], rob[n]);
     }
 
-    
+    //No.35 binary search
+    public int searchInsert(int[] nums, int target) {
+        int n = nums.length;
+        if (n == 0 || target <= nums[0]) {
+            return 0;
+        }
+        if (target > nums[n - 1]) {
+            return n;
+        }
+        int min = 0, max = n - 1, mid = (n - 1)/2;
+        while (mid != min && mid != max) {
+            if (target < nums[mid]) {
+                max = mid;
+                mid = (max + min)/2;
+            } else if (target == nums[mid]) {
+                return mid;
+            } else {
+                min = mid;
+                mid = (max + min)/2;
+            }
+        }
+        return mid + 1;
+    }
 
     public static void main(String[] args) {
         int[] a = {2, 2, 1, 1};
