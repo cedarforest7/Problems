@@ -252,6 +252,23 @@ public class Array {
         return nums.length - 1;
     }
 
+    //No.198
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int[] rob = new int[n + 1];
+        rob[0] = 0;
+        rob[1] = nums[0];
+        for (int i = 2; i < n + 1; i++) {
+            rob[i] = Math.max(rob[i - 2] + nums[i - 1], rob[i - 1]);
+        }
+        return Math.max(rob[n - 1], rob[n]);
+    }
+
+    
+
     public static void main(String[] args) {
         int[] a = {2, 2, 1, 1};
         System.out.println(singleNumber(a));
