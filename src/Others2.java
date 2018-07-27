@@ -300,6 +300,23 @@ public class Others2 {
         return max;
     }
 
+    //No.66
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        int plus = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            int temp = digits[i] + plus;
+            digits[i] = temp % 10;
+            plus = temp/10;
+        }
+        if (digits[0] == 0 && plus == 1) {
+            int[] plusOne = new int[n + 1];
+            plusOne[0] = 1;
+            System.arraycopy(digits, 0, plusOne, 1, n);
+            return plusOne;
+        }
+        return digits;
+    }
 
 
 
