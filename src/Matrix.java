@@ -139,10 +139,118 @@ public class Matrix {
         return min[m - 1][n - 1];
     }
 
+    //No.240
+//    public boolean searchMatrix1(int[][] matrix, int target) {
+//        if (matrix == null || matrix.length == 0|| matrix[0].length == 0) {
+//            return false;
+//        }
+//        int m = matrix.length, n = matrix[0].length;
+//        if (target < matrix[0][0] || target > matrix[m - 1][n - 1]) {
+//            return false;
+//        }
+//        int lowX = 0, lowY = 0, highX = m - 1, highY = n - 1;
+//        int midX = (m - 1)/2, midY = (n - 1)/2;
+//        while (!(midX == lowX && midY == lowY) && !(midX == highX && midY == highY)) {
+//            System.out.println(matrix[midX][midY]);     //for test
+//            if (target < matrix[midX][midY]) {
+//                highX = midX;
+//                midX = (lowX + highX)/2;
+//                highY = midY;
+//                midY = (lowY + highY)/2;
+//            } else if (target == matrix[midX][midY]) {
+//                return true;
+//            } else {
+//                lowX = midX;
+//                midX = (lowX + highX)/2;
+//                lowY = midY;
+//                midY = (lowY + highY)/2;
+//            }
+//        }
+//        if (target == matrix[lowX][lowY]) {
+//            return true;
+//        }
+//        int[] col = new int[highX + 1];
+//        for (int i = 0; i <= highX; i++) {
+//            col[i] = matrix[i][highY];
+//        }
+//        return searchHelper(matrix[highX], target, highY) || searchHelper(col, target, highX);
+//
+//    }
+    //above 240 code is wrong
+
+    private boolean searchHelper(int[] nums, int target) {
+        int end = nums.length;
+        if (target < nums[0]) {
+            return false;
+        }
+        int min = 0, max = end, mid = end/2;
+        while (mid != min && mid != max) {
+            System.out.println(nums[mid]);      //for test
+            if (target < nums[mid]) {
+                max = mid;
+                mid = (max + min)/2;
+            } else if (target == nums[mid]) {
+                return true;
+            } else {
+                min = mid;
+                mid = (max + min)/2;
+            }
+        }
+        if (target == nums[min] || target == nums[max]) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean searchMatrix2(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0|| matrix[0].length == 0) {
+            return false;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        if (target < matrix[0][0] || target > matrix[m - 1][n - 1]) {
+            return false;
+        }
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][0] <= target && target <= matrix[i][n - 1]) {
+                if (searchHelper(matrix[i], target)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    //above is time consuming
+
+    //start searching from the top right corner(!), considering as a DP problem(?)
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0|| matrix[0].length == 0) {
+            return false;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        if (target < matrix[0][0] || target > matrix[m - 1][n - 1]) {
+            return false;
+        }
+        int i = 0, j = n - 1;
+        while (i < m && j >= 0 && target != matrix[i][j]) {
+            if (target > matrix[i][j]) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        if (i == m || j < 0) {
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        int[][] grid = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
+        Matrix m = new Matrix();
+        int[][] grid = {{0, 1, 3}, {2, 3, 5}, {4, 5, 7}};
+        int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
         //System.out.println(minPathSum(grid));
-        System.out.println(minPathSum(grid));
+        System.out.println(m.searchMatrix(grid5, 5));
     }
 
 
