@@ -291,6 +291,26 @@ public class Array {
         return mid + 1;
     }
 
+    //No.300
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null) {
+            return 0;
+        }
+        int n = nums.length;
+        int[] Q = new int[n];
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            Q[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    Q[i] = Math.max(Q[i], Q[j] + 1);
+                }
+            }
+            max = Math.max(max, Q[i]);
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         int[] a = {2, 2, 1, 1};
         System.out.println(singleNumber(a));
