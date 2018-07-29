@@ -321,6 +321,44 @@ public class TreeNode {
         }
     }
 
+    //No.129
+    int sum = 0;
+    public int sumNumbers(TreeNode root) {
+        sumHelper(root);
+        return sum;
+    }
+
+//    private void preOrder (TreeNode root) {
+//        if (root == null) {
+//            return;
+//        }
+//
+//        sum = sum*10 + root.val;
+//        int temp = sum;
+//        preOrder(root.left);
+//        preOrder(root.right);
+//        sum += temp;
+//    }
+
+    private void sumHelper (TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {  //isLeaf
+            sum += root.val;
+        }
+        if (root.left != null) {
+            root.left.val += root.val * 10;
+            sumHelper(root.left);
+        }
+        if (root.right != null) {
+            root.right.val += root.val * 10;
+            sumHelper(root.right);
+        }
+    }
+
+
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         TreeNode t2 = new TreeNode(2);
