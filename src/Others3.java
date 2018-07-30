@@ -1,5 +1,7 @@
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class Others3 {
     //No.263
@@ -47,5 +49,50 @@ public class Others3 {
         }
         list.add(1);
         return list;
+    }
+
+    //No.36
+    public boolean isValidSudoku(char[][] board) {
+        for (int i = 0; i < 9; i++) {
+            Set<Character> s = new HashSet<>();
+            for (int j = 0; j < 9; j++) {
+                int x = board[i][j] - '0';
+                if ( x > 0 && x <= 9 ) {
+                    if (s.contains(board[i][j])) {
+                        return false;
+                    }
+                    s.add(board[i][j]);
+                }
+            }
+        }
+        for (int j = 0; j < 9; j++) {
+            Set<Character> s = new HashSet<>();
+            for (int i = 0; i < 9; i++) {
+                int x = board[i][j] - '0';
+                if ( x > 0 && x <= 9 ) {
+                    if (s.contains(board[i][j])) {
+                        return false;
+                    }
+                    s.add(board[i][j]);
+                }
+            }
+        }
+        for (int m = 0; m < 9; m += 3) {
+            for (int n = 0; n < 9; n += 3) {
+                Set<Character> s = new HashSet<>();
+                for (int i = m; i < m + 3; i++) {
+                    for (int j = n; j < n + 3; j++) {
+                        int x = board[i][j] - '0';
+                        if ( x > 0 && x <= 9 ) {
+                            if (s.contains(board[i][j]))   {
+                                return false;
+                            }
+                            s.add(board[i][j]);
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
