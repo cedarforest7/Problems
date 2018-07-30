@@ -367,6 +367,45 @@ public class Array {
         return lc;
     }
 
+    //No.1
+    public int[] twoSum1(int[] nums, int target) {
+        int[] sol = {-1, -1};
+//        Map<Integer, Integer> map = new HashMap<>();        //Map value to index
+//        for (int i = 0; i < nums.length; i++) {
+//            map.put(i, nums[i]);
+//        }
+        int n = nums.length;
+        int[] copy = new int[n];
+        for (int i = 0; i < n; i++) {
+            copy[i] = nums[i];
+        }
+        Arrays.sort(nums);
+        int i = 0, j = n - 1;
+        while (nums[i] + nums[j] != target) {
+            if (nums[i] + nums[j] < target) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        for (int k = 0; k < n; k++) {
+            if (copy[k] == nums[i]) {
+                if (sol[0] == -1) {
+                    sol[0] = k;
+                } else {
+                    sol[1] = k;
+                }
+;            } else if (copy[k] == nums[j]) {
+                if (sol[0] == -1) {
+                    sol[0] = k;
+                } else {
+                    sol[1] = k;
+                }
+            }
+        }
+        return sol;
+    }
+    //use a hashMap,directly find target - nums[i] is faster
 
     public static void main(String[] args) {
         int[] a = {2, 2, 1, 1};
