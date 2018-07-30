@@ -311,6 +311,63 @@ public class Array {
         return max;
     }
 
+    //No.128
+    public int longestConsecutive1(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int min = nums[0], max = nums[0];
+        for (int x : nums) {
+            min = Math.min(min, x);
+            max = Math.max(max, x);
+        }
+        int n = max - min + 1;
+        int[] arr = new int[n];
+        for (int i = 1; i < n - 1; i++ ) {
+            arr[i] = min - 2;
+        }
+        for (int x : nums) {
+            arr[x - min] = x;
+        }
+        int lc = 1, p = 0, q = 0;
+        for (int i = 1; i < n - 1; i++) {
+            if (arr[i] != min - 2) {
+                if (arr[i - 1] == min - 2) {
+                    p = i;
+                }
+                if (arr[i + 1] == min - 2) {
+                    q = i;
+                }
+                lc = Math.max(lc, q - p + 1);
+            }
+        }
+        if (arr[n - 2] != min - 2) {
+            q = n - 1;
+            lc = Math.max(lc, q - p + 1);
+        }
+        return lc;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int lc = 1, temp = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] < nums[i - 1] + 2) {
+                if (nums[i] == nums[i - 1] + 1) {
+                    temp++;
+                }
+                lc = Math.max(lc, temp);
+            } else {
+                temp = 1;
+            }
+        }
+        return lc;
+    }
+
+
     public static void main(String[] args) {
         int[] a = {2, 2, 1, 1};
         System.out.println(singleNumber(a));
