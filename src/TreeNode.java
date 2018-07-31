@@ -357,6 +357,28 @@ public class TreeNode {
         }
     }
 
+    //No.110
+    public boolean isBalanced(TreeNode root) {
+        return (boolean)balanced(root)[0];
+    }
+
+    private Object[] balanced (TreeNode root) {
+        Object[] obj = new Object[2];
+        if (root == null) {
+            obj[0] = true;
+            obj[1] = 0;
+            return obj;
+        }
+        Object[] obj1 = balanced(root.left);
+        Object[] obj2 = balanced(root.right);
+        obj[0] = (boolean)obj1[0] && (boolean)obj2[0] && ( (int)obj1[1] - (int)obj2[1] >= -1) && ((int)obj1[1] - (int)obj2[1] <= 1);
+        if (!(boolean)obj[0]) {
+            return obj;
+        }
+        obj[1] = 1 + Math.max((int)obj1[1], (int)obj2[1]);
+        return obj;
+    }
+
 
 
     public static void main(String[] args) {
