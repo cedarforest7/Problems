@@ -602,6 +602,39 @@ public class Array {
         return nums[0];
     }
 
+    //No.289
+    public void gameOfLife(int[][] board) {
+        if (board == null || board.length == 0 || board[0].length == 0) {
+            return;
+        }
+        int m = board.length;
+        int n = board[0].length;
+        int[][] bigBoard = new int[m + 2][n + 2];
+        for (int x = 1; x < m + 1; x++) {
+            for (int y = 1; y < n + 1; y++) {
+                bigBoard[x][y] = board[x - 1][y - 1];
+            }
+        }
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int lives = bigBoard[i][j] + bigBoard[i][j + 1] + bigBoard[i][j + 2] + bigBoard[i + 1][j] + bigBoard[i + 1][j + 2] + bigBoard[i + 2][j] + bigBoard[i + 2][j + 1] + bigBoard[i + 2][j + 2];
+                if (board[i][j] == 1) {
+                    if (lives < 2 || lives > 3) {
+                        board[i][j] = 0;
+                    }
+                } else if (lives == 3){
+                    board[i][j] = 1;
+                }
+            }
+        }
+    }
+
+//    private int liveNeighbors(int[][] bigBoard, int i, int j) {
+//        int val = bigBoard[i][j] + bigBoard[i][j + 1] + bigBoard[i][j + 2] + bigBoard[i + 1][j] + bigBoard[i + 1][j + 2] + bigBoard[i + 2][j] + bigBoard[i + 2][j + 1] + bigBoard[i + 2][j + 2];
+//        return val;
+//    }
+
 
     public static void main(String[] args) {
         Array ar = new Array();
