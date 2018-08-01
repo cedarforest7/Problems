@@ -593,7 +593,14 @@ public class Array {
         return trap;
     }
 
-
+    public int findMin2(int[] nums) {
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] > nums[i + 1]) {
+                return nums[i + 1];
+            }
+        }
+        return nums[0];
+    }
 
 
     public static void main(String[] args) {
