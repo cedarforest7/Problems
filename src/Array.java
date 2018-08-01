@@ -407,9 +407,207 @@ public class Array {
     }
     //use a hashMap,directly find target - nums[i] is faster
 
+
+    //No.42
+    public static int trap1(int[] height) {
+        int trap = 0;       //total water get trapped
+        LinkedList<Integer> localMax = new LinkedList<>();
+        //int max = 0;        //global max
+        List<Integer> rains = new LinkedList<>();
+        int high = 0;
+        if (height.length > 1 && height[1] < height[0]) {
+            localMax.add(0);
+        }
+        for (int i = 1; i < height.length; i++) {
+            if (height[i] >= height[i - 1] && (i == height.length - 1 || height[i] >= height[i + 1])) {      //local max
+                if (height[i] < height[high]) {
+                    //rain -= (height[high] - height[i]) * (i - high - 1);
+                    List<Integer> temp = new LinkedList<>();
+                    for (int x : rains) {
+                        if (height[high] - x < height[i]) {
+                            temp.add(x - height[high] + height[i]);
+                        }
+                    }
+                    rains = temp;
+                }
+                for (int x : rains) {
+                    System.out.println(x);
+                    trap += x;
+                }
+                rains.clear();
+                if (height[i] > height[high]) {
+                    int q = high;
+                    for (int j = localMax.size() - 1; j >= 0; j--) {
+                        int p = localMax.get(j);
+                        if (height[p] > height[q] && height[q] < height[i]) {
+                            trap += (Math.min(height[i], height[p]) - height[q])*(i - p - 1);
+                            q = p;
+                        }
+                    }
+                }
+                high = i;
+                localMax.add(high);
+            }
+            if (height[i] < height[high]) {
+                rains.add(height[high] - height[i]);
+            }
+        }
+        return trap;
+    }
+    //above has a bug
+    private LinkedList<Integer> localMax(int[] arr) {
+        LinkedList<Integer> localMax = new LinkedList<>();
+        if (arr.length > 1 && arr[1] < arr[0]) {
+            localMax.add(0);
+        }
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] >= arr[i - 1] && (i == arr.length - 1 || arr[i] >= arr[i + 1])) {      //local max
+                localMax.add(i);
+            }
+        }
+        return localMax;
+    }
+
+    private int[] waterLevel(List<Integer> localMax, int[] height) {
+        int[] level = new int[localMax.size() - 1];
+        for (int i = 1; i < localMax.size(); i++) {
+            int a = localMax.get(i);
+            int b = localMax.get(i - 1);
+            level[i - 1] = Math.min(height[a], height[b]);
+            if (height[a] > height[b]) {
+                int q = b;
+                for (int j = i - 1; j >= 0; j--) {
+                    int p = localMax.get(j);
+                    if (height[p] > height[q] && height[q] < height[a]) {
+                        for (int k = j; k < i; k++) {
+                            level[k] = Math.min(height[p], height[a]);
+                        }
+                        q = p;
+                    }
+                }
+            }
+        }
+        return level;
+    }
+
+    public int trap(int[] height) {
+        if (height.length < 3) {
+            return 0;
+        }
+        int trap = 0;       //total water get trapped
+        LinkedList<Integer> localMax = localMax(height);
+        int[] level = waterLevel(localMax, height);
+        for (int i = 0; i < level.length; i++) {
+            for (int j = localMax.get(i); j < localMax.get(i + 1); j++) {
+                if (height[j] < level[i]) {
+                    trap += level[i] - height[j];
+                }
+            }
+        }
+        return trap;
+    }
+
+    LinkedList<Integer> max = new LinkedList<>();
+    public int trap2(int[] height) {
+        if (height.length < 3) {
+            return 0;
+        }
+        int trap = 0;       //total water get trapped
+        Map<Integer, Integer> rain = waterLevel2(height);
+        for (int i = 0; i < max.size() - 1; i++) {
+            for (int j = max.get(i); j < max.get(i + 1); j++) {
+                if (height[j] < rain.get(max.get(i))) {
+                    trap += rain.get(max.get(i)) - height[j];
+                }
+            }
+        }
+        max.clear();
+        return trap;
+    }
+
+    private Map<Integer, Integer> waterLevel2 (int[] arr) {
+        if (arr.length > 1 && arr[1] < arr[0]) {
+            max.add(0);
+            //System.out.println(0);      //for test
+        }
+        Map<Integer, Integer> rain = new HashMap<>();
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] >= arr[i - 1] && (i == arr.length - 1 || arr[i] >= arr[i + 1])) {      //local max
+                int a = i;
+                if (max.peekLast() == null) {
+                    max.add(i);
+                    continue;
+                }
+                int b = max.peekLast();
+                rain.put(b, Math.min(arr[a], arr[b]));
+                if (arr[a] > arr[b]) {
+                    int q = b;
+                    for (int j = max.size() - 1; j >= 0; j--) {
+                        int p = max.get(j);
+                        if (arr[p] > arr[q] && arr[q] < arr[a]) {
+                            for (int k = j; k < max.size(); k++) {
+                                rain.put(max.get(k), Math.min(arr[p], arr[a]));
+                            }
+                            q = p;
+                        }
+                    }
+                }
+                max.add(i);
+            }
+        }
+        //max.clear();        //to be deleted
+        return rain;
+    }
+
+    //use a stack will be helpful in this case
+
+    public static int trap3(int[] height) {
+        if (height.length < 3) {
+            return 0;
+        }
+        int n = height.length;
+        int leftMax = height[0];
+        int rightMax = height[n - 1];
+        int trap = 0;
+        int left = 1, right = n - 2;
+        int cur;
+        while (left <= right) {
+            if (leftMax < rightMax) {
+                cur = left;
+                if (leftMax > height[cur]) {
+                    trap += leftMax - height[cur];
+                } else {
+                    leftMax = height[cur];
+                }
+                left++;
+            } else {
+                cur = right;
+                if (rightMax > height[cur]) {
+                    trap += rightMax - height[cur];
+                } else {
+                    rightMax = height[cur];
+                }
+                right--;
+            }
+        }
+        return trap;
+    }
+
+
+
+
     public static void main(String[] args) {
+        Array ar = new Array();
         int[] a = {2, 2, 1, 1};
-        System.out.println(singleNumber(a));
+        //{6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3}
+        int[] b = {6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3};
+        //int[] level = ar.waterLevel(ar.localMax(b), b);
+        //System.out.println(Arrays.toString(level));
+        System.out.println(ar.trap3(b));
+//        Map<Integer, Integer> rain = ar.waterLevel2(b);
+//        for (int x : rain.keySet()) {
+//            System.out.println(x + ": " + rain.get(x));
+//        }
     }
 
 }
