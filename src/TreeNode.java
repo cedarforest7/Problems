@@ -379,6 +379,56 @@ public class TreeNode {
         return obj;
     }
 
+    //No.103
+    public List<List<Integer>> zigzagLevelOrder1(TreeNode root) {
+        List<List<Integer>> zigzag = new LinkedList<>();
+        int height = height(root);
+        for (int i = 0; i < height; i++) {
+            zigzag.add(zigzagHelper1(root, i, i));
+        }
+        return zigzag;
+    }
+
+    private List<Integer> zigzagHelper1 (TreeNode root, int i, int j) {
+        List<Integer> list = new LinkedList<>();
+        if (root == null) {
+            return list;
+        }
+        if (i == 0) {
+            list.add(root.val);
+        } else if ((j & 1) == 0) {
+            list.addAll(zigzagHelper1(root.left, i - 1, j));
+            list.addAll(zigzagHelper1(root.right, i - 1, j));
+        } else {
+            list.addAll(zigzagHelper1(root.right, i - 1, j));
+            list.addAll(zigzagHelper1(root.left, i - 1, j));
+        }
+        return list;
+    }
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> zigzag = new LinkedList<>();
+        zigzagHelper(root, 0, zigzag);
+        return zigzag;
+    }
+
+    private void zigzagHelper (TreeNode root, int level, List<List<Integer>> zigzag) {
+        LinkedList<Integer> list = new LinkedList<>();
+        if (root == null) {
+            return;
+        }
+        if (level == zigzag.size()){
+            zigzag.add(list);
+        }
+        if ((level & 1) == 0) {
+            zigzag.get(level).add(root.val);
+        } else {
+            ((LinkedList)zigzag.get(level)).addFirst(root.val);
+        }
+
+        zigzagHelper(root.left, level + 1, zigzag);
+        zigzagHelper(root.right, level + 1, zigzag);
+    }
 
 
     public static void main(String[] args) {

@@ -132,6 +132,34 @@ public class Others3 {
         return min;
     }
 
+    //No.9
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        String num = String.valueOf(x);
+        int len = num.length();
+        for (int i = 0; i < len/2; i++) {
+            if (num.charAt(i) != num.charAt(len - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isPalindrome1(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int ori = x;
+        int rev = 0;
+        while (x != 0) {
+            rev = rev*10 + x%10;
+            x = x/10;
+        }
+        return ori == rev;
+    }
+
 
     public static void main(String[] args) {
         Others3 o = new Others3();
