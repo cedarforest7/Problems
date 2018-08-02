@@ -160,10 +160,69 @@ public class Others3 {
         return ori == rev;
     }
 
+    //No.38
+    static Map<Integer, String> countSay = new HashMap<>();
+    public String countAndSay1(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        String pre;
+        if (countSay.containsKey(n - 1)) {
+            pre = countSay.get(n - 1);
+        } else {
+            pre = countAndSay(n - 1);
+        }
+        String res = "";
+        char scan;
+        for (int i = 0; i < pre.length();) {
+            scan = pre.charAt(i);
+            int count = 0;
+            while (i < pre.length() && pre.charAt(i) == scan) {
+                count++;
+                i++;
+            }
+            res += String.valueOf(count) + String.valueOf(scan);
+        }
+        countSay.putIfAbsent(n, res);
+        return res;
+    }
+
+    //Using StringBuilder is faster
+    public String countAndSay(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        String pre;
+        if (countSay.containsKey(n - 1)) {
+            pre = countSay.get(n - 1);
+        } else {
+            pre = countAndSay(n - 1);
+        }
+        StringBuilder sb = new StringBuilder("");
+        char scan;
+        for (int i = 0; i < pre.length();) {
+            scan = pre.charAt(i);
+            int count = 0;
+            while (i < pre.length() && pre.charAt(i) == scan) {
+                count++;
+                i++;
+            }
+            sb.append(count);
+            sb.append(scan);
+        }
+        String res = sb.toString();
+        countSay.putIfAbsent(n, res);
+        return res;
+    }
+
 
     public static void main(String[] args) {
         Others3 o = new Others3();
-        System.out.println(o.numSquares(118));
+        //System.out.println(o.numSquares(118));
+//        for (int i = 1; i < 20; i++) {
+//            System.out.println(o.countAndSay(i));
+//        }
+
     }
 
 }
