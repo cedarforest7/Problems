@@ -646,6 +646,22 @@ public class Array {
         return len + 1;
     }
 
+    //No.26
+    public int removeDuplicates1(int[] nums) {
+        int n = nums.length;
+        if (n < 2) {
+            return n;
+        }
+        int len = 0;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] != nums[len]) {
+                len++;
+                nums[len] = nums[i];
+            }
+        }
+        return len + 1;
+    }
+
 
     public static void main(String[] args) {
         Array ar = new Array();
