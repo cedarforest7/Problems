@@ -430,6 +430,22 @@ public class TreeNode {
         zigzagHelper(root.right, level + 1, zigzag);
     }
 
+    //No.114
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten(root.left);
+        flatten(root.right);
+        if (root.left == null) {
+            return;
+        }
+        TreeNode scan;
+        for (scan = root.left; scan.right != null; scan = scan.right);
+        scan.right = root.right;
+        root.right = root.left;
+        root.left = null;
+    }
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
@@ -451,5 +467,6 @@ public class TreeNode {
         }
 
     }
+
 
 }
