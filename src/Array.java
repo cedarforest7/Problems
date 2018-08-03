@@ -630,24 +630,35 @@ public class Array {
         }
     }
 
-//    private int liveNeighbors(int[][] bigBoard, int i, int j) {
-//        int val = bigBoard[i][j] + bigBoard[i][j + 1] + bigBoard[i][j + 2] + bigBoard[i + 1][j] + bigBoard[i + 1][j + 2] + bigBoard[i + 2][j] + bigBoard[i + 2][j + 1] + bigBoard[i + 2][j + 2];
-//        return val;
-//    }
+    //No.80
+    public int removeDuplicates(int[] nums) {
+        int n = nums.length;
+        if (n < 3) {
+            return n;
+        }
+        int len = 1;
+        for (int i = 2; i < n; i++) {
+            if (nums[i] != nums[len] || nums[i] != nums[len - 1]) {
+                len++;
+                nums[len] = nums[i];
+            }
+        }
+        return len + 1;
+    }
 
 
     public static void main(String[] args) {
         Array ar = new Array();
-        int[] a = {2, 2, 1, 1};
+        int[] a = {1,1,1,2,2,3};
         //{6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3}
         int[] b = {6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3};
         //int[] level = ar.waterLevel(ar.localMax(b), b);
         //System.out.println(Arrays.toString(level));
-        System.out.println(ar.trap3(b));
-//        Map<Integer, Integer> rain = ar.waterLevel2(b);
-//        for (int x : rain.keySet()) {
-//            System.out.println(x + ": " + rain.get(x));
-//        }
+        int len = ar.removeDuplicates(a);
+        for (int i = 0; i < len; i++) {
+            System.out.println(a[i]);
+        }
+
     }
 
 }
