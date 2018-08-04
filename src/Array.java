@@ -662,6 +662,32 @@ public class Array {
         return len + 1;
     }
 
+    //No.11
+    public int maxArea1(int[] height) {
+        int max = 0;
+        for(int i = 1; i < height.length; i++) {
+            for (int j = 0; j < i; j++) {
+                max = Math.max(max, Math.min(height[i], height[j]) * (i - j));
+            }
+        }
+        return max;
+    }
+    //two pointers-the crucial point is to decide which point to move inward
+    public int maxArea(int[] height) {
+        int n = height.length;
+        int left = 0, right = n - 1;
+        int max = 0;
+        while (left < right) {
+            max = Math.max(max, Math.min(height[left], height[right]) * (right - left));
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return max;
+    }
+
 
     public static void main(String[] args) {
         Array ar = new Array();
