@@ -243,6 +243,15 @@ public class Others3 {
         return list;
     }
 
+    //No.172
+    public int trailingZeroes(int n) {
+        int count = 0;
+        while (n/5 != 0) {
+            n = n/5;
+            count += n;
+        }
+        return count;
+    }
 
     public static void main(String[] args) {
         Others3 o = new Others3();
@@ -250,11 +259,11 @@ public class Others3 {
 //        for (int i = 1; i < 20; i++) {
 //            System.out.println(o.countAndSay(i));
 //        }
-        List<String> l = o.letterCombinations("");
-        for (String s : l) {
-            System.out.println(s);
-        }
-
+//        List<String> l = o.letterCombinations("");
+//        for (String s : l) {
+//            System.out.println(s);
+//        }
+        System.out.println(o.trailingZeroes(110));
     }
 
 }
