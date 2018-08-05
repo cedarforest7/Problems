@@ -215,6 +215,34 @@ public class Others3 {
         return res;
     }
 
+    //No.17  actually level order DFS(fastest)(not the solution below)
+    static String[][] dial = {{" "}, {"*"}, {"a", "b", "c"}, {"d", "e", "f"}, {"g", "h", "i"}, {"j", "k", "l"}, {"m", "n", "o"},
+            {"p", "q", "r", "s"}, {"t", "u", "v"}, {"w", "x", "y", "z"}};
+    //digits from 2-9 inclusive
+    public List<String> letterCombinations(String digits) {
+        return letterCombHelper(digits, digits.length() - 1);
+    }
+
+    private List<String> letterCombHelper (String digits, int n) {
+        List<String> list = new LinkedList<>();
+        if (n == -1) {
+            return list;
+        }
+        List<String> pre = letterCombHelper(digits, n - 1);
+        if (n == 0) {
+            pre.add("");
+        }
+        int ind = digits.charAt(n) - '0';
+        for (String s : pre) {
+            for (int i = 0; i < dial[ind].length; i++) {
+                //StringBuilder sb = new StringBuilder(s);
+                //list.add(sb.append(dial[ind][i]).toString());
+                list.add(s + dial[ind][i]);
+            }
+        }
+        return list;
+    }
+
 
     public static void main(String[] args) {
         Others3 o = new Others3();
@@ -222,6 +250,10 @@ public class Others3 {
 //        for (int i = 1; i < 20; i++) {
 //            System.out.println(o.countAndSay(i));
 //        }
+        List<String> l = o.letterCombinations("");
+        for (String s : l) {
+            System.out.println(s);
+        }
 
     }
 
