@@ -688,6 +688,11 @@ public class Array {
         return max;
     }
 
+    //No.40
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        return null;
+    }
+
 
     public static void main(String[] args) {
         Array ar = new Array();
