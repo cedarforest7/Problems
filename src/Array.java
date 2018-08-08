@@ -689,23 +689,96 @@ public class Array {
     }
 
     //No.40
+    //All numbers (including target) will be positive integers.
+    /**
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        return null;
+        Arrays.sort(candidates);
+        int i = candidates.length - 1;
+        for (; i >=0 && candidates[i] > target; i--);
+        return combHelper(candidates, i + 1, target);
     }
+
+    private List<List<Integer>> combHelper(int[] candidates, int n, int target) {
+        List<List<Integer>> res = new LinkedList<>();
+        if (candidates == null || candidates.length == 0 || n <= 0) {
+            return res;
+        }
+        int last = candidates[n - 1];
+        int i = n - 2;
+        for (; i >= 0 && candidates[i] == last; i--);
+        int dup = n  - i - 1;
+        int time = target/last;
+        if (target%last == 0 && time <= dup) {
+            List<Integer> list = new LinkedList<>();
+            for (int j = 0; j < time; j++) {
+                list.add(last);
+            }
+            res.add(list);
+        }
+        for (int k = 0; k <= dup; k++) {
+            List<List<Integer>> temp = combHelper(candidates, i + 1, target - last*k);
+            for (List lis : temp) {
+                if (!lis.isEmpty()) {
+                    for (int j = 0; j < k; j++) {
+                        lis.add(last);
+                    }
+                    res.add(lis);
+                }
+            }
+        }
+        return res;
+    }
+  **/
+    //Depth First Search
+    List<List<Integer>> res = new LinkedList<>();
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        LinkedList<Integer> lis = new LinkedList<>(); //"edgeTo", record the visited nodes in the current path
+        Arrays.sort(candidates);
+        dfs40(candidates, target, 0, lis);
+        return res;
+    }
+    private void dfs40 (int[] candidates, int target, int crt, LinkedList<Integer> lis) {
+        if (crt < 0 || crt >= candidates.length) {
+            return;
+        }
+        int node = candidates[crt];
+        if (node > target) {
+            return;
+        }
+        if (node == target) {
+            lis.add(node);
+            LinkedList<Integer> temp = new LinkedList<>(lis);
+            res.add(temp);
+            lis.removeLast();
+            return;
+        }
+        //candidates[crt] < target
+        lis.add(node);       //mark the node(vertex)
+        dfs40(candidates, target - node, crt + 1, lis);      //results that contains current node
+        lis.removeLast();       //unmark the node
+        int i = crt + 1;
+        for (; i < candidates.length && candidates[i] == node; i++); //skip the duplicates
+        dfs40(candidates, target, i, lis);        //results without current node
+    }
+
 
 
     public static void main(String[] args) {
         Array ar = new Array();
         int[] a = {1,1,1,2,2,3};
         //{6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3}
-        int[] b = {6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3};
+        int[] b = {14,6,25,9,30,20,33,34,28,30,16,12,31,9,9,12,34,16,25,32,8,7,30,12,33,20,21,29,24,17,27,34,11,17,30,6,32,21,27,17,16,8,24,12,12,28,11,33,10,32,22,13,34,18,12};
         //int[] level = ar.waterLevel(ar.localMax(b), b);
         //System.out.println(Arrays.toString(level));
-        int len = ar.removeDuplicates(a);
-        for (int i = 0; i < len; i++) {
-            System.out.println(a[i]);
-        }
 
+        int[] c = {10,1,2,7,6,1,5};
+        List<List<Integer>> l = ar.combinationSum2(c, 8);
+        for (List lx : l) {
+            for (Object x : lx) {
+                System.out.print(x + " ");
+            }
+            System.out.println("end\n");
+        }
     }
 
 }
