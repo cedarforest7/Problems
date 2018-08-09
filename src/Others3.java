@@ -253,6 +253,51 @@ public class Others3 {
         return count;
     }
 
+    //No.131
+    List<List<String>> part = new LinkedList<>();
+    public List<List<String>> partition(String s) {
+        LinkedList<String> lis = new LinkedList<>();
+        dfs131(s, 1, lis);
+        return part;
+    }
+
+    private void dfs131 (String s, int end, LinkedList<String> lis) {
+        if (s.length() == 0 || end > s.length()) {
+            List<String> l = new LinkedList<>(lis);
+            part.add(l);
+            return;
+        }
+        int n = s.length();
+//        if (end == n) {
+//            String temp = s.substring(0);
+//            if (isPal(temp)) {
+//                lis.add(temp);
+//                List<String> l = new LinkedList<>(lis);
+//                part.add(l);
+//                lis.removeLast();
+//                return;
+//            }
+//        }
+        for (int i = end; i <= n; i++) {
+            String temp = s.substring(0, i);        //i is exclusive
+            if(isPal(temp)) {
+                lis.add(temp);
+                dfs131(s.substring(i), 1, lis);
+                lis.removeLast();
+            }
+        }
+    }
+
+    private boolean isPal (String str) {
+        int len = str.length();
+        for (int i = 0; i < len/2; i++) {
+            if (str.charAt(i) != str.charAt(len - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -263,7 +308,13 @@ public class Others3 {
 //        for (String s : l) {
 //            System.out.println(s);
 //        }
-        System.out.println(o.trailingZeroes(110));
+        List<List<String>> l = o.partition("aab");
+        for (List lx : l) {
+            for (Object x : lx) {
+                System.out.print(x + " ");
+            }
+            System.out.println("end\n");
+        }
     }
 
 }
