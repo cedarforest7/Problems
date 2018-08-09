@@ -761,18 +761,40 @@ public class Array {
         dfs40(candidates, target, i, lis);        //results without current node
     }
 
+    public List<List<Integer>> DFStest(int[] candidates, int target) {
+        List<List<Integer>> paths = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        Arrays.sort(candidates);
+        dfs(0, target, candidates, path, paths);
+        return paths;
+    }
+
+    private void dfs(int startIndex, int target, int[] nums, List<Integer> path, List<List<Integer>> paths) {
+        if (target == 0) {
+            paths.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i = startIndex; i < nums.length; i++) {
+            if (i != startIndex && nums[i] == nums[i - 1]) continue;
+            if (nums[i] > target) break;
+            path.add(nums[i]);
+            dfs(i + 1, target - nums[i], nums, path, paths);
+            path.remove(path.size() - 1);
+        }
+    }
 
 
     public static void main(String[] args) {
         Array ar = new Array();
         int[] a = {1,1,1,2,2,3};
         //{6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3}
-        int[] b = {14,6,25,9,30,20,33,34,28,30,16,12,31,9,9,12,34,16,25,32,8,7,30,12,33,20,21,29,24,17,27,34,11,17,30,6,32,21,27,17,16,8,24,12,12,28,11,33,10,32,22,13,34,18,12};
+        int[] b = {2,3,4,5};
         //int[] level = ar.waterLevel(ar.localMax(b), b);
         //System.out.println(Arrays.toString(level));
 
         int[] c = {10,1,2,7,6,1,5};
-        List<List<Integer>> l = ar.combinationSum2(c, 8);
+        List<List<Integer>> l = ar.DFStest(b, 8);
         for (List lx : l) {
             for (Object x : lx) {
                 System.out.print(x + " ");

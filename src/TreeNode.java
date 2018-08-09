@@ -447,6 +447,51 @@ public class TreeNode {
         root.left = null;
     }
 
+    //No.113
+    List<List<Integer>> path = new LinkedList<>();
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        LinkedList<Integer> lis = new LinkedList<>();
+        dfs113(root, sum, lis);
+        return path;
+    }
+
+    private void dfs113 (TreeNode root, int sum, LinkedList<Integer> lis) {
+        if (root == null) {
+            return;
+        }
+        int num = root.val;
+        if (root.left == null && root.right == null) {      //is a leaf
+            if (num == sum) {
+                lis.add(num);
+                List<Integer> temp = new LinkedList<>(lis);
+                path.add(temp);
+                lis.removeLast();
+            }
+            return;
+        }
+        lis.add(num);
+        dfs113(root.left, sum - num, lis);
+        dfs113(root.right, sum - num, lis);
+        lis.removeLast();
+    }
+
+    //No.112
+    //no need to record path in a list
+    public boolean hasPathSum(TreeNode root, int sum) {
+        return dfs112(root, sum);
+    }
+
+    private boolean dfs112 (TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        int num = root.val;
+        if (root.left == null && root.right == null) {      //is a leaf
+            return num == sum;
+        }
+        return dfs112(root.left, sum - num) || dfs112(root.right, sum - num);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         TreeNode t2 = new TreeNode(2);
@@ -461,11 +506,18 @@ public class TreeNode {
         t2.right = t5;
         t3.left = t6;
         t3.right = t7;
-        LinkedList<TreeNode> anc2 = root.ancestors(root, t2);
-        for (TreeNode t : anc2) {
-            System.out.print(t.val + " ");
-        }
-
+//        LinkedList<TreeNode> anc2 = root.ancestors(root, t2);
+//        for (TreeNode t : anc2) {
+//            System.out.print(t.val + " ");
+//        }
+//        List<List<Integer>> l = root.pathSum(root, 7);
+//        for (List lx : l) {
+//            for (Object x : lx) {
+//                System.out.print(x + " ");
+//            }
+//            System.out.println("end\n");
+//        }
+        root.hasPathSum(root, 7);
     }
 
 
