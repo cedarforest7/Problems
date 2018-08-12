@@ -1,10 +1,7 @@
 import jdk.nashorn.api.tree.Tree;
 
 import java.lang.Math;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class TreeNode {
     int val;
@@ -491,6 +488,32 @@ public class TreeNode {
         }
         return dfs112(root.left, sum - num) || dfs112(root.right, sum - num);
     }
+
+    //No.109
+    public TreeNode sortedListToBST(ListNode head) {
+        ArrayList<Integer> num = new ArrayList<>();
+        for (ListNode scan = head; scan != null; scan = scan.next) {
+            num.add(scan.val);
+        }
+        int end = num.size() - 1;
+        return helper109(num, 0, end);
+    }
+
+    private TreeNode helper109 (List<Integer> num, int start, int end) {
+        if (end < start) {
+            return null;
+        }
+        int mid = (start + end)/2;
+        TreeNode root = new TreeNode(num.get(mid));
+        if (start == end) {
+            return root;
+        }
+        root.left = helper109(num, start, mid - 1);
+        root.right = helper109( num, mid + 1, end);
+        return root;
+    }
+
+
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);

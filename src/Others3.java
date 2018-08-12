@@ -268,16 +268,7 @@ public class Others3 {
             return;
         }
         int n = s.length();
-//        if (end == n) {
-//            String temp = s.substring(0);
-//            if (isPal(temp)) {
-//                lis.add(temp);
-//                List<String> l = new LinkedList<>(lis);
-//                part.add(l);
-//                lis.removeLast();
-//                return;
-//            }
-//        }
+
         for (int i = end; i <= n; i++) {
             String temp = s.substring(0, i);        //i is exclusive
             if(isPal(temp)) {
