@@ -490,7 +490,8 @@ public class TreeNode {
     }
 
     //No.109
-    public TreeNode sortedListToBST(ListNode head) {
+    //top-down
+    public TreeNode sortedListToBST1(ListNode head) {
         ArrayList<Integer> num = new ArrayList<>();
         for (ListNode scan = head; scan != null; scan = scan.next) {
             num.add(scan.val);
@@ -510,6 +511,30 @@ public class TreeNode {
         }
         root.left = helper109(num, start, mid - 1);
         root.right = helper109( num, mid + 1, end);
+        return root;
+    }
+
+    //bottom-up, less space
+    ListNode scan;
+    public TreeNode sortedListToBST(ListNode head) {
+        int len = 0;
+        for (ListNode scan = head; scan != null; scan = scan.next) {
+            len++;      //length of listnode
+        }
+        scan = head;
+        return sortedListToBST(0, len - 1);
+    }
+
+    private TreeNode sortedListToBST(int start, int end) {
+        if (end < start) {
+            return null;
+        }
+        int mid = (start + end)/2;
+        TreeNode left = sortedListToBST(start, mid - 1);
+        TreeNode root = new TreeNode(scan.val);
+        root.left = left;
+        scan = scan.next;
+        root.right = sortedListToBST(mid + 1, end);
         return root;
     }
 

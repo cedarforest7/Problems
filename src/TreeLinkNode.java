@@ -25,7 +25,4 @@ public class TreeLinkNode {
         }
     }
 
-    public void connect(TreeLinkNode root) {
-
-    }
 }
