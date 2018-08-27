@@ -346,6 +346,25 @@ public class Others3 {
         return res.toString();
     }
 
+    //No.120
+    public int minimumTotal(List<List<Integer>> triangle) {
+        for (int i = 1; i < triangle.size(); i++) {
+            List<Integer> pre = triangle.get(i - 1);
+            List<Integer> lis = triangle.get(i);
+            lis.set(0, pre.get(0) + lis.get(0));
+            for (int j = 1; j < i; j++) {
+                lis.set(j, lis.get(j) + Math.min(pre.get(j - 1), pre.get(j)));
+            }
+            lis.set(i, pre.get(i - 1) + lis.get(i));
+        }
+        int res = Integer.MAX_VALUE;
+        List<Integer> last = triangle.get(triangle.size() - 1);
+        for (int i = 0; i < triangle.size(); i++) {
+            res = Math.min(res, last.get(i));
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
         Others3 o = new Others3();
