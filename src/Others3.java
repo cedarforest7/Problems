@@ -288,6 +288,64 @@ public class Others3 {
         }
         return true;
     }
+    //No.43
+    //below is wrong; int overflow
+    public String multiply1(String num1, String num2) {
+        int len1 = num1.length();
+        int len2 = num2.length();
+        int product = 0;
+        for (int i = 0; i < len1; i++) {
+            int a = num1.charAt(len1 - i - 1) - '0';
+            for (int j = 0; j < num2.length(); j++) {
+                int b = num2.charAt(len2 - j - 1) - '0';
+                product += a*Math.pow(10, i)*b*Math.pow(10, j);
+            }
+        }
+        return String.valueOf(product);
+    }
+
+    public String multiply(String num1, String num2) {
+        if (num1.equals("0") || num2.equals("0")) {
+            return "0";
+        }
+        int len1 = num1.length();
+        int len2 = num2.length();
+        Map<Integer, Integer> prod = new HashMap<>();
+        int pre = 0;
+        for (int i = 0; i < len1; i++) {
+            int a = num1.charAt(len1 - i - 1) - '0';
+            for (int j = 0; j < len2; j++) {
+                int b = num2.charAt(len2 - j - 1) - '0';
+                if (prod.containsKey(i + j)) {
+                    prod.put(i + j, prod.get(i + j) + a*b);
+                } else {
+                    prod.put(i + j, a*b);
+                }
+            }
+        }
+        StringBuilder res = new StringBuilder();
+        int k = 0;
+        for (; k < len1 + len2 - 1; k++) {
+            int x = prod.get(k);
+            if (x > 9) {
+                prod.put(k, x%10);
+                if (prod.containsKey(k + 1)) {
+                    prod.put(k + 1, prod.get(k + 1) + x/10);
+                } else {
+                    prod.put(k + 1, x/10);
+                }
+                x = x%10;
+            }
+            res.insert(0, x);
+        }
+        if (prod.containsKey(k)) {
+            res.insert(0, prod.get(k));
+        }
+//        //delete leading zeros
+//        for (int i = 0; i < res.length() && res.charAt(i) == '0'; i++);
+        return res.toString();
+    }
+
 
     public static void main(String[] args) {
         Others3 o = new Others3();
@@ -299,13 +357,16 @@ public class Others3 {
 //        for (String s : l) {
 //            System.out.println(s);
 //        }
-        List<List<String>> l = o.partition("aab");
-        for (List lx : l) {
-            for (Object x : lx) {
-                System.out.print(x + " ");
-            }
-            System.out.println("end\n");
-        }
+//        List<List<String>> l = o.partition("aab");
+//        for (List lx : l) {
+//            for (Object x : lx) {
+//                System.out.print(x + " ");
+//            }
+//            System.out.println("end\n");
+//        }
+        System.out.println(o.multiply("12", "34"));
     }
+
+
 
 }
