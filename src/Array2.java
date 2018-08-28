@@ -58,6 +58,8 @@ public class Array2 {
         }
     }
 
+
+
     public static void main(String[] args) {
         Array2 a = new Array2();
         int[] nums = {1, 2, 2, 1, 3};

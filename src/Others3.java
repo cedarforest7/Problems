@@ -365,6 +365,66 @@ public class Others3 {
         return res;
     }
 
+    //No.686
+    //assume A is non-empty
+    public int repeatedStringMatch1(String A, String B) {       //time limit exceeded
+        if (B.equals("")) {
+            return 0;
+        }
+        if (isSub(B, A)) {
+            return 1;
+        }
+        if (isSub(B, A + A)) {
+            return 2;
+        }
+        if (!isSub(A, B)) {
+            return -1;
+        }
+        int i = 1;
+        String A1 = A;
+        for (; !isSub(B, A1); i++) {
+            A1 += A;
+        }
+        return i;
+    }
+
+    public int repeatedStringMatch(String A, String B) {
+        int lenA = A.length();
+        int lenB = B.length();
+        int n = lenB/lenA + 1;
+        StringBuilder X = new StringBuilder();
+        for (int i = 0; i < n - 1; i++) {
+            X.append(A);
+        }
+        String XS = X.toString();
+        if (!isSub(B, XS + A + A)) {
+            return -1;
+        }
+        if (XS.equals(B)) {
+            return n - 1;
+        } else if (isSub(B, XS + A)) {
+            return n;
+        } else {
+            return n + 1;
+        }
+    }
+
+
+    private boolean isSub (String s1, String s2) {      //if s1 is substring of s2
+        if (s1.equals("")) {
+            return true;
+        }
+        char start = s1.charAt(0);
+        for (int i = 0; i <= s2.length() - s1.length(); i++) {
+            if (s2.charAt(i) != start) {
+                continue;
+            }
+            if (s2.substring(i, i + s1.length()).equals(s1)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         Others3 o = new Others3();
@@ -383,7 +443,7 @@ public class Others3 {
 //            }
 //            System.out.println("end\n");
 //        }
-        System.out.println(o.multiply("12", "34"));
+        System.out.println(o.repeatedStringMatch("aabc", "caabca"));
     }
 
 
