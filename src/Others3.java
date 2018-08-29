@@ -426,6 +426,29 @@ public class Others3 {
         return false;
     }
 
+    //No.3
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+        return lengthOfLongestSubstring(s, s.length() - 1)[0];
+    }
+
+    private int[] lengthOfLongestSubstring(String s, int n) {
+        int[] res = new int[2];
+        if (n == 0) {
+            res[0] = 1;      //max length
+            res[1] = 0;     //starting position of the non-repeating longest substring ending with the nth char
+            return res;
+        }
+        int[] pre = lengthOfLongestSubstring(s, n - 1);
+        int i = n;
+        for (; i > pre[1] && s.charAt(i - 1) != s.charAt(n); i--);
+        res[1] = i;
+        res[0] = Math.max(pre[0], n - i + 1);
+        return res;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -443,7 +466,7 @@ public class Others3 {
 //            }
 //            System.out.println("end\n");
 //        }
-        System.out.println(o.repeatedStringMatch("aabc", "caabca"));
+        System.out.println(o.lengthOfLongestSubstring( "abbacaaa"));
     }
 
 
