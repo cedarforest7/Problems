@@ -485,6 +485,53 @@ public class Others3 {
         return res;
     }
 
+    //No.5
+    //below is too slow
+    public String longestPalindrome1(String s) {
+        String res = "";
+        int maxL = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + maxL; j < s.length(); j++) {
+                String temp = s.substring(i, j + 1);
+                if (isPal(temp) && j - i + 1 > maxL) {
+                    res = temp;
+                    maxL = j - i + 1;
+                }
+            }
+        }
+        return res;
+    }
+
+    int startPal = 0;
+    int maxL = 0;
+    public String longestPalindrome(String s) {
+        for (int i = 0; i < s.length() - maxL/2; i++) {
+            longestPal(s, i);
+        }
+        return s.substring(startPal, startPal + maxL);
+    }
+
+    private void longestPal (String s, int i) {
+        int l = i, r = i;
+        for (;r < s.length() - 1 && s.charAt(r) == s.charAt(r + 1); r++);
+        for (;l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r); l--, r++);
+        if (r - l - 1 > maxL) {
+            maxL = r - l - 1;
+            startPal = l + 1;
+            //longPal = s.substring(l + 1, r);
+        }
+    }
+
+//    private boolean isPal (String str, int st, int end) {
+//        int len = end - st + 1;
+//        for (int i = st; i < len/2; i++) {
+//            if (str.charAt(i) != str.charAt(len - i - 1)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -503,7 +550,7 @@ public class Others3 {
 //            System.out.println("end\n");
 //        }
         //System.out.println(o.lengthOfLongestSubstring( "abbacaaa"));
-        System.out.print(o.reverse(-2147483412));
+        System.out.print(o.longestPalindrome("babcbabc"));
     }
 
 
