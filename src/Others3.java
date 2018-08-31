@@ -449,6 +449,42 @@ public class Others3 {
         return res;
     }
 
+    //No.7
+    public int reverse(int x) {
+        int res = 0;
+        while(x != 0) {
+            if(res > Integer.MAX_VALUE/10 || res < Integer.MIN_VALUE/10) {
+                return 0;
+            }
+            res = res*10 + x%10;
+            x /= 10;
+        }
+        return res;
+    }
+    //slow
+    public int reverse1(int x) {
+        boolean pos = true;
+        if (x < 0) {
+            pos = false;
+            x = 0 - x;
+        }
+        StringBuilder sb = new StringBuilder().append(x);
+        sb.reverse();
+        int i = 0;
+        for (; i < sb.length() && sb.charAt(i) == '0'; i++);
+        int res = 0;
+        for (; i < sb.length(); i++) {
+            if(res > 214748364 || (res == 214748364 && sb.charAt(i) - '0' > 7)) {
+                return 0;
+            }
+            res = res*10 + sb.charAt(i) - '0';
+        }
+        if (!pos) {
+            res = 0 - res;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -466,7 +502,8 @@ public class Others3 {
 //            }
 //            System.out.println("end\n");
 //        }
-        System.out.println(o.lengthOfLongestSubstring( "abbacaaa"));
+        //System.out.println(o.lengthOfLongestSubstring( "abbacaaa"));
+        System.out.print(o.reverse(-2147483412));
     }
 
 

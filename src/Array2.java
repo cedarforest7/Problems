@@ -127,8 +127,10 @@ public class Array2 {
         int p = (m - 1)/2, q = HALF - p;
         int low = 0, high = n - 1;
         while (low <= high) {
-            
+
         }
+
+        return 0.0;
     }
 
     public static void main(String[] args) {
