@@ -124,14 +124,78 @@ public class Array2 {
         }
         double med;
         int HALF = (m + n - 3)/2;
-        int p = (m - 1)/2, q = HALF - p;
+        int l1 = (m - 1)/2, l2 = HALF - l1;
+        int r1 = l1 + 1, r2 = l2 + 1;
         int low = 0, high = n - 1;
         while (low <= high) {
-
+            System.out.println(l1 + " " + r1 + " " + l2 + " " + r2);
+            if (nums1[l1] > nums2[r2]) {
+                //move cut1 to the left and cut2 to the right
+                low = r2 + 1;
+            } else {
+                high = l2 - 1;
+            }
+            l2 = (low + high)/2;
+            l1 = HALF - l2;
+            r1 = l1 + 1;
+            r2 = l2 + 1;
+            if (l2< 0 || r2 > n - 1 || (nums1[l1] <= nums2[r2] && nums1[l2] <= nums2[r1])) {
+                break;
+            }
         }
-
+        if ((m + n)%2 == 0) {   //even
+            int a = Math.max(l1 >= 0 ? nums1[l1] : Integer.MIN_VALUE, l2 >= 0 ? nums2[l2] : Integer.MIN_VALUE);
+            int b = Math.min(r1 > m - 1 ? nums1[r1] : Integer.MIN_VALUE, r2 > n - 1 ? nums2[r2] : Integer.MAX_VALUE);
+        }
         return 0.0;
     }
+
+    //No.15
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length < 3 || nums[nums.length - 1] < 0) {
+            return res;
+        }
+        //List<Integer> lis = new ArrayList<>();
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] > 0) {
+                break;
+            }
+            if (i == 0 || nums[i] != nums[i - 1]) {
+                //lis.add(nums[i]);
+                twoSum(nums, i + 1, 0 - nums[i], res);
+                //lis.remove(0);
+            }
+        }
+        return res;
+    }
+
+    private void twoSum (int[] nums, int k, int sum, List<List<Integer>> res) {
+        int len = nums.length;
+        int l = k, r = len - 1;
+        while (l < r) {
+            int left = nums[l];
+            int right = nums[r];
+            int temp = left + right;
+            if (temp == sum) {
+//                lis.add(nums[l]);
+//                lis.add(nums[r]);
+//                res.add(new ArrayList<>(lis));
+//                lis.remove(2);
+//                lis.remove(1);
+                res.add(Arrays.asList(nums[k - 1], nums[l], nums[r]));
+                for (; l < len && nums[l] == left; l++);
+                for (; r >= 0 && nums[r] == right; r--);
+            } else if (temp < sum) {
+                for (; l < len && nums[l] == left; l++);
+            } else {
+                for (; r >= 0 && nums[r] == right; r--);
+            }
+        }
+    }
+
+
 
     public static void main(String[] args) {
         Array2 a = new Array2();
@@ -145,6 +209,6 @@ public class Array2 {
 //        }
         int[] nums1 = {2, 3, 4, 4};
         int[] nums2 = {5, 6, 7};
-        System.out.print(a.findMedianSortedArrays(nums1, nums2));
+        //System.out.print(a.findMedianSortedArrays(nums1, nums2));
     }
 }
