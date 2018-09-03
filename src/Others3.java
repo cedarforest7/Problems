@@ -532,6 +532,39 @@ public class Others3 {
 //        return true;
 //    }
 
+
+    //No.14
+    public String longestCommonPrefix1(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        String res = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            for (int j = 0; j <= strs[i].length(); j++) {
+                if (j == strs[i].length() || j > res.length() - 1 || res.charAt(j) != strs[i].charAt(j)) {
+                    res = res.substring(0, j);
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
+    //faster sol
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        String res = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].indexOf(res) != 0) {
+                res = res.substring(0, res.length() - 1);
+                //remove the last char of res
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -550,7 +583,8 @@ public class Others3 {
 //            System.out.println("end\n");
 //        }
         //System.out.println(o.lengthOfLongestSubstring( "abbacaaa"));
-        System.out.print(o.longestPalindrome("babcbabc"));
+        String[] strs = {"flip", "flipped", "float"};
+        System.out.print(o.longestCommonPrefix(strs));
     }
 
 
