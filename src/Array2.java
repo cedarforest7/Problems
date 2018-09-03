@@ -195,6 +195,47 @@ public class Array2 {
         }
     }
 
+    //No.33
+    //may assume no duplicate exists in the array.
+    //solution below is not optimal
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        //find the pivot
+        int p = 0;
+        int len = nums.length;
+        for (; p < len - 1; p++) {
+            if (nums[p] > nums[p + 1]) {
+                break;
+            }
+        }
+        //int low = p + 1,high = p;
+        int[] ar = new int[len];
+        System.arraycopy(nums, p + 1, ar, 0, len - p - 1);
+        System.arraycopy(nums, 0, ar, len - p - 1, p + 1);
+        //binary search
+        int l = 0, r = len - 1, mid, ind = -1;
+        while (l <= r) {
+            mid = (l + r)/2;
+            if (ar[mid] < target) {
+                l = mid + 1;
+            } else if (ar[mid] > target) {
+                r = mid - 1;
+            } else {
+                ind = mid;
+                break;
+            }
+        }
+        if (ind < 0) {
+            return ind;
+        }
+        if (ind < len - p - 1) {
+            return p + 1 + ind;
+        }
+        return ind - len + p + 1;
+    }
+
 
 
     public static void main(String[] args) {
