@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.*;
 
 public class Others3 {
@@ -565,6 +566,83 @@ public class Others3 {
         return res;
     }
 
+    //No.564
+    //n is positive
+    public String nearestPalindromic(String n) {
+        if (n == null || n.length() == 0) {
+            return n;
+        }
+        if (n.length() == 1) {
+            return String.valueOf(Integer.parseInt(n) - 1);
+        }
+        //char[] chars = n.toCharArray();
+        int len = n.length();
+        //char[] res = new char[len];
+        //int num = Integer.parseInt(n);
+        BigInteger num = new BigInteger(n);
+        BigInteger near = num;
+        for (int i = 0; i < len/2; i++) {
+            //near /= 10;
+            near = near.divide(BigInteger.TEN);
+        }
+        BigInteger low = createPal(near.subtract(BigInteger.ONE), len);
+        //int lowdif = num - low;
+        BigInteger lowdif = num.subtract(low);
+        BigInteger mid = createPal(near, len);
+        //int middif = Math.abs(mid - num);
+        BigInteger middif = mid.subtract(num).abs();
+        BigInteger high = createPal(near.add(BigInteger.ONE), len);
+        //int highdif = high - num;
+        BigInteger highdif = high.subtract(num);
+        if (middif.compareTo(BigInteger.ZERO) == 0) {
+            return lowdif.compareTo(highdif) <= 0? String.valueOf(low) : String.valueOf(high);
+        }
+        if (lowdif.compareTo(highdif) <= 0) {
+            return middif.compareTo(lowdif) < 0 ? String.valueOf(mid) : String.valueOf(low);
+        } else {
+            return middif.compareTo(highdif) <= 0 ? String.valueOf(mid) : String.valueOf(high);
+        }
+        //int close = Integer.MAX_VALUE;
+ //       int i = 0;
+//        if (chars[len - 1] == '0') {
+//            res[0] = chars[0];
+//            res[len - 1] = chars[0];
+//            i++;
+//        }
+//        for (; i <= len/2; i++) {
+//            char temp;
+//            if (chars[i] <= chars[len - 1 - i]) {
+//                temp = chars[i];
+//            } else {
+//                temp = chars[len - 1 - i];
+//            }
+//            res[i] = temp;
+//            res[len - 1 - i] = temp;
+//        }
+//        return String.valueOf(res);
+    }
+
+    private BigInteger createPal (BigInteger num, int len) {
+        BigInteger res = num;
+        if (len%2 != 0) {
+            //num /= 10;
+            num = num.divide(BigInteger.TEN);
+        }
+        for (int i = 0; i < len/2; i++) {
+//            res = res*10 + num%10;
+//            num /= 10;
+            res = res.multiply(BigInteger.TEN).add(num.mod(BigInteger.TEN));
+            num = num.divide(BigInteger.TEN);
+        }
+        //res += num%10;
+        res = res.add(num.mod(BigInteger.TEN));
+        if (res.mod(BigInteger.TEN).compareTo(BigInteger.ZERO) == 0) {
+            //res += 9;
+            res = res.add(BigInteger.TEN.subtract(BigInteger.ONE));
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -583,8 +661,10 @@ public class Others3 {
 //            System.out.println("end\n");
 //        }
         //System.out.println(o.lengthOfLongestSubstring( "abbacaaa"));
-        String[] strs = {"flip", "flipped", "float"};
-        System.out.print(o.longestCommonPrefix(strs));
+//        String[] strs = {"flip", "flipped", "float"};
+//        System.out.print(o.longestCommonPrefix(strs));
+        //System.out.print(o.createPal(100, 4));
+        System.out.print(o.nearestPalindromic("12300"));
     }
 
 
