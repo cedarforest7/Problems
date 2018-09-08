@@ -642,6 +642,32 @@ public class Others3 {
         }
         return res;
     }
+    //No.599
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        Map<String, Integer> map = new HashMap<>();
+        Set<String> fav = new HashSet<>();
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < list1.length; i++) {
+            map.put(list1[i], i);
+        }
+        for (int j = 0; j < list2.length; j++) {
+            if (j > min) {
+                break;
+            }
+            String temp = list2[j];
+            if (map.containsKey(temp)) {
+                int sum = map.get(temp) + j;
+                if (sum == min) {
+                    fav.add(temp);
+                } else if (sum < min) {
+                    fav.clear();
+                    fav.add(temp);
+                    min = sum;
+                }
+            }
+        }
+        return fav.toArray(new String[fav.size()]);
+    }
 
     public static void main(String[] args) {
         Others3 o = new Others3();
@@ -664,7 +690,11 @@ public class Others3 {
 //        String[] strs = {"flip", "flipped", "float"};
 //        System.out.print(o.longestCommonPrefix(strs));
         //System.out.print(o.createPal(100, 4));
-        System.out.print(o.nearestPalindromic("12300"));
+        //System.out.print(o.nearestPalindromic("12300"));
+
+        String[] list1 = {"a", "b", "c", "d"};
+        String[] list2 = {"b","a", "x", "y"};
+        System.out.print(Arrays.toString(o.findRestaurant(list1, list2)));
     }
 
 
