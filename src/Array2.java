@@ -274,6 +274,57 @@ public class Array2 {
     }
 
 
+    //No.332
+    Map<String, List<String>> iti = new HashMap<>();
+    List<String> res332 = new LinkedList<>();
+    public List<String> findItinerary(String[][] tickets) {
+        int n = tickets.length;
+        for (int i = 0; i < n; i++) {
+            iti.putIfAbsent(tickets[i][0],new LinkedList<>());
+            iti.get(tickets[i][0]).add(tickets[i][1]);
+        }
+        String start = "JFK";
+        //res332.add(start);
+        //sort the list of destinations of each staring point
+        for (String s : iti.keySet()) {
+            Collections.sort(iti.get(s));
+        }
+//        while (res332.size() <= n) {
+//            List<String> dest = iti.get(start);
+//            res332.add(dest.get(0));
+//            String temp = dest.get(0);
+//            dest.remove(0);
+//            if (dest.isEmpty()) {
+//                iti.remove(start);
+//            }
+//            start = temp;
+//        }
+        dfs332(n, start);
+        return res332;
+    }
+
+    private boolean dfs332 (int n, String start) {
+        res332.add(start);
+        if (res332.size() == n + 1) {
+            return true;
+        }
+        List<String> dest = iti.get(start);
+        if (dest == null) {
+            res332.remove(res332.size() - 1);
+            return false;
+        }
+        for (int i = 0; i < dest.size(); i++) {
+            String temp = dest.get(i);
+            dest.remove(i);
+            if (dfs332(n, temp)) {
+                return true;
+            }
+            dest.add(i, temp);
+        }
+        res332.remove(res332.size() - 1);
+        return false;
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
@@ -284,8 +335,14 @@ public class Array2 {
 //            }
 //            System.out.println("end\n");
 //        }
-        int[] nums1 = {2, 3, 4, 4};
-        int[] nums2 = {4,5,6,7,0,1,2};
-        System.out.print(a.search(nums2, 3));
+//        int[] nums1 = {2, 3, 4, 4};
+//        int[] nums2 = {4,5,6,7,0,1,2};
+//        System.out.print(a.search(nums2, 3));
+        String[][] s = {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
+        List<String> lis = a.findItinerary(s);
+        for (String x : lis) {
+            System.out.print(x + " ");
+        }
+
     }
 }
