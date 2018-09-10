@@ -669,6 +669,81 @@ public class Others3 {
         return fav.toArray(new String[fav.size()]);
     }
 
+    //No.681
+    List<Integer> res681 = new ArrayList<>();
+    boolean stop = false;
+    public String nextClosestTime(String time) {
+        int[] clock = new int[4];
+        Set<Integer> digit = new HashSet<>();
+        clock[0] = time.charAt(0) - '0';
+        clock[1] = time.charAt(1) - '0';
+        clock[2] = time.charAt(3) - '0';
+        clock[3] = time.charAt(4) - '0';
+        for (int x : clock) {
+            digit.add(x);
+        }
+        int[] digits = new int[digit.size()];
+        int i = 0;
+        for (int x: digit) {
+            digits[i] = x;
+            i++;
+        }
+        Arrays.sort(digits);
+        //int[] res = new int[4];
+        List<Integer> res = new ArrayList<>();
+        dfs681(clock, digits, true);
+        String s = String.valueOf(res681.get(0)) + String.valueOf(res681.get(1)) + ":" + String.valueOf(res681.get(2)) + String.valueOf(res681.get(3));
+
+        for (int x : res681) {
+            System.out.print(x + " ");
+        }
+        return s;
+    }
+
+    private void dfs681(int[] clock, int[] digits, boolean same) {
+        if (res681.size() == 4) {
+            stop = true;
+            return;
+        }
+        int cur = clock[res681.size()];
+        if (same) {
+            for (int i = 0; i < digits.length; i++) {
+                int x = digits[i];
+                switch(res681.size()) {
+                    case 0: if (x > 2) {
+                        dfs681(clock, digits, false);
+                        return;
+                    }
+                            break;
+                    case 1: if(res681.get(0) == 2 && x > 3) return;
+                            break;
+                    case 2: if (x > 5) return;
+                            break;
+                }
+                if (x >= cur) {
+                    if (x > cur) {
+                        same = false;
+                    } else if (res681.size() == 3) {
+                        continue;
+                    }
+                    res681.add(x);
+                    dfs681(clock, digits, same);
+                    if (stop) {
+                        return;
+                    }
+                    res681.remove(res681.size() - 1);
+                }
+            }
+            if (res681.size() != 0) {
+                return;
+            }
+        }
+        while (res681.size() < 4) {
+            res681.add(digits[0]);
+        }
+        stop = true;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -692,9 +767,9 @@ public class Others3 {
         //System.out.print(o.createPal(100, 4));
         //System.out.print(o.nearestPalindromic("12300"));
 
-        String[] list1 = {"a", "b", "c", "d"};
-        String[] list2 = {"b","a", "x", "y"};
-        System.out.print(Arrays.toString(o.findRestaurant(list1, list2)));
+        //String[] list1 = {"a", "b", "c", "d"};
+        //String[] list2 = {"b","a", "x", "y"};
+        System.out.print(o.nextClosestTime("19:34"));
     }
 
 
