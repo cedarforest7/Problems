@@ -744,6 +744,131 @@ public class Others3 {
         stop = true;
     }
 
+    //No.482
+    public String licenseKeyFormatting(String S, int K) {
+        String s = S.replaceAll("[-]", "");
+        int len = s.length();
+        if (len < K) {
+            return s.toUpperCase();
+        }
+        int first = len%K;
+        int cut = len/K - 1;
+        StringBuilder sb = new StringBuilder(s);
+        if (first != 0) {
+            sb.insert(first, '-');
+            cut++;
+            first++;
+        }
+        for (int i = first + K; i < len + cut; i += K + 1) {
+            sb.insert(i, '-');
+        }
+        return sb.toString().toUpperCase();
+    }
+
+    //No.722
+    //code has bug and not neat
+//    public List<String> removeComments(String[] source) {
+//        List<String> res = new ArrayList<>();
+//        if (source == null || source.length == 0) {
+//            return res;
+//        }
+//        boolean blockLast = false;      //if the block starts before this line begins
+//        boolean blockEnd = true;
+//        int st;
+//        for (int i = 0; i < source.length; i++) {
+//            if (blockLast && !blockEnd) {
+//                st = 0;
+//            } else {
+//                st = source[i].indexOf("/*");
+//            }
+//            int slash = source[i].indexOf("//");
+//            //find which one is invalid
+//            if (!blockLast && slash >= 0 && (slash < st || st < 0)) {
+//                //block is invalid, slash is valid
+//                source[i] = source[i].substring(0, slash);
+//
+//            } else if (st >= 0){
+//                //slash is invalid, block is valid
+//                //source[i] = source[i].substring(0, st);
+//                int end = source[i].indexOf("*/");
+//                for (; end < source[i].length() && end > 0 && source[i].charAt(end - 1) == '/'; end = source[i].indexOf("*/", end + 1));
+//                if (end < 0) {
+//                    //no closing */
+//                    source[i] = source[i].substring(0, st);
+//                    blockLast = true;
+//                    blockEnd = false;
+//                    if (source[i].length() != 0) {
+//                        res.add(source[i]);
+//                    }
+//                    continue;
+//                }else if (end + 2 < source[i].length()) {
+//                    source[i] = source[i].substring(0, st) + source[i].substring(end + 2);
+//                    i--;
+//                    blockEnd = true;
+//                    continue;
+//                } else {
+//                    // */ is at the end of string
+//                    source[i] = source[i].substring(0, st);
+//                    blockEnd = true;
+//                }
+//
+//            }
+//            if (blockLast) {
+//                //append the string to the last element of res
+//                int last = res.size() - 1;
+//                res.set(last, res.get(last) + source[i]);
+//                blockLast = false;
+//            } else {
+//                if (source[i].length() != 0) {
+//                    res.add(source[i]);
+//                }
+//            }
+//        }
+//        return res;
+//    }
+    public List<String> removeComments(String[] source) {
+        List<String> res = new ArrayList<>();
+        if (source == null || source.length == 0) {
+            return res;
+        }
+        //whether the block or slash mode has started
+        boolean block = false;
+        boolean slash = false;
+        StringBuilder sb = new StringBuilder();
+        for (String s : source) {
+            for (int i = 0; i < s.length(); i++) {
+                if (block) {
+                    //ignore all chars until there is a */
+                    if (i < s.length() - 1 && s.charAt(i) == '*' && s.charAt(i + 1) == '/') {
+                        block = false;
+                        i++;
+                    }
+                } else if (!slash) {
+                    if (i < s.length() - 1 && s.charAt(i) == '/') {
+                        if (s.charAt(i + 1) == '*') {
+                            block = true;
+                            i++;
+                        } else if (s.charAt(i + 1) == '/') {
+                            slash = true;
+                            i++;
+                        } else {
+                            sb.append(s.charAt(i));
+                        }
+                    } else {
+                        sb.append(s.charAt(i));
+                    }
+                }
+            }
+            //at the end of each line invalidate slash
+            slash = false;
+            if (!block && sb.length() != 0) {
+                res.add(sb.toString());
+                sb = new StringBuilder();
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -769,7 +894,13 @@ public class Others3 {
 
         //String[] list1 = {"a", "b", "c", "d"};
         //String[] list2 = {"b","a", "x", "y"};
-        System.out.print(o.nextClosestTime("19:34"));
+        //System.out.print(o.nextClosestTime("19:34"));
+        String[] source = {"aa/*bb", "    /*bbb/**/c", "    cc", "    /**/ddd", "};"};
+        //System.out.print(o.licenseKeyFormatting("2ioceh-weh-we-wq34d", 3));
+        List<String> ls = o.removeComments(source);
+        for (String s : ls) {
+            System.out.println(s);
+        }
     }
 
 
