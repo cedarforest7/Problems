@@ -869,6 +869,78 @@ public class Others3 {
         return res;
     }
 
+    //No.688
+    double stay = 0;
+    public double knightProbability1(int N, int K, int r, int c) {
+        double total = Math.pow(8, K);
+        dfs688(N, K, r, c);
+        return stay/total;
+    }
+
+    private void dfs688 (int N, int toMove, int r, int c) {
+        if (r < 0 || r > N - 1 || c < 0 || c > N - 1) {
+            return;
+        }
+        if (toMove == 0) {
+            //this is the last step of K moves
+            stay++;
+        } else {
+            dfs688 (N, toMove - 1, r + 1, c + 2);
+            dfs688 (N, toMove - 1, r + 1, c - 2);
+            dfs688 (N, toMove - 1, r + 2, c - 1);
+            dfs688 (N, toMove - 1, r + 2, c + 1);
+            dfs688 (N, toMove - 1, r - 1, c + 2);
+            dfs688 (N, toMove - 1, r - 1, c - 2);
+            dfs688 (N, toMove - 1, r - 2, c + 1);
+            dfs688 (N, toMove - 1, r - 2, c - 1);
+        }
+    }
+
+    public double knightProbability(int N, int K, int r, int c) {
+        if (K == 0) {
+            if (inBoard(N, r, c)) {
+                return 1;
+            }
+            return 0;
+        }
+        double[][][] prob = new double[K][N][N];
+        int[][] move = {{1, 2}, {1, -2}, {2, 1}, {2, -1}, {-1, 2}, {-1, -2}, {-2, 1}, {-2, -1}};
+        //start from move == 0
+        for (int j = 0; j < N; j++) {
+            for (int k = 0; k < N; k++) {
+                prob[0][j][k] = 1;
+            }
+        }
+        for (int i = 1; i < K; i++) {
+            for (int j = 0; j < N; j++) {
+                for (int k = 0; k < N; k++) {
+                    for (int m = 0; m < 8; m++) {
+                        int row = j + move[m][0];
+                        int col = k + move[m][1];
+                        if (inBoard(N, row, col)) {
+                            prob[i][j][k] += prob[i - 1][row][col];
+                        }
+                    }
+                    prob[i][j][k] /= 8;
+                }
+            }
+        }
+        double res = 0;
+        for (int m = 0; m < 8; m++) {
+            int row = r + move[m][0];
+            int col = c + move[m][1];
+            if (inBoard(N, row, col)) {
+                res += prob[K - 1][row][col];
+            }
+        }
+        res /= 8;
+        return res;
+    }
+
+    private boolean inBoard (int N, int r, int c) {
+        return r >= 0 && r < N && c >= 0 && c < N;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -895,12 +967,7 @@ public class Others3 {
         //String[] list1 = {"a", "b", "c", "d"};
         //String[] list2 = {"b","a", "x", "y"};
         //System.out.print(o.nextClosestTime("19:34"));
-        String[] source = {"aa/*bb", "    /*bbb/**/c", "    cc", "    /**/ddd", "};"};
-        //System.out.print(o.licenseKeyFormatting("2ioceh-weh-we-wq34d", 3));
-        List<String> ls = o.removeComments(source);
-        for (String s : ls) {
-            System.out.println(s);
-        }
+        System.out.print(o.knightProbability(8, 11, 6, 4));
     }
 
 
