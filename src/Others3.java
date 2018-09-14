@@ -869,6 +869,94 @@ public class Others3 {
         return res;
     }
 
+    //722 transformation (Goldman Sachs)
+    public String removeComments2(List<String> input) {
+        if (input == null || input.size() == 0) {
+            return "";
+        }
+        StringBuilder res = new StringBuilder();
+        //whether the block or slash mode has started
+        boolean block = false;
+        boolean slash = false;
+        boolean newline = false;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
+        int newlines = 0;
+        for (String s : input) {
+            //to be modified below
+            for (int i = 0; i < s.length(); i++) {
+                if (block) {
+                    //keep all chars in temp until there is a */
+                    if (i < s.length() - 1 && s.charAt(i) == '*' && s.charAt(i + 1) == '/') {
+                        block = false;
+                        slash = false;
+                        i++;
+                        newline = (i == 0);
+                    } else if (!slash){
+                        if (i < s.length() - 1 && s.charAt(i) == '/') {
+                            if (s.charAt(i + 1) == '/') {
+                                slash = true;
+                                i++;
+                            } else {
+                                sb2.append(s.charAt(i));
+                            }
+                        } else {
+                            sb2.append(s.charAt(i));
+                        }
+                    }
+                } else if (!slash) {
+                    if (i < s.length() - 1 && s.charAt(i) == '/') {
+                        if (s.charAt(i + 1) == '*') {
+                            block = true;
+                            i++;
+                        } else if (s.charAt(i + 1) == '/') {
+                            slash = true;
+                            i++;
+                        } else {
+                            sb.append(s.charAt(i));
+                        }
+                    } else {
+                        sb.append(s.charAt(i));
+                    }
+                }
+            }
+            //at the end of each line invalidate slash
+            slash = false;
+            if (block) {
+                if(sb2.length() == 0) {
+                    temp.append(" \n");
+                    newlines++;
+                } else {
+                    temp.append(sb2);
+                    temp.append("\n");
+                    newlines++;
+                }
+                sb2 = new StringBuilder();
+            }
+            if (!block || (block && sb.length() != 0)) {
+                if(sb.length() == 0) {
+                    res.append(" ");
+                } else {
+                    res.append(sb);
+                }
+                sb = new StringBuilder();
+            }
+            res.append("\n");
+        }
+        //if the block is not closed at the end
+        if (block) {
+            if (!newline) {
+                newlines--;
+            }
+            res.replace(res.length() - 1 - newlines, res.length(), "/*");
+            return res.toString() + temp.toString();
+        }
+        return res.toString();
+    }
+
+
+
     //No.688
     double stay = 0;
     public double knightProbability1(int N, int K, int r, int c) {
@@ -941,6 +1029,54 @@ public class Others3 {
         return r >= 0 && r < N && c >= 0 && c < N;
     }
 
+    //No.387
+    public int firstUniqChar1(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char temp = s.charAt(i);
+            if (map.keySet().contains(temp)) {
+                map.put(temp, 2);
+            } else {
+                map.put(temp, 1);
+            }
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (map.get(s.charAt(i)) == 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public int firstUniqChar2(String s) {
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+            char temp = s.charAt(i);
+            if (set.contains(temp)) {
+                continue;
+            }
+            set.add(temp);
+            if (i == s.lastIndexOf(temp)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //the string contain only lowercase letters.
+    public int firstUniqChar(String s) {
+        int min = Integer.MAX_VALUE;
+        for (char c = 'a'; c <= 'z'; c++) {
+            int ind = s.indexOf(c);
+            if (ind >= 0 && ind == s.lastIndexOf(c) && ind < min) {
+                min = ind;
+            }
+        }
+        if (min != Integer.MAX_VALUE) {
+            return min;
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -964,10 +1100,14 @@ public class Others3 {
         //System.out.print(o.createPal(100, 4));
         //System.out.print(o.nearestPalindromic("12300"));
 
-        //String[] list1 = {"a", "b", "c", "d"};
+        String[] list1 = {"aa//bb", "c", "/*dd", "//ee*/", "fgg", "//hh"};
         //String[] list2 = {"b","a", "x", "y"};
         //System.out.print(o.nextClosestTime("19:34"));
-        System.out.print(o.knightProbability(8, 11, 6, 4));
+        List<String> list = new ArrayList<>();
+        for (String s : list1) {
+            list.add(s);
+        }
+        System.out.print(o.removeComments2(list) + "/end");
     }
 
 
