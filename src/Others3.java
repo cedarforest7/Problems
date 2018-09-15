@@ -1,3 +1,4 @@
+import javax.security.auth.callback.CallbackHandler;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -955,6 +956,246 @@ public class Others3 {
         return res.toString();
     }
 
+    //Charitable Giving (Goldman Sachs)
+    public String[] charityAllocation (int[] profits) {
+        if (profits == null || profits.length == 0) {
+            String[] x = {};
+            return x;
+        }
+        int len = profits.length;
+        String[] res = new String[len];
+        Map<String, Integer> money = new HashMap<>();
+        money.put("A", 0);
+        money.put("B", 0);
+        money.put("C", 0);
+        PriorityQueue<String> pq = new PriorityQueue<>(3, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                int dif = money.get(o1) - money.get(o2);
+                if (dif == 0) {
+                    return o1.charAt(0) - o2.charAt(0);
+                } else {
+                    return dif;
+                }
+            }
+        });
+        pq.add("A");
+        pq.add("B");
+        pq.add("C");
+        for (int i = 0; i < len; i++) {
+            String temp = pq.poll();
+            res[i] = temp;
+            money.put(temp, money.get(temp) + profits[i]);
+            pq.add(temp);
+        }
+        return res;
+    }
+
+    //Whole minute dilemma (Goldman Sachs)--a bit similar to 2Sum
+    public int playlist (int[] songs) {
+//        if (songs == null || songs.length == 0) {
+//            return 0;
+//        }
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < songs.length; i++) {
+            map.putIfAbsent(songs[i], 0);
+            map.put(songs[i], map.get(songs[i]) + 1);
+        }
+        int comb = 0;
+        int len = map.keySet().size();
+        int[] songLis = new int[len];
+        int n = 0;
+        for (int x : map.keySet()) {
+            songLis[n] = x;
+            n++;
+        }
+        Arrays.sort(songLis);
+        int max;
+        if (len > 1) {
+            max = (songLis[len - 1] + songLis[len - 2])/60;
+        } else {
+            max = (songLis[len - 1] + songLis[len - 1])/60;
+        }
+        for (int i = 1; i <= max; i++) {
+            int time = 60*i;
+            int p = 0, q = len - 1;
+            while (p <= q) {
+                int sum = songLis[p] + songLis[q];
+                if (sum == time) {
+                    if (p != q) {
+                        comb += map.get(songLis[p]) * map.get(songLis[q]);
+                        p++;
+                        q--;
+                    } else {
+                        int num = map.get(songLis[p]);
+                        comb += num*(num - 1)/2;
+                        break;
+                    }
+                } else if (sum < time){
+                    //p move to the right
+                    p++;
+                } else {
+                    //q move to the left
+                    q--;
+                }
+            }
+        }
+        return comb;
+    }
+
+    //latest student (Goldman Sachs)
+    public String latestStudent(String[][] input) {
+        if (input == null || input.length == 0) {
+            return "";
+        }
+        //Map<String, Double> sum = new HashMap<>();
+        Map<String, Integer> num = new HashMap<>();
+        Map<String, Double> avg = new HashMap<>();
+        for (String[] s : input) {
+            avg.putIfAbsent(s[0], 0.0);
+            num.putIfAbsent(s[0], 0);
+            Double time = Double.parseDouble(s[3]);
+            Double start = Double.parseDouble(s[2]);
+            avg.put(s[0], avg.get(s[0]) + (time > start ? time : start));
+            num.put(s[0], num.get(s[0]) + 1);
+        }
+        for (String st : avg.keySet()) {
+            avg.put(st, avg.get(st)/num.get(st));
+        }
+        Map<String, Double> late = new HashMap<>();
+        for (String[] s : input) {
+            late.putIfAbsent(s[1], 0.0);
+            Double lateTime = Double.parseDouble(s[3]) - avg.get(s[0]);
+            late.put(s[1], late.get(s[1]) + (lateTime > 0 ? lateTime : 0.0));
+        }
+        PriorityQueue<String> pq = new PriorityQueue<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                double dif = late.get(o2) - late.get(o1);
+                if (dif == 0) {
+                    return o1.compareTo(o2);
+                } else if (dif > 0) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });
+        for (String st : late.keySet()) {
+            pq.add(st);
+        }
+        return pq.poll();
+    }
+
+    //csv formatter (Goldman Sachs)
+    public String formatter(List<String> form) {
+        StringBuilder sb = new StringBuilder("");
+        List<Integer> colLen = new ArrayList<>();       //max length of columns
+        List<List<String>> csv = new ArrayList<>();
+
+        for (String s : form) {
+            List<String> row = new ArrayList<>(Arrays.asList(s.split(",")));
+            //String last = row.get(row.size() - 1);
+
+            for(int i = s.length() - 1; i >= 0 && s.charAt(i) == ','; i--) {
+                row.add("");
+            }
+            csv.add(row);
+            for (int i = 0; i < row.size(); i++) {
+                if (i < colLen.size()) {
+                    colLen.set(i, Math.max(colLen.get(i), row.get(i).length()));
+                } else {
+                    colLen.add(row.get(i).length());
+                }
+            }
+        }
+
+        for (List<String> row : csv) {
+            for (int i = 0; i < row.size(); i++) {
+                int len = colLen.get(i);
+                if (i != 0) {
+                    len++;
+                }
+                String temp = row.get(i);
+                for (int j = 0; j < len - temp.length(); j++) {
+                    sb.append(" ");
+                }
+                sb.append(temp);
+            }
+            sb.append("end\n");
+        }
+        return sb.toString();
+    }
+
+    //reverse algebraic expression (Goldman Sachs)
+    public String reverseAlgebra(String s) {
+        Set<Character> operator = new HashSet<>();
+        operator.add('+');
+        operator.add('-');
+        operator.add('*');
+        operator.add('/');
+        StringBuilder sb = new StringBuilder();
+        int numLen = 0;     //number length
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char c = s.charAt(i);
+            if (!operator.contains(c) || (c == '-' && (i == 0 || operator.contains(s.charAt(i - 1))))) {
+                sb.insert(sb.length() - numLen, c);
+                numLen++;
+            } else {
+                 numLen = 0;
+                 sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    static String winner(String erica, String bob) {
+        int[] eLevel = winnerHelper(erica);  //0-E 1-M 2-H 3-total score
+        int[] bLevel = winnerHelper(bob);
+
+        for (int i = 3; i >= 0; i--) {
+            if (eLevel[i] >  bLevel[i]) {
+                return "Erica";
+            } else if (eLevel[i] <  bLevel[i]) {
+                return "Bob";
+            } else if (i == 0){
+                //tie
+                return "Tie";
+            }
+        }
+        return "Tie";
+    }
+
+    private static int[] winnerHelper (String s) {
+        int[] win = new int[4];
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+                case 'S': break;
+                case 'E': win[3]++; win[0]++; break;
+                case 'M': win[3] += 3; win[1]++; break;
+                case 'H': win[3] += 5; win[2]++; break;
+            }
+        }
+        return win;
+    }
+
+    static int maxDifferenceOddEven(List<Integer> a) {
+        int minOdd = Integer.MAX_VALUE;
+        int maxDif = -1;
+        for (int x : a) {
+            if (x%2 == 0) {
+                //x even
+                if(x > minOdd) {
+                    maxDif = Math.max(maxDif, x - minOdd);
+                }
+            } else {
+                //x odd
+                minOdd = Math.min(minOdd, x);
+            }
+        }
+        return maxDif;
+    }
 
 
     //No.688
@@ -1077,6 +1318,8 @@ public class Others3 {
         return -1;
     }
 
+
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         //System.out.println(o.numSquares(118));
@@ -1100,14 +1343,40 @@ public class Others3 {
         //System.out.print(o.createPal(100, 4));
         //System.out.print(o.nearestPalindromic("12300"));
 
-        String[] list1 = {"aa//bb", "c", "/*dd", "//ee*/", "fgg", "//hh"};
-        //String[] list2 = {"b","a", "x", "y"};
-        //System.out.print(o.nextClosestTime("19:34"));
-        List<String> list = new ArrayList<>();
-        for (String s : list1) {
-            list.add(s);
-        }
-        System.out.print(o.removeComments2(list) + "/end");
+//        String[] list1 = {"aa//bb", "c", "/*dd", "//ee*/", "fgg", "//hh"};
+//        List<String> list = new ArrayList<>();
+//        for (String s : list1) {
+//            list.add(s);
+//        }
+//        System.out.print(o.removeComments2(list) + "/end");
+
+//        int[] profits = {1, 2};
+//        String[] x = o.charityAllocation(profits);
+//        for (String s : x) {
+//            System.out.print(s + " ");
+//        }
+
+        //int[] songs = {60, 60};
+        //String[][] input = {{"0801", "A", "540", "600"}, {"0801", "B", "540", "600"}, {"0802", "A", "540", "500"}, {"0802", "B", "540", "440"}};
+        //System.out.print(o.latestStudent(input));
+//        List<String> form = new ArrayList<>();
+//        form.add("A,B,C,");
+//        form.add("aaa,bb,c,k");
+//        form.add(",,zz,");
+//        System.out.print(o.formatter(form));
+
+        int[] a = {7, 2, 3, 10,1,4,8,1};
+        List<Integer> l = new ArrayList<>();
+        l.add(7);
+        l.add(2);
+        l.add(3);
+        l.add(10);
+        l.add(1);
+        l.add(4);
+        l.add(8);
+        l.add(1);
+
+        System.out.print(maxDifferenceOddEven(l));
     }
 
 
