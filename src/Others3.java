@@ -1318,6 +1318,30 @@ public class Others3 {
         return -1;
     }
 
+    //No.20
+    public boolean isValid(String s) {
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        int len = s.length();
+        Map<Character, Character> map = new HashMap<>();
+        map.put('(', ')');
+        map.put('[', ']');
+        map.put('{', '}');
+        LinkedList<Character> open = new LinkedList<>();
+        //list a little faster than a stack
+
+        for (int i = 0; i < len; i++) {
+            char temp = s.charAt(i);
+            if (map.keySet().contains(temp)) {
+                open.add(temp);
+            } else if (open.size() == 0 || temp != map.get(open.pollLast())){
+                return false;
+            }
+        }
+        return open.isEmpty();
+    }
+
 
 
     public static void main(String[] args) {
