@@ -325,6 +325,48 @@ public class Array2 {
         return false;
     }
 
+    //No.238
+    public int[] productExceptSelf1(int[] nums) {
+        int prod = 1;
+        int zero = 0;
+        for (int n : nums) {
+            if (n == 0) {
+                zero++;
+            } else {
+                prod *= n;
+            }
+        }
+        int[] res = new int[nums.length];
+        if (zero == 0) {
+            for (int i = 0; i < nums.length; i++) {
+                res[i] = prod/nums[i];
+            }
+        } else if (zero == 1) {
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] == 0) {
+                    res[i] = prod;
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public int[] productExceptSelf(int[] nums) {
+        //len > 1
+        int[] res = new int[nums.length];
+        int prod = 1;
+        res[0] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            res[i] = res[i - 1] * nums[i - 1];
+        }
+        for (int i = nums.length - 2; i >=0; i--) {
+            prod *= nums[i + 1];
+            res[i] *= prod;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
