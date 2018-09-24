@@ -39,10 +39,25 @@ public class Strings {
         return false;
     }
 
+    //No.771
+    public int numJewelsInStones(String J, String S) {
+        Set<Character> jewels = new HashSet<>();
+        for (int i = 0; i < J.length(); i++) {
+            jewels.add(J.charAt(i));
+        }
+        int res = 0;
+        for (int i = 0; i < S.length(); i++) {
+            if (jewels.contains(S.charAt(i))) {
+                res++;
+            }
+        }
+        return res;
+    }
 
 
     public static void main(String[] args) {
         Strings r = new Strings();
-        //System.out.print(r.wordBreak("abcde"));
+        System.out.print(r.numJewelsInStones("aA", "bbbb"));
+
     }
 }
