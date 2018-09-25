@@ -1342,6 +1342,36 @@ public class Others3 {
         return open.isEmpty();
     }
 
+    //No.819
+    public String mostCommonWord(String paragraph, String[] banned) {
+        //String[] words =  paragraph.split("\\W+");
+        String[] words =  paragraph.split("\\s+");
+        Map<String, Integer> freq = new HashMap<>();
+        Set<String> ban = new HashSet<>();
+        int max = 0;
+        String res = "";
+        for (String s : banned) {
+            ban.add(s);
+        }
+        for (String st : words) {
+            String s = st.toLowerCase();
+            char last = s.charAt(s.length() - 1);
+            if (last < 97) {
+                s = s.substring(0, s.length() - 1);
+            }
+            if (!ban.contains(s)) {
+                freq.putIfAbsent(s, 0);
+                int temp = freq.get(s) + 1;
+                freq.put(s, temp);
+                if (temp > max) {
+                    max = temp;
+                    res = s;
+                }
+            }
+        }
+        return res;
+    }
+
 
 
     public static void main(String[] args) {
