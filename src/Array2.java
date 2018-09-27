@@ -368,13 +368,31 @@ public class Array2 {
     }
 
     //No.88
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        /*int i = 0, j = 0;
+    /*public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = 0, j = 0;
         int len = m;
-        while (i < len && j < n) {
-            if (nums1[i] > nums2[j]) {
+        int k = m;  //traverse the numbers moved to the back
+        while (k < m + n && i < len && j < n) {
+            if (k < len) {
+                if (i < m) {
+                    //move i to the back
+                    nums1[len] = nums1[i];
+                    len++;
+                }
+                if (nums1[k] < nums2[j]) {
+                    //put the smaller num to position i
+                    nums1[i] = nums1[k];
+                    k++;
+                } else {
+                    //put the smaller num to position i
+                    nums1[i] = nums2[j];
+                    j++;
+                }
+            } else if (nums1[i] > nums2[j]) {
+                //move i to the back
                 nums1[len] = nums1[i];
                 len++;
+                //put the smaller num to position i
                 nums1[i] = nums2[j];
                 j++;
             }
@@ -387,7 +405,36 @@ public class Array2 {
                 j++;
             }
         }
-*/
+
+
+    }*/
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int[] temp = new int[m];
+        for (int i = 0; i < m; i++) {
+            temp[i] = nums1[i];
+        }
+        int i = 0, j = 0;
+        while (i < m && j < n) {
+            if (temp[i] < nums2[j]) {
+                nums1[i + j] = temp[i];
+                i++;
+            } else {
+                nums1[i + j] = nums2[j];
+                j++;
+            }
+        }
+        if (j < n) {
+            while (i + j < m + n) {
+                nums1[i + j] = nums2[j];
+                j++;
+            }
+        } else {
+            while (i + j < m + n) {
+                nums1[i + j] = temp[i];
+                i++;
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -400,8 +447,8 @@ public class Array2 {
 //            }
 //            System.out.println("end\n");
 //        }
-        int[] nums1 = {7,8,9, 0, 0, 0};
-        int[] nums2 = {2,5,8};
+        int[] nums1 = {4,0,0, 0, 0, 0};
+        int[] nums2 = {1,2,3,5,6};
 //        System.out.print(a.search(nums2, 3));
 /*        String[][] s = {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
         List<String> lis = a.findItinerary(s);
@@ -409,7 +456,9 @@ public class Array2 {
             System.out.print(x + " ");
         }*/
 
-        a.merge(nums1, 3, nums2, 3);
-
+        a.merge(nums1, 1, nums2, 5);
+        for (int x : nums1) {
+            System.out.print(x + " ");
+        }
     }
 }
