@@ -469,6 +469,47 @@ public class Array2 {
         }
     }
 
+
+    //No.31
+    public void nextPermutation(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return;
+        }
+        if (isLargest(nums, 0)) {
+            Arrays.sort(nums);
+            return;
+        }
+        int len = nums.length;
+        if (isLargest(nums, 1)) {
+            Arrays.sort(nums, 1, len);
+            int i = 1;
+            for (; i < len; i++) {
+                if (nums[i] > nums[0]) {
+                    break;
+                }
+            }
+            int temp = nums[0];
+            nums[0] = nums[i];
+            nums[i] = temp;
+            Arrays.sort(nums, 1, len);
+        } else {
+            int[] next = Arrays.copyOfRange(nums, 1, len);
+            nextPermutation(next);
+            System.arraycopy(next, 0, nums, 1, len - 1);
+        }
+    }
+
+
+    //whether nums is the largest permutation when only considering the digits >= st
+    private boolean isLargest (int[] nums, int st) {
+        for (int i = st; i < nums.length - 1; i++) {
+            if (nums[i] < nums[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
@@ -480,7 +521,7 @@ public class Array2 {
 //            System.out.println("end\n");
 //        }
         int[] nums1 = {4,0,0, 0, 0, 0};
-        int[] nums2 = {1,2,3,5,6};
+        int[] nums2 = {1,5,2};
 //        System.out.print(a.search(nums2, 3));
 /*        String[][] s = {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
         List<String> lis = a.findItinerary(s);
@@ -488,8 +529,10 @@ public class Array2 {
             System.out.print(x + " ");
         }*/
 
-        a.merge(nums1, 1, nums2, 5);
-        for (int x : nums1) {
+        /*a.merge(nums1, 1, nums2, 5);
+        */
+        a.nextPermutation(nums2);
+        for (int x : nums2) {
             System.out.print(x + " ");
         }
     }
