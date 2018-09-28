@@ -45,4 +45,36 @@ public class Interval {
         return res;
     }
 
+    //No.253
+    public int minMeetingRooms(Interval[] intervals) {
+        if (intervals == null ) {
+            return 0;
+        }
+        int len = intervals.length;
+        if (len < 2) {
+            return len;
+        }
+
+        Arrays.sort(intervals, new Comparator<Interval>() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                return o1.start - o2.start;
+            }
+        });
+
+        //List<Integer> ends = new ArrayList<>();
+
+        PriorityQueue<Integer> ends = new PriorityQueue<>();
+
+        ends.add(intervals[0].end);
+        for (int i = 1; i < len; i++) {
+            Interval cur = intervals[i];
+            if (ends.peek() <= cur.start) {
+                ends.poll();
+            }
+            ends.add(cur.end);
+        }
+        return ends.size();
+    }
+
 }

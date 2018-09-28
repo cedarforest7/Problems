@@ -408,8 +408,9 @@ public class Array2 {
 
 
     }*/
+    //extra space O(m)
+    public void merge1(int[] nums1, int m, int[] nums2, int n) {
 
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
         int[] temp = new int[m];
         for (int i = 0; i < m; i++) {
             temp[i] = nums1[i];
@@ -432,6 +433,37 @@ public class Array2 {
         } else {
             while (i + j < m + n) {
                 nums1[i + j] = temp[i];
+                i++;
+            }
+        }
+    }
+    //use O(1) extra space
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = nums1.length - 1;
+        //copy nums1 first m numbers to the end of nums1
+        for (int j = m - 1; j >= 0; i--, j--) {
+            nums1[i] = nums1[j];
+        }
+        i++;
+        int st = i;
+        int j = 0;
+        while (i < nums1.length && j < n) {
+            if (nums1[i] < nums2[j]) {
+                nums1[i - st + j] = nums1[i];
+                i++;
+            } else {
+                nums1[i - st + j] = nums2[j];
+                j++;
+            }
+        }
+        if (j < n) {
+            while (i - st + j < m + n) {
+                nums1[i - st + j] = nums2[j];
+                j++;
+            }
+        } else {
+            while (i - st + j < m + n) {
+                nums1[i - st + j] = nums1[i];
                 i++;
             }
         }
