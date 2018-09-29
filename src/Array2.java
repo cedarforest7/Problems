@@ -471,7 +471,7 @@ public class Array2 {
 
 
     //No.31
-    public void nextPermutation(int[] nums) {
+    public void nextPermutation1(int[] nums) {
         if (nums == null || nums.length < 2) {
             return;
         }
@@ -510,6 +510,56 @@ public class Array2 {
         return true;
     }
 
+    public void nextPermutation2(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return;
+        }
+        int len = nums.length;
+        for (int i = len - 1; i > 0; i--) {
+            if (nums[i] > nums[i - 1]) {
+                Arrays.sort(nums, i, len);
+                for (int k = i; k < len; k++) {
+                    if (nums[k] > nums[i - 1]) {
+                        int temp = nums[i - 1];
+                        nums[i - 1] = nums[k];
+                        nums[k] = temp;
+                        break;
+                    }
+                }
+                Arrays.sort(nums, i, len);
+                return;
+            }
+        }
+        Arrays.sort(nums);
+    }
+
+    public void nextPermutation(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return;
+        }
+        int len = nums.length;
+        for (int i = len - 1; i > 0; i--) {
+            if (nums[i] > nums[i - 1]) {
+                int k = i;
+                for (; k < len && nums[k] > nums[i - 1]; k++);
+                switchNum(nums, i - 1, k - 1);
+                for (int m = i, n = len - 1; m < n; m++, n--) {
+                    switchNum(nums, m, n);
+                }
+                return;
+            }
+        }
+        for (int m = 0, n = len - 1; m < n; m++, n--) {
+            switchNum(nums, m, n);
+        }
+    }
+
+    private void switchNum(int[] nums, int m, int n) {
+        int temp = nums[m];
+        nums[m] = nums[n];
+        nums[n] = temp;
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
@@ -521,7 +571,7 @@ public class Array2 {
 //            System.out.println("end\n");
 //        }
         int[] nums1 = {4,0,0, 0, 0, 0};
-        int[] nums2 = {1,5,2};
+        int[] nums2 = {9,9,0};
 //        System.out.print(a.search(nums2, 3));
 /*        String[][] s = {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
         List<String> lis = a.findItinerary(s);
