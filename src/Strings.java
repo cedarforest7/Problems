@@ -94,4 +94,64 @@ public class Strings {
         System.out.print(r.numJewelsInStones("aA", "bbbb"));
 
     }
+
+    //lintcode 200
+
+    public String longestPalindrome(String s) {
+        // enumeration
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        int len = s.length();
+        int st = 0;
+        int max = 1;
+        //if pal is even
+        for (int i = 0; i < len - max/2 - 1; i++) {
+            int l = i, r = i + 1;
+            for (; l >= 0 && r < len && s.charAt(l) == s.charAt(r); l--, r++);
+            l++;
+            r--;
+            if (max < r - l + 1) {
+                max = r - l + 1;
+                st = l;
+            }
+        }
+        //if pal is odd
+        for (int i = 1; i < len - max/2; i++) {
+            int l = i - 1, r = i + 1;
+            for (; l >= 0 && r < len && s.charAt(l) == s.charAt(r); l--, r++);
+            l++;
+            r--;
+            if (max < r - l + 1) {
+                max = r - l + 1;
+                st = l;
+            }
+        }
+        return s.substring(st, st + max);
+    }
+    //lintcode 667
+    public int longestPalindromeSubseq(String s) {
+        // write your code here
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int len = s.length();
+        int[][] pal = new int[len][len];
+        for (int i = 0; i < len; i++) {
+            //initialize the shortest substring (length 1) with 1
+            pal[i][i] = 1;
+        }
+        //k is the length of substring
+        for (int k = 2; k <= len; k++) {
+            for (int i = 0; i + k - 1 < len; i++) {
+                int end = i + k - 1;
+                if(s.charAt(i) == s.charAt(end)) {
+                    pal[i][end] += 2 + pal[i + 1][end - 1];
+                } else {
+                    pal[i][end] = Math.max(pal[i + 1][end], pal[i][end - 1]);
+                }
+            }
+        }
+        return pal[0][len - 1];
+    }
 }
