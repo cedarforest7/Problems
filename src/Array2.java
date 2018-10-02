@@ -560,6 +560,43 @@ public class Array2 {
         nums[n] = temp;
     }
 
+    //lintcode 200
+
+    public String longestPalindrome(String s) {
+        // enumeration
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        int len = s.length();
+        int st = 0;
+        int max = 1;
+        //if pal is even
+        for (int i = 0; i < len - max/2 - 1; i++) {
+            int l = i, r = i + 1;
+            for (; l >= 0 && r < len && s.charAt(l) == s.charAt(r); l--, r++);
+            l++;
+            r--;
+            if (max < r - l + 1) {
+                max = r - l + 1;
+                st = l;
+            }
+        }
+        //if pal is odd
+        for (int i = 1; i < len - max/2; i++) {
+            int l = i - 1, r = i + 1;
+            for (; l >= 0 && r < len && s.charAt(l) == s.charAt(r); l--, r++);
+            l++;
+            r--;
+            if (max < r - l + 1) {
+                max = r - l + 1;
+                st = l;
+            }
+        }
+        return s.substring(st, st + max);
+    }
+
+
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
