@@ -154,4 +154,57 @@ public class Strings {
         }
         return pal[0][len - 1];
     }
+
+    /*
+     * lintcode 594
+     * @param source: A source string
+     * @param target: A target string
+     * @return: An integer as index
+     */
+    static final int  BASE = 10000000;
+    public int strStr2(String source, String target) {
+        if (source == null || target == null || source.length() < target.length()) {
+            return -1;
+        }
+        if (source.length() == 0 && target.length() == 0) {
+            return 0;
+        }
+        int m = target.length();
+        int n = source.length();
+        int tCode = 0;
+        int sCode = 0;
+        //M = 31 ^ (m - 1)
+        int M = 1;
+
+        //compute hashCode of target and initialize source hashCode
+        for (int i = 0; i < m; i++) {
+            tCode = (tCode * 31 + target.charAt(i)) % BASE;
+            //System.out.println(tCode);
+            sCode = (sCode * 31 + source.charAt(i)) % BASE;
+
+        }
+        for (int i = 0; i < m - 1; i++) {
+            M = M * 31 % BASE;
+        }
+        //System.out.println(tCode);
+
+        //traverse the source string
+        for (int i = 0; i < n - m + 1; i++) {
+            //System.out.println(i + " " + sCode);
+            if (sCode == tCode && source.substring(i, i + m).equals(target)) {
+                return i;
+            }
+            if (i == n - m) {
+                break;
+            }
+            sCode = sCode - (source.charAt(i) * M) % BASE;
+            if (sCode < 0) {
+                sCode += BASE;
+            }
+            sCode = (sCode * 31 + source.charAt(i + m)) % BASE;
+        }
+
+        return -1;
+    }
+
 }
