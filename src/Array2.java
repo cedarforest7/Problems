@@ -560,6 +560,32 @@ public class Array2 {
         nums[n] = temp;
     }
 
+    //lintcode 585. Maximum Number in Mountain Sequence
+    public int mountainSequence(int[] nums) {
+        // binary search
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        int len = nums.length;
+        int low = 0, hi = len - 1, mid = hi / 2;
+        while (low <= hi) {
+            if ((mid == 0 || nums[mid] >= nums[mid - 1]) && (mid == len - 1 || nums[mid] >= nums[mid + 1])) {
+                //mid is top
+                return nums[mid];
+            } else if ((mid == 0 || nums[mid] > nums[mid - 1]) && (mid == len - 1 || nums[mid] < nums[mid + 1])) {
+                //mid in incresing trend
+                low = mid + 1;
+                //System.out.println("low: " + low);
+            } else {
+                //mid in decresing trend
+                hi = mid - 1;
+                //System.out.println("hi: " + hi);
+            }
+            mid = (low + hi) / 2;
+        }
+        return -1;
+    }
+
 
 
 
