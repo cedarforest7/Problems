@@ -1364,11 +1364,8 @@ public class Others3 {
         return (int)mod;
     }
 
-
     public static void main(String[] args) {
         Others3 o = new Others3();
-
-
         int[] a = {7, 2, 3, 10,1,4,8,1};
         List<Integer> l = new ArrayList<>();
         l.add(7);
