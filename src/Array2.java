@@ -588,6 +588,56 @@ public class Array2 {
 
 
 
+    /**
+     * lintcode 460
+     * @param A: an integer array
+     * @param target: An integer
+     * @param k: An integer
+     * @return: an integer array
+     */
+    public int[] kClosestNumbers(int[] A, int target, int k) {
+        // find the position of target assuming it is in A
+        if (A == null || A.length == 0) {
+            return A;
+        }
+        int[] res = new int[k];
+        int len = A.length;
+        int low = 0, hi = len - 1, mid = (len - 1) / 2;
+        int left = -1, right;
+        while (low <= hi) {
+            int middle = A[mid];
+            if (middle == target) {
+                left = mid;
+                break;
+            } else if (middle > target) {
+                hi = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+            mid = (low + hi) / 2;
+        }
+        if (left == -1) {
+            left = hi;
+            right = low;
+        } else {
+            right = left + 1;
+        }
+        //System.out.println(left + " " + right);
+        //put the closest num into res
+        for (int i = 0; i < k; i++) {
+            if (left >= 0 && (right > len - 1 || target - A[left] <= A[right] - target)) {
+                res[i] = A[left];
+                left--;
+            } else {
+                res[i] = A[right];
+                right++;
+            }
+        }
+        return res;
+    }
+
+
+
 
     public static void main(String[] args) {
         Array2 a = new Array2();
