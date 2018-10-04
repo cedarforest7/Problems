@@ -1342,54 +1342,32 @@ public class Others3 {
         return open.isEmpty();
     }
 
-
-
+    //lintcode 140
+    public int fastPower(int a, int b, int n) {
+        //(a ^ n) % b
+        if (a == 0) {
+            return 0;
+        }
+        if (n == 0) {
+            return 1 % b;
+        }
+        if (n == 1) {
+            return a % b;
+        }
+        long temp = fastPower(a, b, n / 2);
+        long mod;
+        if (n % 2 == 0) {
+            mod = temp * temp % b;
+        } else {
+            mod = ((temp * temp) % b) * a % b;
+        }
+        return (int)mod;
+    }
 
 
     public static void main(String[] args) {
         Others3 o = new Others3();
-        //System.out.println(o.numSquares(118));
-//        for (int i = 1; i < 20; i++) {
-//            System.out.println(o.countAndSay(i));
-//        }
-//        List<String> l = o.letterCombinations("");
-//        for (String s : l) {
-//            System.out.println(s);
-//        }
-//        List<List<String>> l = o.partition("aab");
-//        for (List lx : l) {
-//            for (Object x : lx) {
-//                System.out.print(x + " ");
-//            }
-//            System.out.println("end\n");
-//        }
-        //System.out.println(o.lengthOfLongestSubstring( "abbacaaa"));
-//        String[] strs = {"flip", "flipped", "float"};
-//        System.out.print(o.longestCommonPrefix(strs));
-        //System.out.print(o.createPal(100, 4));
-        //System.out.print(o.nearestPalindromic("12300"));
 
-//        String[] list1 = {"aa//bb", "c", "/*dd", "//ee*/", "fgg", "//hh"};
-//        List<String> list = new ArrayList<>();
-//        for (String s : list1) {
-//            list.add(s);
-//        }
-//        System.out.print(o.removeComments2(list) + "/end");
-
-//        int[] profits = {1, 2};
-//        String[] x = o.charityAllocation(profits);
-//        for (String s : x) {
-//            System.out.print(s + " ");
-//        }
-
-        //int[] songs = {60, 60};
-        //String[][] input = {{"0801", "A", "540", "600"}, {"0801", "B", "540", "600"}, {"0802", "A", "540", "500"}, {"0802", "B", "540", "440"}};
-        //System.out.print(o.latestStudent(input));
-//        List<String> form = new ArrayList<>();
-//        form.add("A,B,C,");
-//        form.add("aaa,bb,c,k");
-//        form.add(",,zz,");
-//        System.out.print(o.formatter(form));
 
         int[] a = {7, 2, 3, 10,1,4,8,1};
         List<Integer> l = new ArrayList<>();
