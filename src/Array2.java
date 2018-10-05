@@ -665,6 +665,60 @@ public class Array2 {
         return 1;
     }
 
+    //lintcode 62
+    public int search62(int[] A, int target) {
+        // binary search
+        if (A == null || A.length == 0) {
+            return -1;
+        }
+        int len = A.length;
+        if (len == 1 || A[0] < A[len - 1]) {
+            //no rotation
+            return searchHelper(A, target, 0, len - 1);
+        }
+        int low = 0, hi = len - 1, mid = hi / 2;
+        //find pivot
+        int piv = 0;
+        while (low <= hi) {
+            int middle = A[mid];
+            if ((mid == 0 || middle < A[mid - 1]) && (mid == len - 1 || middle < A[mid + 1])) {
+                piv = mid;
+                break;
+            } else if (middle < A[0]) {
+                //move to the left
+                hi = mid - 1;
+            } else {
+                //move to the right
+                low = mid + 1;
+            }
+            mid = (low + hi) / 2;
+        }
+        if (target < A[0]) {
+            return searchHelper (A, target, piv, len - 1);
+        } else {
+            return searchHelper (A, target, 0, piv - 1);
+        }
+    }
+
+    private int searchHelper (int[] A, int target, int low, int hi) {
+        int mid = (low + hi) / 2;
+        if (target < A[low] || target > A[hi]) {
+            return -1;
+        }
+        while (low <= hi) {
+            int middle = A[mid];
+            if (middle == target) {
+                return mid;
+            } else if (middle > target) {
+                hi = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+            mid = (low + hi) / 2;
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
