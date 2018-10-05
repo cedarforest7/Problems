@@ -636,8 +636,34 @@ public class Array2 {
         return res;
     }
 
-
-
+    //lintcode 75
+    public int findPeak(int[] A) {
+        //binary search according to the 'derivative' of middle
+        int len = A.length;
+        int low = 0, hi = len - 1, mid = hi / 2;
+        while (low <= hi) {
+            if (mid == 0) {
+                return 1;
+            }
+            if (mid == len - 1) {
+                return len - 2;
+            }
+            int middle = A[mid];
+            int left = A[mid - 1];
+            int right = A[mid + 1];
+            if (middle > left && middle > right) {
+                //System.out.print(mid);
+                return mid;
+            } else if (middle > left && middle < right) {
+                //move to right
+                low = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+            mid = (low + hi) / 2;
+        }
+        return 1;
+    }
 
     public static void main(String[] args) {
         Array2 a = new Array2();
