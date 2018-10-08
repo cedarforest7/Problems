@@ -719,6 +719,28 @@ public class Array2 {
         return -1;
     }
 
+    //lintcode539
+    public void moveZeroes(int[] nums) {
+        // two pointers
+        if (nums == null || nums.length < 2) {
+            return;
+        }
+        int len = nums.length;
+        int slow = 0, fast = 0;
+        while (fast < len) {
+            if (nums[fast] == 0) {
+                fast++;
+            } else {
+                nums[slow] = nums[fast];
+                slow++;
+                fast++;
+            }
+        }
+        for (; slow < len; slow++) {
+            nums[slow] = 0;
+        }
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
