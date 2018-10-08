@@ -759,6 +759,25 @@ public class Array2 {
         }
         return n;
     }
+    //lintcode521 O(1) space with O(nlogn) time
+    public int deduplication1(int[] nums) {
+        // write your code here
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int slow = 1, fast = 1;
+        while (fast < nums.length) {
+            if (nums[fast] == nums[fast - 1]) {
+                fast++;
+            } else {
+                nums[slow] = nums[fast];
+                slow++;
+                fast++;
+            }
+        }
+        return slow;
+    }
 
     public static void main(String[] args) {
         Array2 a = new Array2();
