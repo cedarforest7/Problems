@@ -741,6 +741,25 @@ public class Array2 {
         }
     }
 
+    //lintcode521 O(n) space with O(n) time
+    public int deduplication(int[] nums) {
+        // write your code here
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int x : nums) {
+            set.add(x);
+        }
+        int n = set.size();
+        int i = 0;
+        for (int x : set) {
+            nums[i] = x;
+            i++;
+        }
+        return n;
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
