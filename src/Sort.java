@@ -55,9 +55,65 @@ public class Sort {
         quicksort(A, left, end);
     }
 
-    private void swap (int[] A, int left, int right){
-        int temp = A[left];
-        A[left] = A[right];
-        A[right] = temp;
+    public int kthLargestElement(int n, int[] nums) {
+        // partition
+        if (nums == null || n > nums.length) {
+            return -1;
+        }
+        return partition (nums, 0, nums.length - 1, n);
+    }
+
+
+    private int partition(int[] nums, int start, int end, int k) {
+        if (k == end - start + 1) {
+            int min = nums[start];
+            for (int i = start + 1; i <= end; i++) {
+                min = Math.min(min, nums[i]);
+            }
+            return min;
+        }
+        int left = start, right = end;
+        int pivot = nums[left + (right - left) / 2];
+        while (left <= right) {
+            while (left <= right && nums[left] < pivot) {
+                left++;
+            }
+            while (left <= right && nums[right] > pivot) {
+                right--;
+            }
+            if (left <= right) {
+                swap(nums, left, right);
+                left++;
+                right--;
+            }
+        }
+        System.out.println(pivot + " " + left + " " + right + " " + start + " " + end);
+        int rLen = end - left + 1;
+        if (left + 2 == right && k == rLen + 1) {
+            return nums[right - 1];
+        }
+        if (rLen < k) {
+            //in the left half
+            return partition(nums, start, right, k - rLen - (left - right - 1));
+        } else {
+            //rLen >= k, target in the right half
+            return partition(nums, left, end, k);
+        }
+    }
+
+    private void swap (int[] nums, int left, int right) {
+        if (left == right) {
+            return;
+        }
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+    }
+
+
+    public static void main(String[] args) {
+        Sort s = new Sort();
+        int[] nums = {9, 3, 2, 4, 8 ,9};
+        System.out.println(s.kthLargestElement(4, nums));
     }
 }
