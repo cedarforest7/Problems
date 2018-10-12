@@ -1364,9 +1364,41 @@ public class Others3 {
         return (int)mod;
     }
 
+    //No.22
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new LinkedList<>();
+        if (n == 0) {
+            return res;
+        }
+        int openPar = 1;
+        StringBuilder sb = new StringBuilder("(");
+        parHelper(res, sb, openPar, n);
+        return res;
+    }
+
+    private void parHelper(List<String> res, StringBuilder sb, int openPar, int n) {
+        if (openPar == n) {
+            int len = sb.length();
+            while(sb.length() < n * 2) {
+                sb.append(")");
+            }
+            res.add(sb.toString());
+            return;
+        }
+
+        StringBuilder temp = new StringBuilder(sb.toString() + "(");
+        parHelper(res, temp, openPar + 1, n);
+
+        if(openPar * 2 > sb.length()) {
+            sb.append(")");
+            parHelper(res, sb, openPar, n);
+        }
+
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
-        int[] a = {7, 2, 3, 10,1,4,8,1};
+        /*int[] a = {7, 2, 3, 10,1,4,8,1};
         List<Integer> l = new ArrayList<>();
         l.add(7);
         l.add(2);
@@ -1376,8 +1408,12 @@ public class Others3 {
         l.add(4);
         l.add(8);
         l.add(1);
+        System.out.print(maxDifferenceOddEven(l));*/
+        List<String> lis = o.generateParenthesis(3);
+        for (String s : lis) {
+            System.out.println(s);
+        }
 
-        System.out.print(maxDifferenceOddEven(l));
     }
 
 
