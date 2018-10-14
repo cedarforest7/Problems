@@ -125,4 +125,77 @@ public class Graph {
     private boolean isDest(int x, int y, Point dest) {
         return x == dest.x && y == dest.y;
     }
+
+    //lintcode 605
+    public boolean sequenceReconstruction(int[] org, int[][] seqs) {
+        //if there is only one TS of directed graph and whether that TS is org
+        if (seqs == null) {
+            return false;
+        }
+        int len = seqs.length;
+        if (len == 0 || seqs[0].length == 0) {
+            if (org.length == 0) {
+                return true;
+            }
+            return false;
+        }
+
+        //adj list
+        Map<Integer, Set<Integer>> adj = new HashMap<>();
+        Map<Integer, Integer> inDegree = new HashMap<>();
+        for (int[] arr : seqs) {
+            for (int i = 0; i < arr.length; i++) {
+                adj.putIfAbsent(arr[i], new HashSet<Integer>());
+                inDegree.putIfAbsent(arr[i], 0);
+                if (i < arr.length - 1) {
+                    adj.putIfAbsent(arr[i + 1], new HashSet<Integer>());
+                    inDegree.putIfAbsent(arr[i + 1], 0);
+                    Set<Integer> tempSet = adj.get(arr[i]);
+                    if (!tempSet.contains(arr[i + 1])) {
+                        tempSet.add(arr[i + 1]);
+                        inDegree.put(arr[i + 1], inDegree.get(arr[i + 1]) + 1);
+                    }
+                }
+
+            }
+        }
+
+        Queue<Integer> fringe = new LinkedList<>();
+        //Set<Integer> visited = new HashSet<>();
+        for (int x : adj.keySet()) {
+            //in degree is 0
+            if (inDegree.get(x) == 0) {
+                fringe.offer(x);
+                //visited.add(x);
+
+            }
+        }
+        int tsLen = 0;
+        int[] res = new int[org.length];
+        while (!fringe.isEmpty()) {
+            if (fringe.size() > 1) {
+                return false;
+            }
+            int cur = fringe.poll();
+            if (tsLen >= org.length) {
+                return false;
+            }
+            res[tsLen] = cur;
+            //System.out.println(cur);
+            tsLen++;
+            for (int x : adj.get(cur)) {
+                int ind = inDegree.get(x);
+                inDegree.put(x, ind - 1);
+                if (ind - 1 == 0) {
+                    fringe.offer(x);
+                    //visited.add(x);
+                }
+            }
+        }
+
+        if (Arrays.equals(res, org)) {
+            return true;
+        }
+        return false;
+    }
 }
