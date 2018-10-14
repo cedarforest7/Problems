@@ -198,4 +198,59 @@ public class Graph {
         }
         return false;
     }
+
+    class DirectedGraphNode {
+        int label;
+        ArrayList<DirectedGraphNode> neighbors;
+        DirectedGraphNode(int x) { label = x; neighbors = new ArrayList<DirectedGraphNode>(); }
+    }
+    //lintcode 127
+    public ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
+        //TS
+        if (graph == null) {
+            return null;
+        }
+        ArrayList<DirectedGraphNode> res = new ArrayList<>();
+        Queue<DirectedGraphNode> fringe = new LinkedList<>();
+        Set<DirectedGraphNode> visited = new HashSet<>();
+        Map<DirectedGraphNode, Integer> inDegree = new HashMap<>();
+        for (DirectedGraphNode node : graph) {
+            if (!visited.contains(node)) {
+                inDegree.putIfAbsent(node, 0);
+                visited.add(node);
+                for (DirectedGraphNode neib : node.neighbors) {
+                    inDegree.putIfAbsent(neib, 0);
+                    inDegree.put(neib, inDegree.get(neib) + 1);
+                }
+            }
+        }
+        visited.clear();
+        //add all inDegree 0 nodes
+        for (DirectedGraphNode node : inDegree.keySet()) {
+            if (inDegree.get(node) == 0) {
+                fringe.offer(node);
+                visited.add(node);
+            }
+        }
+
+        //TS
+        while (!fringe.isEmpty()) {
+            DirectedGraphNode cur = fringe.poll();
+            res.add(cur);
+            //System.out.println(cur.label);
+            for (DirectedGraphNode neib : cur.neighbors) {
+                int temp = inDegree.get(neib);
+                inDegree.put(neib, temp - 1);
+                if (temp - 1 == 0 && !visited.contains(neib)) {
+                    fringe.offer(neib);
+                    visited.add(neib);
+                }
+            }
+        }
+        if (res.size() == inDegree.size()) {
+            return res;
+        }
+        //System.out.println("no TS");
+        return null;
+    }
 }
