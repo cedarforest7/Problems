@@ -537,8 +537,33 @@ public class TreeNode {
         root.right = sortedListToBST(mid + 1, end);
         return root;
     }
+    //lintcode 900
+    int closest = 0;
+    public int closestValue(TreeNode root, double target) {
+        double minDiff = Integer.MAX_VALUE;
+        dfsHelper(root, target, minDiff);
+        return closest;
+    }
 
-
+    private void dfsHelper(TreeNode root, double target, double minDiff) {
+        if (root == null) {
+            return;
+        }
+        double diff = root.val - target;
+        if (diff == 0) {
+            closest = root.val;
+            return;
+        }
+        double abs = Math.abs(diff);
+        if (abs < minDiff) {
+            minDiff = abs;
+            closest = root.val;
+        }
+        if (diff > 0) {
+            dfsHelper(root.left, target, minDiff);
+        }
+        dfsHelper(root.right, target, minDiff);
+    }
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
