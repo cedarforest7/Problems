@@ -565,6 +565,37 @@ public class TreeNode {
         dfsHelper(root.right, target, minDiff);
     }
 
+    //lintcode902
+    int res902 = 0;
+    boolean findK = false;
+    int pre = 0;
+    public int kthSmallest902(TreeNode root, int k) {
+        // write your code here
+        while (!findK) {
+            leftElement(root, k);
+            root = root.right;
+        }
+
+        return res902;
+    }
+
+    private void leftElement(TreeNode root, int k) {
+        if (root == null) {
+            return;
+        }
+        leftElement(root.left, k);
+        if (findK) {
+            return;
+        }
+        if (pre + 1 == k) {
+            findK = true;
+            res902 = root.val;
+            return;
+        }
+        pre++;
+        leftElement(root.right, k);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         TreeNode t2 = new TreeNode(2);
