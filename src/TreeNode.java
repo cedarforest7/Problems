@@ -596,6 +596,71 @@ public class TreeNode {
         leftElement(root.right, k);
     }
 
+    //twitter oa
+
+    public String decode(String[] codes, String encoded) {
+        if (codes == null || codes.length == 0 || encoded == null || encoded.length() == 0) {
+            return "";
+        }
+        TreeNode dummy = new TreeNode(2);
+        Map<TreeNode, Character> map = HuffTree(dummy, codes);
+        TreeNode scan = dummy;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < encoded.length(); i++) {
+            if (encoded.charAt(i) == '0') {
+                scan = scan.left;
+            } else {
+                scan = scan.right;
+            }
+            if (scan == null) {
+                return "";
+            }
+            if (scan.left == null && scan.right == null) {
+                if (!map.keySet().contains(scan)) {
+                    return "";
+                }
+                sb.append(map.get(scan));
+                scan = dummy;
+            }
+
+        }
+
+        return sb.toString();
+    }
+
+    private Map<TreeNode, Character> HuffTree(TreeNode dummy, String[] codes) {
+        dummy.left = new TreeNode(0);
+        dummy.right = new TreeNode (1);
+        Map<TreeNode, Character> map = new HashMap<>();
+        for (String s : codes) {
+            String[] temp = s.split("\t");
+            char c;
+            if (temp[0].length() == 1) {
+                c = temp[0].charAt(0);
+            } else {
+                c = '\n';
+            }
+
+            String code = temp[1];
+            TreeNode scan = dummy;
+            for (int i = 0; i < code.length(); i++) {
+                if (code.charAt(i) == '0') {
+                    if (scan.left == null) {
+                        scan.left = new TreeNode (0);
+                    }
+                    scan = scan.left;
+                } else {
+                    if (scan.right == null) {
+                        scan.right = new TreeNode (1);
+                    }
+                    scan = scan.right;
+                }
+            }
+            map.put(scan, c);
+        }
+        return map;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         TreeNode t2 = new TreeNode(2);
@@ -621,7 +686,11 @@ public class TreeNode {
 //            }
 //            System.out.println("end\n");
 //        }
-        root.hasPathSum(root, 7);
+        //root.hasPathSum(root, 7);
+        String[] codes = {"a\t100100", "b\t100101", "c\t110001","d\t100000", "[newline]\t111111"};
+
+        String encoded = "100100111111110001";
+        System.out.print(root.decode(codes, encoded));
     }
 
 
