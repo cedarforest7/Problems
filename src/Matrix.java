@@ -344,12 +344,144 @@ public class Matrix {
         }
     }
 
+    public static int roverMove(int matrixSize, List<String> cmds) {
+        //position after current move
+        int[] pos = {0, 0};
+        for (String cmd : cmds) {
+            move(pos, cmd, matrixSize);
+            System.out.println(pos[0] + " " + pos[1]);
+        }
+        return pos[0] * matrixSize+ pos[1];
+    }
+
+    private static void move (int[] pos, String cmd, int matrixSize) {
+
+        switch(cmd) {
+            case "UP": if (pos[0] != 0) {pos[0]--;} break;
+            case "DOWN": if (pos[0] != matrixSize - 1) {pos[0]++;} break;
+            case "RIGHT": if (pos[1] != matrixSize - 1) {pos[1]++;} break;
+            case "LEFT": if (pos[1] != 0) {pos[1]--;} break;
+        }
+
+    }
+
+    public static int countMatches(List<String> grid1, List<String> grid2) {
+        //list to matrix
+        int[][] matrix1 = toMatrix(grid1);
+        int row1 = matrix1.length, col1 = matrix1[0].length;
+
+        int[][] matrix2 = toMatrix(grid2);
+        //int row2 = matrix2.length, col2 = matrix2[0].length;
+        int count = 0;
+        for (int i = 0; i < row1; i++) {
+            for (int j = 0; j < col1; j++) {
+                if (matrix1[i][j] == 1 && matrix2[i][j] == 1) {
+                    if (match(matrix1, matrix2, i, j, row1, col1)) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    private static int[][] toMatrix(List<String> grid) {
+        int len = grid.get(0).length();
+        int[][] matrix = new int[grid.size()][len];
+        int i = 0;
+        for (String s : grid) {
+            for (int j = 0; j < len; j++) {
+                if (s.charAt(j) == '0') {
+                    matrix[i][j] = 0;
+                } else {
+                    matrix[i][j] = 1;
+                }
+
+            }
+            i++;
+        }
+        return matrix;
+    }
+
+    private static boolean match(int[][] mat1, int[][] mat2, int i, int j, int row, int col) {
+        mat1[i][j] = 0;
+        mat2[i][j] = 0;
+        boolean up = true, down = true, left = true, right = true;
+        if (i != 0) {
+            if (mat1[i - 1][j] != mat2[i - 1][j]) {
+                up = false;
+                markVisited(mat1, i - 1, j, row, col);
+                markVisited(mat2, i - 1, j, row, col);
+            } else if (mat1[i - 1][j] == 1 ) {
+                up = match(mat1, mat2, i - 1, j, row, col);
+            }
+        }
+        if (j != 0) {
+            if (mat1[i][j - 1] != mat2[i][j - 1]) {
+                left = false;
+                markVisited(mat1, i, j - 1, row, col);
+                markVisited(mat2, i, j - 1, row, col);
+            } else if (mat1[i][j - 1] == 1 ) {
+                left = match(mat1, mat2, i, j - 1, row, col);
+            }
+        }
+        if (i != row - 1) {
+            if (mat1[i + 1][j] != mat2[i + 1][j]) {
+                down = false;
+                markVisited(mat1, i + 1, j, row, col);
+                markVisited(mat2, i + 1, j, row, col);
+            } else if (mat1[i + 1][j] == 1 ) {
+                down = match(mat1, mat2, i + 1, j, row, col);
+            }
+        }
+        if (j != col - 1) {
+            if (mat1[i][j + 1] != mat2[i][j + 1]) {
+                right = false;
+                markVisited(mat1, i, j + 1, row, col);
+                markVisited(mat2, i, j + 1, row, col);
+            } else if (mat1[i][j+ 1] == 1 ) {
+                right = match(mat1, mat2, i, j + 1, row, col);
+            }
+        }
+        return up && down && left && right;
+    }
+
+    private static void markVisited(int[][] mat, int i, int j, int row, int col) {
+        if (mat[i][j] == 0) {
+            return;
+        }
+        mat[i][j] = 0;
+        if (i != 0 && mat[i - 1][j] == 1) {
+            markVisited(mat, i - 1, j, row, col);
+        }
+        if (j != 0 && mat[i][j - 1] == 1) {
+            markVisited(mat, i, j - 1, row, col);
+        }
+        if (i != row - 1 && mat[i + 1][j] == 1) {
+            markVisited(mat, i + 1, j, row, col);
+        }
+        if (j != col - 1 && mat[i][j + 1] == 1) {
+            markVisited(mat, i, j + 1, row, col);
+        }
+    }
+
+
+
     public static void main(String[] args) {
         Matrix m = new Matrix();
-        int[][] grid = {{0, 1, 3}, {2, 3, 5}, {4, 5, 7}};
-        int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
+        //int[][] grid = {{0, 1, 3}, {2, 3, 5}, {4, 5, 7}};
+        //int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
         //System.out.println(minPathSum(grid));
-        System.out.println(m.searchMatrix(grid5, 5));
+        //System.out.println(m.searchMatrix(grid5, 5));
+        List<String> grid1 = new ArrayList<>();
+        grid1.add("111");
+        grid1.add("101");
+        grid1.add("010");
+        List<String> grid2 = new ArrayList<>();
+        grid2.add("111");
+        grid2.add("101");
+        grid2.add("000");
+        System.out.print(countMatches(grid1, grid2));
     }
 
 

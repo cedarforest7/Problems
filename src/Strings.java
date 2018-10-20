@@ -207,6 +207,35 @@ public class Strings {
         return -1;
     }
 
+    public static String decode(String encoded) {
+        StringBuilder sb = new StringBuilder(encoded);
+        sb.reverse();
+        StringBuilder res = new StringBuilder();
+
+        int i = 0;
+        while (i < encoded.length()) {
+            String temp = "";
+            char c = sb.charAt(i);
+            temp += String.valueOf(c);
+            if (c == '1') {
+                i++;
+                c = sb.charAt(i);
+                temp += String.valueOf(c);
+            }
+            i++;
+            c = sb.charAt(i);
+            temp += String.valueOf(c);
+            System.out.println(temp);
+            res.append(convertCode(temp));
+            i++;
+        }
+        return res.toString();
+    }
+
+    private static char convertCode (String s) {
+        int code = Integer.parseInt(s);
+        return (char) code;
+    }
 
 
 }
