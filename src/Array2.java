@@ -779,6 +779,40 @@ public class Array2 {
         return slow;
     }
 
+
+    //lintcode 680 combination dfs problem
+    public List<List<String>> splitString(String s) {
+        // dfs
+        List<List<String>> res = new ArrayList<>();
+        if (s == null) {
+            return res;
+        }
+        //out put all splits of s start with 0
+        dfs680(s, 0, new LinkedList<String>(), res);
+
+        return res;
+    }
+
+    private void dfs680(String s, int start, LinkedList<String> split, List<List<String>> res) {
+        if (start == s.length()) {
+            //add split into res
+            res.add(new LinkedList<>(split));
+            return;
+        }
+        //add one char
+        split.add(s.substring(start, start + 1));
+        dfs680(s, start + 1, split, res);
+        split.removeLast();
+
+        if (start < s.length() - 1) {
+            //add two chars
+            split.add(s.substring(start, start + 2));
+            dfs680(s, start + 2, split, res);
+            split.removeLast();
+        }
+
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
