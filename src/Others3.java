@@ -1396,6 +1396,31 @@ public class Others3 {
 
     }
 
+    //lintcode 152
+    public List<List<Integer>> combine(int n, int k) {
+        if (n == 0) {
+            return null;
+        }
+        List<List<Integer>> res = new ArrayList<>();
+
+        //get all combinations in the range start from 1
+        combineHelper(n, k, res, new ArrayList<Integer>(), 1);
+
+        return res;
+    }
+
+    private void combineHelper (int n, int k, List<List<Integer>> res, List<Integer> temp, int start) {
+        if (k == 0) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = start; i <= n; i++) {
+            temp.add(i);
+            combineHelper(n, k - 1, res, temp, i + 1);
+            temp.remove(temp.size() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         Others3 o = new Others3();
         /*int[] a = {7, 2, 3, 10,1,4,8,1};
