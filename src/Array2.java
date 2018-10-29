@@ -812,6 +812,46 @@ public class Array2 {
         }
 
     }
+    //lintcode 153
+    public List<List<Integer>> combinationSum2(int[] num, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (num == null || num.length == 0) {
+            return res;
+        }
+        Arrays.sort(num);
+        int len = num.length;
+        boolean[] visited = new boolean[len];
+
+        //find all combinations from index 0 to the end whose sum is target
+        combinationsHelper(num, 0, target, res, new ArrayList<Integer>(), visited);
+
+        return res;
+    }
+
+    private void combinationsHelper(int[] num, int start, int target, List<List<Integer>> res, List<Integer> pre, boolean[] visited) {
+        if (target < 0) {
+            return;
+        }
+
+        if (target == 0 ) {
+            res.add(new ArrayList(pre));
+            return;
+        }
+
+        for(int i = start; i < num.length; i++) {
+            //elm dup
+            if (i != 0 && num[i] == num[i - 1] && !visited[i - 1]) {
+                //System.out.println(i);
+                continue;
+            }
+            pre.add(num[i]);
+            visited[i] = true;
+            combinationsHelper(num, i + 1, target - num[i], res, pre, visited);
+            pre.remove(pre.size() - 1);
+            visited[i] = false;
+        }
+
+    }
 
     public static void main(String[] args) {
         Array2 a = new Array2();
@@ -823,20 +863,14 @@ public class Array2 {
 //            }
 //            System.out.println("end\n");
 //        }
-        int[] nums1 = {4,0,0, 0, 0, 0};
-        int[] nums2 = {9,9,0};
-//        System.out.print(a.search(nums2, 3));
-/*        String[][] s = {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
-        List<String> lis = a.findItinerary(s);
-        for (String x : lis) {
-            System.out.print(x + " ");
-        }*/
+        int[] nums1 = {3, 4, 4, 7};
+        List<List<Integer>> lis = a.combinationSum2(nums1, 7);
+        for (List l : lis) {
+            for (Object x : l) {
+                System.out.print((int)x + " ");
+            }
+            System.out.print("\n");
 
-        /*a.merge(nums1, 1, nums2, 5);
-        */
-        a.nextPermutation(nums2);
-        for (int x : nums2) {
-            System.out.print(x + " ");
         }
     }
 }
