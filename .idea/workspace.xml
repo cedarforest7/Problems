@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/test/Array2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Array2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/test/ListNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/ListNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/test/Matrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Matrix.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/test/Others3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Others3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/test/Sort.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Sort.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/test/Strings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Strings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/test/TreeNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/TreeNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Array2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Array2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Strings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Strings.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,12 +16,12 @@
     <session id="50349074">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="21" />
+          <entry key="project.closed" value="22" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.12" value="2" />
-          <entry key="project.open.time.13" value="2" />
+          <entry key="project.open.time.13" value="3" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="2" />
@@ -36,27 +29,27 @@
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.19" value="2" />
           <entry key="project.open.time.4" value="3" />
-          <entry key="project.opened" value="22" />
+          <entry key="project.opened" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="29" />
+          <entry key="java" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="29" />
+          <entry key="JAVA" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="7149" />
+          <entry key="java" value="7167" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7149" />
+          <entry key="JAVA" value="7167" />
         </counts>
       </usages-collector>
     </session>
@@ -64,10 +57,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Array2.java">
+        <entry file="file://$PROJECT_DIR$/src/Strings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="781" lean-forward="true" selection-start-line="781" selection-end-line="781" />
+            <state relative-caret-position="228">
+              <caret line="239" column="18" selection-start-line="239" selection-start-column="18" selection-end-line="239" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -101,9 +94,9 @@
         <option value="$PROJECT_DIR$/src/Others3.java" />
         <option value="$PROJECT_DIR$/src/Graph.java" />
         <option value="$PROJECT_DIR$/src/TreeNode.java" />
-        <option value="$PROJECT_DIR$/src/Strings.java" />
         <option value="$PROJECT_DIR$/src/Matrix.java" />
         <option value="$PROJECT_DIR$/src/Array2.java" />
+        <option value="$PROJECT_DIR$/src/Strings.java" />
       </list>
     </option>
   </component>
@@ -118,7 +111,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -135,7 +128,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -228,7 +221,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21052632" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21376519" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -322,13 +315,6 @@
         <state relative-caret-position="-408" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Strings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="229" column="16" selection-start-line="229" selection-start-column="16" selection-end-line="229" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Matrix.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -366,8 +352,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Array2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="781" lean-forward="true" selection-start-line="781" selection-end-line="781" />
+        <state relative-caret-position="72">
+          <caret line="781" selection-start-line="781" selection-end-line="781" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Strings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="239" column="18" selection-start-line="239" selection-start-column="18" selection-end-line="239" selection-end-column="18" />
         </state>
       </provider>
     </entry>

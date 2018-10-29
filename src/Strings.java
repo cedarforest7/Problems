@@ -237,5 +237,55 @@ public class Strings {
         return (char) code;
     }
 
+    //lintcode 136
+    public List<List<String>> partition(String s) {
+        List<List<String>> initial = new LinkedList<>();
+        if (s == null) {
+            return initial;
+        }
+        int len = s.length();
+        if (len == 0) {
+            List<String> temp = new LinkedList<>();
+            temp.add("");
+            initial.add(temp);
+            return initial;
+        }
+        List<List<List<String>>> memo = new ArrayList<>();
+        //memo.get(i) is correspoding to ending index i - 1
+        //find all partition combinations ending from index 0 to len - 1
+        //initialization
+        initial.add(new LinkedList<>());
+        memo.add(initial);
+        for (int i = 0; i < len; i++) {
+            // extend to previous positions so that substring(k, i + 1) is a pal, add all memo[k] plus the current palindrome\
+            //as memo[i]
+            List<List<String>> resOfIndex = new LinkedList<>();
+            for (int k = i; k >= 0; k--) {
+                if (!isPal(s, k, i)) {
+                    continue;
+                }
+                for (List lis : memo.get(k)) {
+                    List<String> temp = new LinkedList<>(lis);
+                    temp.add(s.substring(k, i + 1));
+                    resOfIndex.add(temp);
+                }
+            }
+            memo.add(resOfIndex);
+        }
+        return memo.get(len);
+    }
+
+    private boolean isPal(String s, int k, int i) {
+        while (k < i) {
+            if (s.charAt(k) == s.charAt(i)) {
+                k++;
+                i--;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }
