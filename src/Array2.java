@@ -852,6 +852,38 @@ public class Array2 {
         }
 
     }
+    //lintcode 135
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (candidates == null || candidates.length == 0) {
+            return res;
+        }
+        //return all combinations start with index 0
+        Arrays.sort(candidates);
+        combinationSumHelper(candidates, target, res, new ArrayList<Integer>(), 0);
+
+        return res;
+    }
+
+    private void combinationSumHelper(int[] cand, int target, List<List<Integer>> res, List<Integer> temp, int start) {
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+
+        for (int i = start; i < cand.length; i++) {
+            if (i != 0 && cand[i] == cand[i - 1]) {
+                continue;
+            }
+            temp.add(cand[i]);
+            //System.out.println(cand[i]);
+            combinationSumHelper(cand, target - cand[i], res, temp, i);
+            temp.remove(temp.size() - 1);
+        }
+    }
 
     public static void main(String[] args) {
         Array2 a = new Array2();
