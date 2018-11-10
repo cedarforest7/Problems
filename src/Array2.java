@@ -1005,6 +1005,36 @@ public class Array2 {
         }
     }
 
+    //lintcode 15
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null) {
+            return res;
+        }
+        boolean[] visited = new boolean[nums.length];
+        //find all premutations, start with an empty list
+        dfs15(nums, res, new ArrayList<Integer>(), visited);
+        return res;
+    }
+
+    private void dfs15(int[] nums, List<List<Integer>> res, ArrayList<Integer> pre, boolean[] visited) {
+        if (pre.size() == nums.length) {
+            res.add(new ArrayList<>(pre));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i]) {
+                continue;
+            }
+            pre.add(nums[i]);
+            visited[i] = true;
+            dfs15(nums, res, pre, visited);
+            pre.remove(pre.size() - 1);
+            visited[i] = false;
+        }
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
