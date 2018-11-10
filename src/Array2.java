@@ -885,6 +885,64 @@ public class Array2 {
         }
     }
 
+    //lintcode33
+    public List<List<String>> solveNQueens(int n) {
+        // queens cannot be in the same row/col/diagonal
+        List<List<String>> res = new ArrayList<>();
+        if (n == 0) {
+            return res;
+        }
+        //get the strins start from row 0
+        int[] pos = new int[n];
+        dfs33(n, 0, pos, res);
+        return res;
+    }
+
+    private void dfs33(int n, int start, int[] pos, List<List<String>> res) {
+        //System.out.println(start);
+        if (start == n) {
+
+            res.add(toList(n, pos));
+        }
+
+
+        for (int j = 0; j < n; j++) {
+            //j is col
+            if (posAllowed(pos, start, j)) {
+
+                pos[start] = j;
+                dfs33(n, start + 1, pos, res);
+            }
+        }
+
+    }
+
+    private List<String> toList(int n, int[] pos) {
+        List<String> lis = new ArrayList<>();
+        for (int x : pos) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                if (i == x) {
+                    sb.append('Q');
+                } else {
+                    sb.append('.');
+                }
+            }
+            //System.out.println(sb.toString());
+            lis.add(sb.toString());
+        }
+        return lis;
+    }
+
+    private boolean posAllowed(int[] pos, int start, int queen) {
+        for (int i = 0; i < start; i++) {
+            if (queen == pos[i] || Math.abs(start - i) == Math.abs(queen - pos[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
