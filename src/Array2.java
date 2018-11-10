@@ -973,6 +973,38 @@ public class Array2 {
 
     }
 
+    //lintcode16
+    public List<List<Integer>> permuteUnique16(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null) {
+            return res;
+        }
+        Arrays.sort(nums);
+        boolean[] visited = new boolean[nums.length];
+        //get premutation start with an empty list
+        dfs16(nums, res, new ArrayList<Integer>(), visited);
+        return res;
+    }
+
+    private void dfs16(int[] nums, List<List<Integer>> res, ArrayList<Integer> pre, boolean[] visited) {
+        if (pre.size() == nums.length) {
+            //System.out.println(pre.size());
+            res.add(new ArrayList<>(pre));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            //check for duplicate
+            if (visited[i] || (i != 0 && nums[i] == nums[i - 1] && !visited[i - 1])) {
+                continue;
+            }
+            pre.add(nums[i]);
+            visited[i] = true;
+            dfs16(nums, res, pre, visited);
+            pre.remove(pre.size() - 1);
+            visited[i] = false;
+        }
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
