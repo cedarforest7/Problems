@@ -84,16 +84,9 @@ public class Strings {
         return res;
     }
 
-    //No.273
-    public String numberToWords(int num) {
-        return null;
-    }
 
-    public static void main(String[] args) {
-        Strings r = new Strings();
-        System.out.print(r.numJewelsInStones("aA", "bbbb"));
 
-    }
+
 
     //lintcode 200
 
@@ -285,6 +278,65 @@ public class Strings {
             }
         }
         return true;
+    }
+    //lintcode 829 word pattern II
+    public boolean wordPatternMatch(String pattern, String str) {
+        // bijection between a letter in pattern and a non-empty substring in str
+        if (str == null || pattern == null) {
+            return false;
+        }
+        Map<Character, String> map = new HashMap<>();
+        Set<String> used = new HashSet<>();
+        //match from the 0th char of pattern and 0th char of str
+        return match(pattern, 0, str, 0, map, used);
+
+    }
+
+    private boolean match (String pattern, int p, String s, int q, Map<Character, String> map, Set<String> used) {
+        if (p == pattern.length() && q == s.length()) {
+            return true;
+        }
+        if (pattern.length() == p || (pattern.length() - p) > (s.length() - q)) {
+            return false;
+        }
+        char cur = pattern.charAt(p);
+        String curMap = map.get(cur);
+        //match cur to [q, i] in s
+        for (int i = q; i < s.length(); i++) {
+            String substr = s.substring(q, i + 1);
+            //System.out.println(cur + " " + substr);
+            if (curMap != null && !curMap.startsWith(substr)) {
+                return false;
+            }
+            if ((used.contains(substr) || curMap != null) && !substr.equals(curMap)) {
+                continue;
+            }
+
+            if (curMap == null) {
+                map.put(cur, substr);
+                used.add(substr);
+                boolean temp = match(pattern, p + 1, s, i + 1, map, used);
+                if (temp) {
+                    return true;
+                }
+                map.remove(cur);
+                used.remove(substr);
+            } else {
+                //used.contains(substr) && substr.equals(curMap)
+                boolean temp = match(pattern, p + 1, s, i + 1, map, used);
+                if (temp) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Strings r = new Strings();
+        //System.out.print(r.numJewelsInStones("aA", "bbbb"));
+        System.out.println(r.wordPatternMatch("aa", "def"));
     }
 
 
