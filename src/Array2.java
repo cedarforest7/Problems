@@ -943,6 +943,36 @@ public class Array2 {
         return true;
     }
 
+    //lintcode34
+    int res34;
+    public int totalNQueens(int n) {
+        res34 = 0;
+        if (n == 0) {
+            return res34;
+        }
+        int[] pos = new int[n];
+        //start from row 0
+        dfs34(n, 0, pos);
+        return res34;
+    }
+
+
+    private void dfs34(int n, int start, int[] pos) {
+        //System.out.println(start);
+        if (start == n) {
+            res34++;
+        }
+
+        for (int j = 0; j < n; j++) {
+            //j is col
+            if (posAllowed(pos, start, j)) {
+                pos[start] = j;
+                dfs34(n, start + 1, pos);
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
