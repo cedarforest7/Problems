@@ -332,11 +332,85 @@ public class Strings {
         }
         return false;
     }
+    //lintcode 132
+    public List<String> wordSearchII(char[][] board, List<String> words) {
+        Set<String> res = new HashSet<>();
+        if (words == null || board == null) {
+            return new ArrayList<>();
+        }
+
+        Set<String> prefix = getPreix (words);
+        Set<String> dict = new HashSet<>(words);
+        boolean[][] visited = new boolean[board.length][board[0].length];
+
+        //get all qualified words start with an empty prefix followed by each position and
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                dfs132(board, dict, prefix, res, new StringBuilder(), visited, i, j);
+            }
+        }
+
+        return new ArrayList<>(res);
+    }
+
+    //get all qualified words start with a prefix pre followed by position (row, col)
+    private void dfs132(char[][] board, Set<String> dict, Set<String> prefix, Set<String> res, StringBuilder pre, boolean[][] visited, int i, int j) {
+        String temp = pre.toString();
+        if (dict.contains(temp)) {
+            res.add(temp);
+        }
+        if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || visited[i][j]) {
+            return;
+        }
+
+        pre.append(board[i][j]);
+        if (!prefix.contains(pre.toString())) {
+            pre.deleteCharAt(pre.length() - 1);
+            return;
+        }
+        visited[i][j] = true;
+        //up
+        dfs132(board, dict, prefix, res, pre, visited, i - 1, j);
+        //down
+        dfs132(board, dict, prefix, res, pre, visited, i + 1, j);
+        //left
+        dfs132(board, dict, prefix, res, pre, visited, i, j - 1);
+        //right
+        dfs132(board, dict, prefix, res, pre, visited, i, j + 1);
+        visited[i][j] = false;
+        pre.deleteCharAt(pre.length() - 1);
+    }
+
+
+
+    private Set<String> getPreix(List<String> words) {
+        Set<String> prefix = new HashSet<>();
+        for (String s : words) {
+            for (int i = 0; i < s.length(); i++) {
+                prefix.add(s.substring(0, i + 1));
+            }
+        }
+        return prefix;
+    }
 
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
-        System.out.println(r.wordPatternMatch("aa", "def"));
+        //System.out.println(r.wordPatternMatch("aa", "def"));
+        char[][] board = {{'d', 'o', 'a', 'f'}, {'a', 'g', 'a', 'i'}, {'d', 'c', 'a', 'n'}};
+        char[][] board2 = {{'d', 'o'}, {'a', 'g'}};
+        List<String> words = new ArrayList<>();
+
+        words.add("dog");
+        words.add("dad");
+        words.add("dgdg");
+        words.add("can");
+        words.add("again");
+        List<String> res132= r.wordSearchII(board, words);
+        for (String s : res132) {
+            System.out.println(s);
+        }
+
     }
 
 
