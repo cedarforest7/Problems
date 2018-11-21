@@ -1035,6 +1035,137 @@ public class Array2 {
         }
     }
 
+    //No.475
+    public int findRadius(int[] houses, int[] heaters) {
+        int maxDistance = 0;
+        if (houses == null || houses.length == 0) {
+            return 0;
+        }
+        Arrays.sort(heaters);
+
+        for (int i = 0; i < houses.length; i++) {
+            int house = houses[i];
+            //binary search to get the closest heater
+            int left = 0, right = heaters.length - 1;
+            boolean equality = false;
+            while (left + 1 < right) {
+                int mid = left + (right - left) / 2;
+                if (heaters[mid] == house) {
+                    equality = true;
+                    break;
+                }
+                if (heaters[mid] < house) {
+                    left = mid;
+                } else {
+                    right = mid;
+                }
+            }
+            if (equality) {
+                continue;
+            }
+            int distLeft = Math.abs(heaters[left] - house);
+            int distRight = Math.abs(heaters[right] - house);
+            if (distLeft < distRight) {
+                maxDistance = Math.max(maxDistance, distLeft);
+            } else {
+                maxDistance = Math.max(maxDistance, distRight);
+            }
+
+        }
+        return maxDistance;
+    }
+
+    //google
+    public int[] findStore(int[] houses, int[] stores) {
+
+
+        int[] nearStores = new int[houses.length];
+        Arrays.sort(stores);
+
+        for (int i = 0; i < houses.length; i++) {
+            int house = houses[i];
+            //binary search to get the closest store
+            int left = 0, right = stores.length - 1;
+            boolean equality = false;
+            while (left + 1 < right) {
+                int mid = left + (right - left) / 2;
+                if (stores[mid] == house) {
+                    equality = true;
+                    break;
+                }
+                if (stores[mid] < house) {
+                    left = mid;
+                } else {
+                    right = mid;
+                }
+            }
+            if (equality) {
+                nearStores[i] = house;
+                continue;
+            }
+            int distLeft = Math.abs(stores[left] - house);
+            int distRight = Math.abs(stores[right] - house);
+            if (distLeft == distRight) {
+                nearStores[i] = Math.min(stores[left], stores[right]);
+            } else if (distLeft < distRight) {
+                nearStores[i] = stores[left];
+            } else {
+                nearStores[i] = stores[right];
+            }
+
+        }
+        return nearStores;
+    }
+
+    public int[] treeAncestor(int[] nums, int d) {
+
+        if (nums == null) {
+            return null;
+        }
+
+        int len = nums.length;
+        int[] res = new int[len];
+        boolean[] visited = new boolean[len];
+
+        for (int i = 0; i < len; i++) {
+            if(visited[i]) {
+                continue;
+            }
+            int p = i;
+            int q = p;
+            for (int j = 0; j < d && q != -1; j++) {
+                //find next ancestor
+                q = nums[q];
+            }
+            if (q < len && q != -1) {
+                res[p] = q;
+                while (q != 0) {
+                    //nums[q] is out of bound
+                    p = nums[p];
+                    q = nums[q];
+                    res[p] = q;
+                    visited[p] = true;
+
+                }
+            } else {
+                res[p] = -1;
+                visited[p] = true;
+            }
+            //now q >= len
+
+            //nums[p] != -1
+            while (p != 0) {
+                p = nums[p];
+                res[p] = -1;
+                visited[p] = true;
+            }
+        }
+
+        return res;
+
+    }
+
+
     public static void main(String[] args) {
         Array2 a = new Array2();
  //       int[] nums = {1, 2, 2, 1, 3};
@@ -1045,7 +1176,7 @@ public class Array2 {
 //            }
 //            System.out.println("end\n");
 //        }
-        int[] nums1 = {3, 4, 4, 7};
+        /*int[] nums1 = {3, 4, 4, 7};
         List<List<Integer>> lis = a.combinationSum2(nums1, 7);
         for (List l : lis) {
             for (Object x : l) {
@@ -1053,6 +1184,20 @@ public class Array2 {
             }
             System.out.print("\n");
 
+        }*/
+
+        int[] houses = {5};
+        int[] stores = {4,6,7};
+        int[] temp = a.findStore(houses, stores);
+        //System.out.println(a.findRadius(houses, heaters));
+
+        /*int[] nums = {-1, 0, 0,1,1,2};
+        int[] temp = a.treeAncestor(nums, 3);
+        System.out.println(temp.length);*/
+        for (int x : temp) {
+            System.out.print(x + " ");
         }
+
+
     }
 }

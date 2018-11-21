@@ -393,6 +393,47 @@ public class Strings {
         return prefix;
     }
 
+    //No.99
+    public int numUniqueEmails(String[] emails) {
+        if (emails == null || emails.length == 0) {
+            return 0;
+        }
+        Set<String> addr = new HashSet<>();
+        for (String s : emails) {
+            if (s == null) {
+                continue;
+            }
+            addr.add(realAddress(s));
+        }
+        return addr.size();
+    }
+
+    private String realAddress(String s) {
+
+        boolean plus = false;
+        boolean domain = false;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char cur = s.charAt(i);
+            if (cur == '@') {
+                domain = true;
+            }
+            if (domain) {
+                sb.append(cur);
+                continue;
+            }
+            if (plus || cur == '.') {
+                continue;
+            }
+            if (cur == '+') {
+                plus = true;
+            } else {
+                sb.append(cur);
+            }
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
