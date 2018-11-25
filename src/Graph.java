@@ -358,12 +358,7 @@ public class Graph {
         String start = "hit";
         String end = "cog";
         List<List<String>> lis = g.findLadders(start, end, dict);
-        for (List<String> l : lis) {
-            for (String x : l) {
-                System.out.print(x + " ");
-            }
-            System.out.print("\n");
-        }
+        Helper.printListofList(lis);
     }
 
 }
