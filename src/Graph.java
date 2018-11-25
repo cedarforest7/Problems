@@ -253,4 +253,117 @@ public class Graph {
         //System.out.println("no TS");
         return null;
     }
+
+    //lintcode 121
+    public List<List<String>> findLadders(String start, String end, Set<String> dict) {
+        List<List<String>> res = new ArrayList<>();
+        if (start == null || end == null || dict == null) {
+            return res;
+        }
+
+        dict.add(start);
+        dict.add(end);
+        Map<String, Integer> distance = new HashMap<>();
+        Map<String, List<String>> next = new HashMap<>();
+        bfs121(start, end, dict, distance, next);
+        dfs121(start, end, res, new ArrayList<String>(), distance, next);
+        return res;
+    }
+
+    private void dfs121(String current, String end, List<List<String>> res, List<String> pre, Map<String, Integer> distance, Map<String, List<String>> next) {
+        if (current.equals(end)) {
+            pre.add(current);
+            res.add(new ArrayList<>(pre));
+            pre.remove(pre.size() - 1);
+            return;
+        }
+        pre.add(current);
+        for (String s : next.get(current)) {
+            dfs121(s, end, res, pre, distance, next);
+        }
+        pre.remove(pre.size() - 1);
+    }
+
+    private void bfs121(String start, String end, Set<String> dict, Map<String, Integer> distance, Map<String, List<String>> next) {
+        Queue<String> fringe = new LinkedList<>();
+        //Set<String> visited = new HashSet<>();
+        fringe.offer(start);
+        distance.put(start, 0);
+        int endDist = Integer.MAX_VALUE;
+
+        for (String s : dict) {
+            next.put(s, new ArrayList<>());
+        }
+        while(!fringe.isEmpty()) {
+            String temp = fringe.poll();
+            //System.out.println(temp + " " + distance.get(temp));
+            if (distance.get(temp) >= endDist) {
+                return;
+            }
+
+            List<String> neighbors = findNeighbors(temp, dict);
+
+            for (String s : neighbors) {
+
+                if (distance.containsKey(s)) {
+                    int dist = distance.get(s);
+                    if (dist == distance.get(temp) + 1) {
+                        next.get(temp).add(s);
+                    }
+                } else {
+                    fringe.offer(s);
+                    next.get(temp).add(s);
+                    distance.put(s, distance.get(temp) + 1);
+                    if (s.equals(end)) {
+                        endDist = distance.get(temp) + 1;
+
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    private List<String> findNeighbors(String s, Set<String> dict) {
+        List<String> next = new ArrayList<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char current = s.charAt(i);
+            for (char c = 'a'; c <= 'z'; c++) {
+                if (c == current) {
+                    continue;
+                }
+                StringBuilder temp = new StringBuilder(s);
+                temp.setCharAt(i, c);
+                String s1 = temp.toString();
+                if (dict.contains(s1)) {
+                    next.add(s1);
+                }
+            }
+        }
+        return next;
+    }
+
+
+    public static void main(String[] args) {
+        Graph g = new Graph();
+        Set<String> dict = new HashSet<>();
+        dict.add("hot");
+        dict.add("dot");
+        dict.add("dog");
+        dict.add("lot");
+        dict.add("log");
+        String start = "hit";
+        String end = "cog";
+        List<List<String>> lis = g.findLadders(start, end, dict);
+        for (List<String> l : lis) {
+            for (String x : l) {
+                System.out.print(x + " ");
+            }
+            System.out.print("\n");
+        }
+    }
+
 }
