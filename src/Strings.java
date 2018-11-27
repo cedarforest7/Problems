@@ -434,6 +434,26 @@ public class Strings {
         return sb.toString();
     }
 
+    //lintcode 209
+    public char firstUniqChar(String str) {
+        if (str == null || str.length() == 0) {
+            return '0';
+        }
+        Map<Character, Integer> count = new HashMap<>();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            count.putIfAbsent(c, 0);
+            count.put(c, count.get(c) + 1);
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (count.get(c) == 1) {
+                return c;
+            }
+        }
+        return '0';
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
