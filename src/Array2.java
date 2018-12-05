@@ -1165,6 +1165,27 @@ public class Array2 {
 
     }
 
+    //lintcode 544
+    public int[] topk(int[] nums, int k) {
+        if (nums == null || k < 0) {
+            return null;
+        }
+        if (nums.length == 0) {
+            return nums;
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<>(nums.length, Collections.reverseOrder());
+        for (int x : nums) {
+            pq.add(x);
+        }
+        int[] res = new int[k];
+        int i = 0;
+        while(!pq.isEmpty() && i < k) {
+            res[i] = pq.poll();
+            i++;
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
         Array2 a = new Array2();
