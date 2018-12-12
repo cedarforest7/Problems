@@ -1166,7 +1166,7 @@ public class Array2 {
     }
 
     //lintcode 544
-    public int[] topk(int[] nums, int k) {
+    public int[] topk1(int[] nums, int k) {
         if (nums == null || k < 0) {
             return null;
         }

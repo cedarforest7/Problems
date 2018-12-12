@@ -1,7 +1,4 @@
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 public class ListNode {
     int val;
@@ -341,6 +338,38 @@ public class ListNode {
             fast = fast.next.next;
         }
         return slow;
+    }
+
+    //lintcode 104
+    public ListNode mergeKLists(List<ListNode> lists) {
+        if (lists == null || lists.size() == 0) {
+            return null;
+        }
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(lists.size(), new Comparator<ListNode>(){
+            @Override
+            public int compare(ListNode node1, ListNode node2) {
+                return node1.val - node2.val;
+            }
+        });
+        ListNode dummy = new ListNode(-1);
+        ListNode scan = dummy;
+        for (ListNode node : lists) {
+            if(node != null) {
+                pq.offer(node);
+            }
+
+        }
+        while(!pq.isEmpty()) {
+            System.out.println("xxx");
+            ListNode temp = pq.poll();
+            scan.next = new ListNode(temp.val);
+            scan = scan.next;
+            if (temp.next != null) {
+                pq.offer(temp.next);
+            }
+        }
+
+        return dummy.next;
     }
 
     public static void main(String[] args) {
