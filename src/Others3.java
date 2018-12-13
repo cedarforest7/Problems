@@ -1421,6 +1421,29 @@ public class Others3 {
         }
     }
 
+    //lintcode 4
+    public int nthUglyNumber(int n) {
+        List<Integer> lis = new ArrayList<>();
+        lis.add(1);
+        int x = 0, y = 0, z = 0;        //pointers in the lis
+
+        while(lis.size() < n) {
+            int p = lis.get(x) * 2, q = lis.get(y) * 3, s = lis.get(z) * 5;
+            int min = Math.min(Math.min(p, q), s);
+            if (p == min) {
+                x++;
+            }
+            if (q == min) {
+                y++;
+            }
+            if (s == min) {
+                z++;
+            }
+            lis.add(min);
+        }
+        return lis.get(lis.size() - 1);
+    }
+
 
 
     public static void main(String[] args) {
