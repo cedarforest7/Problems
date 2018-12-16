@@ -1444,6 +1444,104 @@ public class Others3 {
         return lis.get(lis.size() - 1);
     }
 
+    //No.947
+
+
+    class UnionFind {
+        int count;
+        int[][] stones;
+        //Map<Integer, Integer> map;
+        int[] disjointSet;
+
+        public UnionFind(int[][] stones) {
+            this.stones = stones;
+            count = stones.length;
+            disjointSet = new int[count];
+            for (int i = 0; i < count; i++) {
+                disjointSet[i] = i;
+            }
+
+            //map = new HashMap<>();
+
+        }
+
+
+        private int findRoot(int index) {
+
+            while(disjointSet[index] != index) {
+                index = disjointSet[index];
+            }
+            return index;
+        }
+
+        public int find(int index) {
+            disjointSet[index] = findRoot(index);
+            return disjointSet[index];
+
+        }
+
+        public void union(int x, int y) {
+            if (isConnected(x, y)) {
+                return;
+            }
+            disjointSet[findRoot(x)] = findRoot(y);
+            count--;
+        }
+
+        public boolean isConnected(int x, int y) {
+            return findRoot(x) == findRoot(y);
+        }
+    }
+
+    /*public int removeStones(int[][] stones) {
+        //like number of islands
+        int count = 0;
+        int total = stones.length;
+        int[] disjointSet = new int[total];
+        for (int i = 0; i < total; i++) {
+            disjointSet[i] = -1;
+        }
+        //key is row number, value is a list of array index
+        Map<Integer, List<Integer>> rows = new HashMap<>();
+        Map<Integer, List<Integer>> cols = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < total; i++) {
+            int row = stones[i][0], col = stones[i][1];
+
+            rows.putIfAbsent(row, new ArrayList<>());
+            rows.get(row).add(i);
+            union(count, disjointSet, i, rows.get(row).get(0));
+            //disjointSet[i] = rows.get(row).get(0);
+
+            cols.putIfAbsent(col, new ArrayList<>());
+            cols.get(col).add(i);
+
+            count = union(count, disjointSet, cols.get(col).get(0), i);
+
+        }
+
+        return total - count;
+    }*/
+
+    public int removeStones(int[][] stones) {
+        int total = stones.length;
+        UnionFind uf = new UnionFind(stones);
+
+        for (int i = 0; i < total; i++) {
+            int row = stones[i][0], col = stones[i][1];
+            for (int j = 0; j < i; j++) {
+                if (row == stones[j][0] || col == stones[j][1]) {
+                    uf.union(i, j);
+                }
+            }
+            //System.out.println(uf.count);
+        }
+
+        return total - uf.count;
+    }
+
+
+
 
 
     public static void main(String[] args) {
@@ -1459,10 +1557,14 @@ public class Others3 {
         l.add(8);
         l.add(1);
         System.out.print(maxDifferenceOddEven(l));*/
-        List<String> lis = o.generateParenthesis(3);
+
+        int[][] b = {{3,2}, {0,0}, {3,3}, {2,1}, {2,3}, {2,2}, {0,2}};
+        System.out.print(o.removeStones(b));
+
+        /*List<String> lis = o.generateParenthesis(3);
         for (String s : lis) {
             System.out.println(s);
-        }
+        }*/
 
     }
 

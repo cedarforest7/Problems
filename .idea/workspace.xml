@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="" />
+    <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Others3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Others3.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,12 +18,12 @@
     <session id="50349074">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="39" />
+          <entry key="project.closed" value="40" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="5" />
           <entry key="project.open.time.12" value="5" />
-          <entry key="project.open.time.13" value="10" />
+          <entry key="project.open.time.13" value="11" />
           <entry key="project.open.time.14" value="3" />
           <entry key="project.open.time.15" value="3" />
           <entry key="project.open.time.16" value="2" />
@@ -30,47 +32,51 @@
           <entry key="project.open.time.19" value="2" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.4" value="3" />
-          <entry key="project.opened" value="40" />
+          <entry key="project.opened" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="44" />
+          <entry key="java" value="45" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="44" />
+          <entry key="JAVA" value="45" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="13779" />
+          <entry key="java" value="16251" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="13779" />
+          <entry key="JAVA" value="16251" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ListNode.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Others3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="334" column="42" lean-forward="true" selection-start-line="334" selection-start-column="42" selection-end-line="334" selection-end-column="42" />
+            <state relative-caret-position="119">
+              <caret line="1489" lean-forward="true" selection-start-line="1489" selection-end-line="1489" />
+              <folding>
+                <element signature="e#46301#46302#0" expanded="true" />
+                <element signature="e#46341#46342#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Others3.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DisjointSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="1433" column="20" lean-forward="true" selection-start-line="1433" selection-start-column="20" selection-end-line="1433" selection-end-column="20" />
+            <state relative-caret-position="34">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -148,7 +154,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Interval.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543970114734" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544936551553" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -166,7 +172,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Graph">
+  <component name="RunManager" selected="Application.Others3">
     <configuration name="Array2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Array2" />
       <module name="test" />
@@ -188,6 +194,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Others3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Others3" />
+      <module name="test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Strings" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Strings" />
       <module name="test" />
@@ -195,27 +208,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TreeNode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="TreeNode" />
-      <module name="test" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Array2" />
-      <item itemvalue="Application.TreeNode" />
       <item itemvalue="Application.Matrix" />
       <item itemvalue="Application.Strings" />
       <item itemvalue="Application.Graph" />
+      <item itemvalue="Application.Others3" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Others3" />
         <item itemvalue="Application.Graph" />
         <item itemvalue="Application.Array2" />
         <item itemvalue="Application.Strings" />
         <item itemvalue="Application.Matrix" />
-        <item itemvalue="Application.TreeNode" />
       </list>
     </recent_temporary>
   </component>
@@ -235,7 +241,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19190283" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1951417" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -245,7 +251,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3291815" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.24021353" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.36654803" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -282,6 +288,12 @@
           <line>281</line>
           <properties />
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Others3.java</url>
+          <line>1531</line>
+          <properties />
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -398,15 +410,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ListNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="334" column="42" lean-forward="true" selection-start-line="334" selection-start-column="42" selection-end-line="334" selection-end-column="42" />
+        <state relative-caret-position="5678">
+          <caret line="334" column="42" selection-start-line="334" selection-start-column="42" selection-end-line="334" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DisjointSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Others3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="1433" column="20" lean-forward="true" selection-start-line="1433" selection-start-column="20" selection-end-line="1433" selection-end-column="20" />
+        <state relative-caret-position="119">
+          <caret line="1489" lean-forward="true" selection-start-line="1489" selection-end-line="1489" />
+          <folding>
+            <element signature="e#46301#46302#0" expanded="true" />
+            <element signature="e#46341#46342#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
