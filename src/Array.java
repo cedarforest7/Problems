@@ -784,6 +784,37 @@ public class Array {
         }
     }
 
+    //lintcode 547
+    public int[] intersection(int[] nums1, int[] nums2) {
+        if (nums1 == null || nums2 == null) {
+            return null;
+        }
+        if (nums1.length > nums2.length) {
+            //switch
+            int[] temp = nums1;
+            nums1 = nums2;
+            nums2 = temp;
+        }
+        //nums1 is the one with smaller size
+        Set<Integer> set = new HashSet<>();
+        for (int x : nums1) {
+            set.add(x);
+        }
+        Set<Integer> res = new HashSet<>();
+        for (int x : nums2) {
+            if (set.contains(x)) {
+                res.add(x);
+            }
+        }
+        int[] intersect = new int[res.size()];
+        int i = 0;
+        for (int x : res) {
+            intersect[i] = x;
+            i++;
+        }
+
+        return intersect;
+    }
 
     public static void main(String[] args) {
         Array ar = new Array();
