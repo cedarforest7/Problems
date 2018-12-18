@@ -784,6 +784,7 @@ public class Array {
         }
     }
 
+    
     //lintcode 547
     public int[] intersection(int[] nums1, int[] nums2) {
         if (nums1 == null || nums2 == null) {
