@@ -77,4 +77,71 @@ public class Interval {
         return ends.size();
     }
 
+    //lintcode 839
+    public static List<Interval> mergeTwoInterval(List<Interval> list1, List<Interval> list2) {
+        if (list1 == null && list2 == null) {
+            return null;
+        }
+        List<Interval> res = new ArrayList<>();
+        int p = 0, q = 0;
+        while (p < list1.size() && q < list2.size()) {
+            Interval i = list1.get(p);
+            Interval j = list2.get(q);
+            if (compare(i, j) <= 0) {
+                //i <= j
+                addInterval(res, i);
+                p++;
+            } else {
+                addInterval(res, j);
+                q++;
+            }
+        }
+        while (p < list1.size()) {
+            addInterval(res, list1.get(p));
+            p++;
+        }
+        while (q < list2.size()) {
+            addInterval(res, list2.get(q));
+            q++;
+        }
+        return res;
+    }
+
+    private static void addInterval(List<Interval> lis, Interval i) {
+        if (lis.isEmpty()) {
+            lis.add(i);
+            return;
+        }
+        Interval last = lis.get(lis.size() - 1);
+        if (last.end >= i.start) {
+            if (last.end < i.end) {
+                lis.set(lis.size() - 1, new Interval(last.start, i.end));
+            }
+        } else {
+            lis.add(i);
+        }
+    }
+
+    private static int compare (Interval i, Interval j) {
+        if (i.start != j.start) {
+            return i.start - j.start;
+        }
+        return i.end - j.end;
+    }
+
+    public static void main(String[] args) {
+        List<Interval> l1 = new ArrayList<>();
+        l1.add(new Interval(1,2));
+        l1.add(new Interval(3,4));
+
+        List<Interval> l2 = new ArrayList<>();
+        l2.add(new Interval(2,3));
+        l2.add(new Interval(5,6));
+        List<Interval> l3 = mergeTwoInterval(l1, l2);
+        for (Interval itv : l3) {
+            System.out.println(itv.start + " " + itv.end);
+        }
+
+    }
+
 }

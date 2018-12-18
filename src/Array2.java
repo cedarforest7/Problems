@@ -1186,6 +1186,8 @@ public class Array2 {
         return res;
     }
 
+    //lintcode 138
+
 
     public static void main(String[] args) {
         Array2 a = new Array2();
