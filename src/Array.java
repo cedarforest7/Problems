@@ -784,7 +784,7 @@ public class Array {
         }
     }
 
-    
+
     //lintcode 547
     public int[] intersection(int[] nums1, int[] nums2) {
         if (nums1 == null || nums2 == null) {
@@ -815,6 +815,34 @@ public class Array {
         }
 
         return intersect;
+    }
+
+    //lintcode 41
+    public int maxSubArray(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int[] prefixSum = new int[nums.length + 1];
+        for (int i = 0; i < nums.length; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+        int minPrefix = 0;
+        //int p = 1, q = 1;
+        int maxSum = nums[0];
+        for (int i = 1; i < nums.length + 1; i++) {
+
+            if (prefixSum[i] - minPrefix > maxSum) {
+                maxSum = prefixSum[i] - minPrefix;
+                //p = minPrefixIndex;
+                //q = i;
+            }
+            if (prefixSum[i] < minPrefix) {
+                minPrefix = prefixSum[i];
+
+            }
+        }
+        return maxSum;
     }
 
     public static void main(String[] args) {
