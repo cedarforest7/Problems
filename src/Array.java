@@ -845,6 +845,63 @@ public class Array {
         return maxSum;
     }
 
+    //lintcode 486
+    public int[] mergekSortedArrays(int[][] arrays) {
+        if (arrays == null || arrays.length == 0) {
+            return null;
+        }
+        return mergeHelper(arrays, 0, arrays.length - 1);
+    }
+
+    private int[] mergeHelper(int[][] arrays, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        if (start == end) {
+            return arrays[start];
+        }
+        if (end - start == 1) {
+            return mergeTwoArrays(arrays[start], arrays[end]);
+        }
+        int mid = start + (end - start) / 2;
+        return mergeTwoArrays(mergeHelper(arrays, start, mid), mergeHelper(arrays, mid + 1, end));
+    }
+
+    private int[] mergeTwoArrays(int[] a1, int[] a2) {
+        if (a1 == null || a1.length == 0) {
+            return a2;
+        }
+        if (a2 == null || a2.length == 0) {
+            return a1;
+        }
+        int p = 0, q = 0, i = 0;
+        int len1 = a1.length, len2 = a2.length;
+        int[] res = new int[len1 + len2];
+        while (p < len1 && q < len2) {
+            if (a1[p] < a2[q]) {
+                res[i] = a1[p];
+                p++;
+            } else {
+                res[i] = a2[q];
+                q++;
+            }
+            i++;
+        }
+
+        while (p < len1) {
+            res[i] = a1[p];
+            p++;
+            i++;
+        }
+
+        while(q < len2) {
+            res[i] = a2[q];
+            q++;
+            i++;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Array ar = new Array();
         int[] a = {1,1,1,2,2,3};
