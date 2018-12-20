@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Array.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Array.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,10 +19,10 @@
     <session id="50349074">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="41" />
+          <entry key="project.closed" value="42" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="2" />
-          <entry key="project.open.time.11" value="6" />
+          <entry key="project.open.time.11" value="8" />
           <entry key="project.open.time.12" value="5" />
           <entry key="project.open.time.13" value="11" />
           <entry key="project.open.time.14" value="5" />
@@ -32,7 +33,7 @@
           <entry key="project.open.time.19" value="2" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.4" value="3" />
-          <entry key="project.opened" value="44" />
+          <entry key="project.opened" value="46" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -47,12 +48,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="17610" />
+          <entry key="java" value="18636" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="17610" />
+          <entry key="JAVA" value="18636" />
         </counts>
       </usages-collector>
     </session>
@@ -71,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Array.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="937" column="31" lean-forward="true" selection-start-line="937" selection-start-column="31" selection-end-line="937" selection-end-column="31" />
+            <state relative-caret-position="163">
+              <caret line="1022" lean-forward="true" selection-start-line="1022" selection-end-line="1022" />
               <folding>
                 <element signature="e#28329#28330#0" expanded="true" />
                 <element signature="e#28411#28412#0" expanded="true" />
@@ -124,7 +125,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-78" />
     <option name="y" value="51" />
     <option name="width" value="1890" />
@@ -135,7 +136,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -152,12 +152,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Interval.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545268418539" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545334078387" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -245,7 +246,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2048583" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21133603" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -254,8 +255,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30427048" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4430605" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30427048" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4430605" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -305,6 +306,19 @@
           <properties />
           <option name="timeStamp" value="24" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Array.java</url>
+          <line>966</line>
+          <properties />
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="mid &lt; 40" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/Array.java</url>
+          <line>985</line>
+          <properties />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -314,6 +328,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>mid &lt; 40</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>i == 3</expression-string>
         <language-id>JAVA</language-id>
@@ -441,8 +460,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Array.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="937" column="31" lean-forward="true" selection-start-line="937" selection-start-column="31" selection-end-line="937" selection-end-column="31" />
+        <state relative-caret-position="163">
+          <caret line="1022" lean-forward="true" selection-start-line="1022" selection-end-line="1022" />
           <folding>
             <element signature="e#28329#28330#0" expanded="true" />
             <element signature="e#28411#28412#0" expanded="true" />

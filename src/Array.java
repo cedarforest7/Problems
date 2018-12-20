@@ -903,7 +903,7 @@ public class Array {
     }
 
     //lintcode 931
-    public double findMedian(int[][] nums) {
+    public double findMedian1(int[][] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }
@@ -958,6 +958,75 @@ public class Array {
         return count;
     }
 
+    public double findMedian(int[][] nums) {
+        //The elements of the given arrays are all positive number.
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int count = getTotalNum(nums);
+        if (count == 0) {
+            return 0;
+        }
+
+        if (count % 2 == 0) {
+            //even number
+            return ((double) findKth(nums, count / 2)) / 2 + ((double) findKth(nums, 1 + count / 2)) / 2;
+        } else {
+            //odd number
+            return (double)findKth(nums, (count + 1) / 2);
+        }
+    }
+
+    private int findKth(int[][] nums, int k) {
+        int start = 1, end = Integer.MAX_VALUE;
+        //find the smallest number than k numbers in nums <= the number
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (smallerThanEqual(nums, mid) >= k) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+
+        }
+
+        if (smallerThanEqual(nums, start) == k) {
+            return start;
+        }
+        return end;
+    }
+
+    //returns how many numbers in nums are <= x
+    private int smallerThanEqual(int[][] nums, int x) {
+        int count = 0;
+        for (int[] ar : nums) {
+            count += smallerThanEqual(ar, x);
+        }
+        return count;
+    }
+
+    //returns how many numbers in nums are <= x
+    private int smallerThanEqual(int[] nums, int x) {
+        if (nums == null || nums.length == 0 || nums[0] > x) {
+            return 0;
+        }
+        int start = 0, end = nums.length - 1;
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] <= x) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        //nums[start] <= x is always true
+        if (nums[end] <= x) {
+            return end + 1;
+        }
+        return start + 1;
+    }
+
     public static void main(String[] args) {
         Array ar = new Array();
         int[] a = {1,1,1,2,2,3};
@@ -974,7 +1043,7 @@ public class Array {
             }
             System.out.println("end\n");
         }*/
-        int[][] nums = {{1,3}, {2,4}, {2,5}};
+        int[][] nums = {{10}, {2,4}, {2,5}};
         System.out.println(ar.findMedian(nums));
     }
 
