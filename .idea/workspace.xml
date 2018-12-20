@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Array.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Array.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Matrix.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,22 +37,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="50" />
+          <entry key="java" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="50" />
+          <entry key="JAVA" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="18636" />
+          <entry key="java" value="18704" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="18636" />
+          <entry key="JAVA" value="18704" />
         </counts>
       </usages-collector>
     </session>
@@ -63,21 +62,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Array2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20196">
+            <state relative-caret-position="309">
               <caret line="1188" column="18" selection-start-line="1188" selection-start-column="18" selection-end-line="1188" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Array.java">
+        <entry file="file://$PROJECT_DIR$/src/Matrix.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="1022" lean-forward="true" selection-start-line="1022" selection-end-line="1022" />
-              <folding>
-                <element signature="e#28329#28330#0" expanded="true" />
-                <element signature="e#28411#28412#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="190">
+              <caret line="523" lean-forward="true" selection-start-line="523" selection-end-line="523" />
             </state>
           </provider>
         </entry>
@@ -111,7 +106,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/Sort.java" />
         <option value="$PROJECT_DIR$/src/TreeNode.java" />
-        <option value="$PROJECT_DIR$/src/Matrix.java" />
         <option value="$PROJECT_DIR$/src/Helper.java" />
         <option value="$PROJECT_DIR$/src/Graph.java" />
         <option value="$PROJECT_DIR$/src/Strings.java" />
@@ -122,10 +116,11 @@
         <option value="$PROJECT_DIR$/src/Array2.java" />
         <option value="$PROJECT_DIR$/src/Interval.java" />
         <option value="$PROJECT_DIR$/src/Array.java" />
+        <option value="$PROJECT_DIR$/src/Matrix.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-78" />
     <option name="y" value="51" />
     <option name="width" value="1890" />
@@ -158,7 +153,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Interval.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545334078387" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545341692480" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -176,16 +171,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Array">
+  <component name="RunManager" selected="Application.Matrix">
     <configuration name="Array" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Array" />
-      <module name="test" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Graph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Graph" />
       <module name="test" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -205,6 +193,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Matrix" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Matrix" />
+      <module name="test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Others3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Others3" />
       <module name="test" />
@@ -213,19 +208,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Graph" />
       <item itemvalue="Application.Others3" />
       <item itemvalue="Application.LRUCache" />
       <item itemvalue="Application.Interval" />
       <item itemvalue="Application.Array" />
+      <item itemvalue="Application.Matrix" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Matrix" />
         <item itemvalue="Application.Array" />
         <item itemvalue="Application.Interval" />
         <item itemvalue="Application.LRUCache" />
         <item itemvalue="Application.Others3" />
-        <item itemvalue="Application.Graph" />
       </list>
     </recent_temporary>
   </component>
@@ -255,8 +250,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.30427048" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4430605" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30427048" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.33451957" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -312,13 +307,6 @@
           <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="mid &lt; 40" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/Array.java</url>
-          <line>985</line>
-          <properties />
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -358,13 +346,6 @@
     <entry file="file://$PROJECT_DIR$/../../../intern/twitter/src/ImageMatching.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-408" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Matrix.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="476" column="25" lean-forward="true" selection-start-line="476" selection-start-column="25" selection-end-line="476" selection-end-column="25" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Others2.java">
@@ -451,21 +432,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Array2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20196">
-          <caret line="1188" column="18" selection-start-line="1188" selection-start-column="18" selection-end-line="1188" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Array.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="1022" lean-forward="true" selection-start-line="1022" selection-end-line="1022" />
+        <state relative-caret-position="248">
+          <caret line="988" column="28" lean-forward="true" selection-start-line="988" selection-start-column="28" selection-end-line="988" selection-end-column="28" />
           <folding>
             <element signature="e#28329#28330#0" expanded="true" />
             <element signature="e#28411#28412#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Array2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="1188" column="18" selection-start-line="1188" selection-start-column="18" selection-end-line="1188" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="523" lean-forward="true" selection-start-line="523" selection-end-line="523" />
         </state>
       </provider>
     </entry>

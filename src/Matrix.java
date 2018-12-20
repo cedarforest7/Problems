@@ -465,23 +465,71 @@ public class Matrix {
         }
     }
 
+    public int maxSubmatrix(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int[][] psr = getPrefixSumRows(matrix);
+        int maxSum = Integer.MIN_VALUE;
+        for (int n = 0; n < matrix[0].length; n++) {
+            for (int m = 0; m <= n; m++) {
+                maxSum = Math.max(maxSum, maxSubSum(matrix, m, n, psr));
+            }
+        }
+        return maxSum;
+    }
+
+    private int maxSubSum(int[][] matrix, int m, int n, int[][] psr) {
+        int[] row = new int[matrix.length + 1];
+        for (int i = 0; i < matrix.length; i++) {
+            row[i + 1] = psr[i][n + 1] - psr[i][m];
+        }
+        return getMaxSubArray(row);
+    }
+
+    private int getMaxSubArray(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int[] prefixSum = new int[nums.length + 1];
+        for (int i = 0; i < nums.length; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+        int minPrefix = 0;
+        int maxSum = nums[0];
+        for (int i = 1; i < nums.length + 1; i++) {
+
+            if (prefixSum[i] - minPrefix > maxSum) {
+                maxSum = prefixSum[i] - minPrefix;
+            }
+            if (prefixSum[i] < minPrefix) {
+                minPrefix = prefixSum[i];
+
+            }
+        }
+        return maxSum;
+    }
+
+    private int[][] getPrefixSumRows(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int[][] psr = new int[m][n + 1];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                psr[i][j + 1] = psr[i][j] + matrix[i][j];
+            }
+        }
+        return psr;
+    }
+
 
 
     public static void main(String[] args) {
         Matrix m = new Matrix();
-        //int[][] grid = {{0, 1, 3}, {2, 3, 5}, {4, 5, 7}};
+        int[][] grid = {{1, 3, -1}, {2, 3, -2}, {-1, -2, -3}};
         //int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
-        //System.out.println(minPathSum(grid));
-        //System.out.println(m.searchMatrix(grid5, 5));
-        List<String> grid1 = new ArrayList<>();
-        grid1.add("111");
-        grid1.add("101");
-        grid1.add("010");
-        List<String> grid2 = new ArrayList<>();
-        grid2.add("111");
-        grid2.add("101");
-        grid2.add("000");
-        System.out.print(countMatches(grid1, grid2));
+        System.out.println(m.maxSubmatrix(grid));
+
     }
 
 
