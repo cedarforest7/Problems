@@ -902,6 +902,62 @@ public class Array {
         return res;
     }
 
+    //lintcode 931
+    public double findMedian(int[][] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int count = getTotalNum(nums);
+        if (count == 0) {
+            return 0;
+        }
+        int[] pointers = new int[nums.length];
+        //List<ListNode> lis = numsToListNodes(nums);
+        //pq stores the index of the array in nums
+        PriorityQueue<Integer> pq = new PriorityQueue<>(nums.length, new Comparator<Integer>(){
+            //compare the current pointer nums[i] and nums[j]
+            @Override
+            public int compare(Integer i, Integer j) {
+                return nums[i][pointers[i]] - nums[j][pointers[j]];
+            }
+        });
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i].length != 0) {
+                pq.offer(i);
+            }
+        }
+
+        int temp = 0;
+        int med1 = 0;
+        for (int i = 0; i < count / 2; i++) {
+            temp = pq.poll();
+            med1 = nums[temp][pointers[temp]];
+            if (pointers[temp] < nums[temp].length - 1) {
+                pointers[temp]++;
+                pq.offer(temp);
+            }
+
+        }
+
+        int temp2 = pq.poll();
+        if (count % 2 == 0) {
+            //even number of elements
+            return ((double)med1)/2 + ((double)(nums[temp2][pointers[temp2]])) / 2;
+        } else {
+            return (double)nums[temp2][pointers[temp2]];
+        }
+    }
+
+
+    private int getTotalNum(int[][] nums) {
+        int count = 0;
+        for (int[] ar : nums) {
+            count += ar.length;
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         Array ar = new Array();
         int[] a = {1,1,1,2,2,3};
@@ -910,14 +966,16 @@ public class Array {
         //int[] level = ar.waterLevel(ar.localMax(b), b);
         //System.out.println(Arrays.toString(level));
 
-        int[] c = {10,1,2,7,6,1,5};
+        /*int[] c = {10,1,2,7,6,1,5};
         List<List<Integer>> l = ar.DFStest(b, 8);
         for (List lx : l) {
             for (Object x : lx) {
                 System.out.print(x + " ");
             }
             System.out.println("end\n");
-        }
+        }*/
+        int[][] nums = {{1,3}, {2,4}, {2,5}};
+        System.out.println(ar.findMedian(nums));
     }
 
 }
