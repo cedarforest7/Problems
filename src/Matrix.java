@@ -522,6 +522,47 @@ public class Matrix {
         return psr;
     }
 
+    //lintcode 654
+    public int[][] multiply(int[][] A, int[][] B) {
+        if (A == null || B == null) {
+            return null;
+        }
+        int m = A.length;
+        int k = A[0].length;
+        int n = B[0].length;
+        List<List<Integer>> validCols = new ArrayList<>();  //in A
+        List<Set<Integer>> validRows = new ArrayList<>();  //in B
+        for (int i = 0; i < m; i++) {
+            validCols.add(new ArrayList<>());
+            for (int j = 0; j < k; j++) {
+                if (A[i][j] != 0) {
+                    validCols.get(i).add(j);
+                }
+            }
+        }
+
+        for (int j = 0; j < n; j++) {
+            validRows.add(new HashSet<>());
+            for (int i = 0; i < k; i++) {
+                if (B[i][j] != 0) {
+                    validRows.get(j).add(i);
+                }
+            }
+        }
+
+        int[][] res = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int p : validCols.get(i)) {
+                    if (validRows.get(j).contains(p)) {
+                        res[i][j] += A[i][p] * B[p][j];
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Matrix m = new Matrix();
         int[][] grid = {{1, 3, -1}, {2, 3, -2}, {-1, -2, -3}};
