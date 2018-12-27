@@ -1540,7 +1540,27 @@ public class Others3 {
         return total - uf.count;
     }
 
+    //lintcode 114
+    public int uniquePaths(int m, int n) {
+        //(m + n)!/(m! n!)
+        if (m <= 0 || n <= 0) {
+            return 0;
+        }
+        if (m > n) {
+            int temp = n;
+            n = m;
+            m = temp;
+        }
+        return comb((long)(m + n - 2), (long)(m - 1));
+    }
 
+    private int comb(long n, long k) {
+        long res = 1;
+        for (long i = 0; i < k; i++) {
+            res = res * (n - i) / (i + 1);
+        }
+        return (int)res;
+    }
 
 
 
