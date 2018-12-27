@@ -129,6 +129,78 @@ public class Interval {
         return i.end - j.end;
     }
 
+    //lintcode 577
+    public List<Interval> mergeKSortedIntervalLists(List<List<Interval>> intervals) {
+
+        List<Interval> res = new ArrayList<>();
+        if (intervals == null || intervals.size() == 0) {
+            return res;
+        }
+        res = mergeLists(intervals);
+        mergeIntervals(res);
+        return res;
+    }
+
+    private List<Interval> mergeLists(List<List<Interval>> intervals) {
+        Comparator<Interval> cmp = new Comparator<Interval>(){
+            @Override
+            public int compare (Interval o1, Interval o2) {
+                if (o1.start != o2.start) {
+                    return o1.start - o2.start;
+                }
+                return o1.end - o2.end;
+            }
+        };
+
+        PriorityQueue<Interval> pq = new PriorityQueue<>(intervals.size(), cmp);
+        int[] pointer = new int[intervals.size()];
+        Map<Interval, Integer> index = new HashMap<>();
+        int i = 0;
+        //initialization
+        for (List<Interval> lis : intervals) {
+            if (lis == null || lis.size() == 0) {
+                i++;
+                continue;
+            }
+            Interval temp = lis.get(0);
+            pq.offer(temp);
+            index.put(temp, i);
+            pointer[i]++;
+            i++;
+        }
+        List<Interval> res = new ArrayList<>();
+        while (!pq.isEmpty()) {
+            Interval temp = pq.poll();
+            res.add(temp);
+            int lisIndex = index.get(temp);
+            index.remove(temp);
+            //System.out.println(pointer[lisIndex] + " " + intervals.get(lisIndex).size());
+            if (pointer[lisIndex] < intervals.get(lisIndex).size()) {
+                Interval next = intervals.get(lisIndex).get(pointer[lisIndex]);
+                pq.offer(next);
+                pointer[lisIndex]++;
+                index.put(next, lisIndex);
+            }
+        }
+        return res;
+    }
+
+    private void mergeIntervals(List<Interval> lis) {
+        int i = 0;
+        while (i < lis.size() - 1) {
+            Interval cur = lis.get(i);
+            Interval next = lis.get(i + 1);
+            if (next.start <= cur.end) {
+                if (next.end > cur.end) {
+                    cur.end = next.end;
+                }
+                lis.remove(i + 1);
+                continue;
+            }
+            i++;
+        }
+    }
+
     public static void main(String[] args) {
         List<Interval> l1 = new ArrayList<>();
         l1.add(new Interval(1,2));
