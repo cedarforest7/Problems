@@ -563,7 +563,26 @@ public class Matrix {
         return res;
     }
 
-
+    //lintcode 110
+    public int minPathSum2(int[][] grid) {
+        // DP
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        int m = grid.length, n = grid[0].length;
+        int[][] minPath = new int[m][n];
+        minPath[0][0] = grid[0][0];
+        for (int j = 1; j < n; j++) {
+            minPath[0][j] = minPath[0][j - 1] + grid[0][j];
+        }
+        for (int i = 1; i < m; i++) {
+            minPath[i][0] = minPath[i - 1][0] + grid[i][0];
+            for (int j = 1; j < n; j++) {
+                minPath[i][j] = Math.min(minPath[i][j - 1], minPath[i - 1][j]) + grid[i][j];
+            }
+        }
+        return minPath[m - 1][n - 1];
+    }
 
     public static void main(String[] args) {
         Matrix m = new Matrix();
