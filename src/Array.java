@@ -1027,6 +1027,38 @@ public class Array {
         return start + 1;
     }
 
+    //lintcode 603
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new ArrayList<>();
+        }
+        Arrays.sort(nums);
+        List<List<Integer>> subsets = new ArrayList<>();
+        int maxInd = 0;
+        for (int i = 0; i < nums.length; i++) {
+            List<Integer> current = new ArrayList<>();
+            int maxDivIndex = -1;
+            for (int j = 0; j < i; j++) {
+                //find the largest num that current num is divisible by
+                if (nums[i] % nums[j] == 0) {
+                    maxDivIndex = j;
+
+                }
+            }
+            if (maxDivIndex != -1) {
+
+                current.addAll(subsets.get(maxDivIndex));
+            }
+            current.add(nums[i]);
+            subsets.add(current);
+            if (current.size() > subsets.get(maxInd).size()) {
+                maxInd = i;
+            }
+        }
+
+        return subsets.get(maxInd);
+    }
+
     public static void main(String[] args) {
         Array ar = new Array();
         int[] a = {1,1,1,2,2,3};
