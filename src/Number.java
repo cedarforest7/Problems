@@ -21,4 +21,25 @@ public class Number {
         }
         return sq[n];
     }
+
+    //lintcode 116
+    public boolean canJump(int[] A) {
+        if (A == null || A.length == 0) {
+            return false;
+        }
+        int max = A[0];
+        int i = 0;
+        for (; i <= max; i++) {
+            if (i + A[i] >= A.length - 1) {
+                return true;
+            }
+            //System.out.println(i);
+            max = Math.max(max, i + A[i]);
+            if (max >= A.length - 1 ) {
+                return true;
+            }
+        }
+
+        return i >= A.length;
+    }
 }
