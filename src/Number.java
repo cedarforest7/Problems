@@ -42,4 +42,30 @@ public class Number {
 
         return i >= A.length;
     }
+
+    //lintcode 76
+    public int longestIncreasingSubsequence(int[] nums) {
+        //DP
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        int[] lis = new int[n];
+        lis[0] = 1;
+        for (int i = 1; i < n; i++) {
+            int max = 0;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    max = Math.max(max, lis[j]);
+                }
+            }
+            lis[i] = max + 1;
+            //System.out.println(lis[i]);
+        }
+        int len = 1;
+        for (int i = 0; i < n; i++) {
+            len = Math.max(len, lis[i]);
+        }
+        return len;
+    }
 }
