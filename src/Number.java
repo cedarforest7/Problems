@@ -51,22 +51,39 @@ public class Number {
         }
         int n = nums.length;
         int[] lis = new int[n];
-        lis[0] = 1;
-        for (int i = 1; i < n; i++) {
-            int max = 0;
-            for (int j = 0; j < i; j++) {
-                if (nums[j] < nums[i]) {
-                    max = Math.max(max, lis[j]);
-                }
-            }
-            lis[i] = max + 1;
-            //System.out.println(lis[i]);
-        }
+        lis[0] = nums[0];
         int len = 1;
-        for (int i = 0; i < n; i++) {
-            len = Math.max(len, lis[i]);
+        for (int i = 1; i < n; i++) {
+            //compare with the tail of current LIS
+            if (lis[len - 1] < nums[i]) {
+                lis[len] = nums[i];
+                len++;
+            } else {
+                //tail >= nums[i]
+                //find the first value in LIS that is larger than or equals nums[i], and replace it
+                int index = firstGTE(lis, len, nums[i]);
+                lis[index] = nums[i];
+            }
         }
         return len;
     }
-    
+
+    private int firstGTE(int[] lis, int len, int num) {
+        //binary search
+        int start = 0, end = len - 1;
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (lis[mid] >= num) {
+                //move to left
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        if (lis[start] >= num) {
+            return start;
+        }
+        return end;
+    }
+
 }
