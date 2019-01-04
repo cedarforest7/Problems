@@ -86,4 +86,41 @@ public class Number {
         return end;
     }
 
+    //No.904, 3 pointers
+    public int totalFruit(int[] tree) {
+        if (tree == null) {
+            return 0;
+        }
+
+        int n = tree.length;
+        if (n < 3) {
+            return n;
+        }
+        int p1 = 0, p2 = 0;
+        if (tree[1] != tree[0]) {
+            p2 = 1;
+        }
+        int[] nums = {tree[0], tree[1]};
+
+        int maxLen = 2;
+        for (int i = 2; i < n; i++) {
+            if (tree[i] == nums[0] || tree[i] == nums[1]) {
+                if (tree[i] != tree[i - 1]) {
+                    p2 = i;
+                    nums[0] = nums[1];
+                    nums[1] = tree[i];
+                }
+
+            } else {
+                p1 = p2;
+                p2 = i;
+                nums[0] = nums[1];
+                nums[1] = tree[i];
+            }
+            maxLen = Math.max(maxLen, i - p1 + 1);
+            //System.out.println(p1 + ", " + p2 + "[" + nums[0] + "," + nums[1] + "]");
+        }
+        return maxLen;
+    }
+
 }
