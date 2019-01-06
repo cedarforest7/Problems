@@ -58,6 +58,18 @@ public class Bitwise {
         return count;
     }
 
+    public int bitSwapRequired(int a, int b) {
+        return countOnes1(a ^ b);
+    }
+    private int countOnes1(int num) {
+        int count = 0;
+        while (num != 0) {
+            num = num & (num - 1);
+            count++;
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         System.out.println(hammingWeight(11));
     }
