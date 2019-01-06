@@ -70,6 +70,11 @@ public class Bitwise {
         return count;
     }
 
+    //lintcode 142
+    public boolean checkPowerOf2(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+
     public static void main(String[] args) {
         System.out.println(hammingWeight(11));
     }
