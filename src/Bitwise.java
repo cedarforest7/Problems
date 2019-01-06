@@ -33,6 +33,21 @@ public class Bitwise {
         return (a ^ b) + ((a & b) << 1);
     }
 
+    //lintcode 179
+    public int updateBits(int n, int m, int i, int j) {
+        int num = ~1;
+        for (int k = 0; k < i; k++) {
+            num = (num << 1) + 1;
+        }
+        //turn the bits between i, j to 0
+        for (int k = i; k <= j; k++) {
+            n = n & num;
+            num = (num << 1) + 1;
+        }
+
+        return n + (m << i);
+    }
+
     public static void main(String[] args) {
         System.out.println(hammingWeight(11));
     }
