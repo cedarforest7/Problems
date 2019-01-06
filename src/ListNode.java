@@ -372,6 +372,27 @@ public class ListNode {
         return dummy.next;
     }
 
+    //No.141
+    public boolean hasCycle(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null) {
+            if (fast.next == null) {
+                return false;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     public static void main(String[] args) {
 //        ListNode lx6 = new ListNode(9);
 //        ListNode lx5 = new ListNode(9);
