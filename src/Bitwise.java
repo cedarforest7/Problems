@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Bitwise {
     //No.191
     public static int hammingWeight(int n) {
@@ -73,6 +77,26 @@ public class Bitwise {
     //lintcode 142
     public boolean checkPowerOf2(int n) {
         return n > 0 && (n & (n - 1)) == 0;
+    }
+
+    //lintcode 17
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null) {
+            return res;
+        }
+        int n = nums.length;
+        Arrays.sort(nums);
+        for (int i = 0; i < (1 << n); i++) {
+            List<Integer> temp = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                if ((i & (1 << j)) != 0) {
+                    temp.add(nums[j]);
+                }
+            }
+            res.add(temp);
+        }
+        return res;
     }
 
     public static void main(String[] args) {
