@@ -45,7 +45,17 @@ public class Bitwise {
             num = (num << 1) + 1;
         }
 
-        return n + (m << i);
+        return n | (m << i);
+    }
+
+    //lintcode 365
+    public int countOnes(int num) {
+        int x = 1, count = 0;
+        for (int i = 0; i < 32; i++) {
+            count += (x & num) != 0 ? 1 : 0;
+            x = x << 1;
+        }
+        return count;
     }
 
     public static void main(String[] args) {
