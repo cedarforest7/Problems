@@ -28,6 +28,11 @@ public class Bitwise {
         return (odd >>> 1) + (even << 1);
     }
 
+    //lintcode 1
+    public int aplusb(int a, int b) {
+        return (a ^ b) + ((a & b) << 1);
+    }
+
     public static void main(String[] args) {
         System.out.println(hammingWeight(11));
     }
