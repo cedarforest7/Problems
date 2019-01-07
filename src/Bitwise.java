@@ -108,6 +108,31 @@ public class Bitwise {
         return num;
     }
 
+    //lintcode 84
+    public List<Integer> singleNumberIII(int[] A) {
+        List<Integer> res = new ArrayList<>();
+        if (A == null || A.length < 2) {
+            return res;
+        }
+        int num = 0;
+        for (int n : A) {
+            num = num ^ n;
+        }
+        num = num & (-num);
+        int x = 0, y = 0;
+
+        for (int n : A) {
+            if ((n & num) == 0) {
+                x = x ^ n;
+            } else {
+                y = y ^ n;
+            }
+        }
+        res.add(x);
+        res.add(y);
+        return res;
+    }
+
     public static void main(String[] args) {
         System.out.println(hammingWeight(11));
     }
