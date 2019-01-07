@@ -99,6 +99,15 @@ public class Bitwise {
         return res;
     }
 
+    //lintcode 82
+    public int singleNumber(int[] A) {
+        int num = 0;
+        for (int x : A) {
+            num = num ^ x;
+        }
+        return num;
+    }
+
     public static void main(String[] args) {
         System.out.println(hammingWeight(11));
     }
