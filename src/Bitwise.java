@@ -133,6 +133,27 @@ public class Bitwise {
         return res;
     }
 
+    //lintcode 83
+    public int singleNumberII(int[] A) {
+        int[] freq = new int[32];
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < 32; j++) {
+                if ((A[i] & (1 << j)) != 0) {
+                    freq[j]++;
+                }
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < 32; i++) {
+            //System.out.println(freq[i]);
+            if (freq[i] % 3 != 0) {
+                res += (1 << i);
+            }
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
         System.out.println(hammingWeight(11));
     }
