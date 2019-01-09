@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Number {
     //lintcode 513
     public int numSquares(int n) {
@@ -123,4 +127,29 @@ public class Number {
         return maxLen;
     }
 
+    //No.322
+    public int coinChange(int[] coins, int amount) {
+
+        if (coins == null || coins.length == 0 || amount < 0) {
+            return -1;
+        }
+        //Arrays.sort(coins);
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int val : coins) {
+            for (int i = val; i <= amount; i++) {
+                if (dp[i - val] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], 1 + dp[i - val]);
+                }
+            }
+        }
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+
+    public static void main(String[] args) {
+        Number nb = new Number();
+        int[] coins = {1, 9, 4};
+        System.out.println(nb.coinChange(coins, 12));
+    }
 }
