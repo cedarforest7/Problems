@@ -584,14 +584,59 @@ public class Matrix {
         return minPath[m - 1][n - 1];
     }
 
+    //No.54
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return res;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        spiralHelper(res, matrix, 0, m, n);
+        return res;
+    }
 
+    private void spiralHelper(List<Integer> res, int[][] matrix, int k, int m, int n) {
+        if (k >= n - k || k >= m - k) {
+            return;
+        }
+        int i = k, j = k;
+        for (; j < n - k; j++) {
+            res.add(matrix[i][j]);
+        }
+        j--;
+        i++;
+        if (i == m - k) {
+            return;
+        }
+        for (; i < m - k; i++) {
+            res.add(matrix[i][j]);
+        }
+        i--;
+        j--;
+        if (j < k || j == n - k) {
+            return;
+        }
+        for (; j >= k; j--) {
+            res.add(matrix[i][j]);
+        }
+        j++;
+        i--;
+        for (; i > k; i--) {
+            res.add(matrix[i][j]);
+        }
+        spiralHelper(res, matrix, k + 1, m, n);
+    }
 
     public static void main(String[] args) {
         Matrix m = new Matrix();
-        int[][] grid = {{0, 1, 0}, {0, 0, 0}, {0, 0, 0}};
+        int[][] grid = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+        int[][] grid1 = {{1},{2},{3}};
+        int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
+        List<Integer> res = m.spiralOrder(grid1);
+        for (int x : res) {
+            System.out.print(x + " ");
+        }
 
-        //int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
-        System.out.println(m.maxSubmatrix(grid));
 
     }
 
