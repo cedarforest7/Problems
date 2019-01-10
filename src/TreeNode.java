@@ -661,20 +661,52 @@ public class TreeNode {
         return map;
     }
 
+    //98
+    class resultType {
+        Integer max;
+        Integer min;
+        boolean isValid;
+        public resultType(Integer min, Integer max, boolean isValid) {
+            this.min = min;
+            this.max = max;
+            this.isValid = isValid;
+        }
+    }
+
+    public boolean isValidBST(TreeNode root) {
+        return validBSTHelper(root).isValid;
+    }
+
+    private resultType validBSTHelper(TreeNode root) {
+        resultType res = new resultType(null, null, true);
+        if (root == null) {
+            return res;
+        }
+        resultType left = validBSTHelper(root.left);
+        resultType right = validBSTHelper(root.right);
+        res.isValid = left.isValid && right.isValid && (left.max == null || left.max < root.val) && (right.min == null || right.min > root.val);
+        if (!res.isValid) {
+            return res;
+        }
+        res.min = left.min == null ? root.val : left.min;
+        res.max = right.max == null ? root.val : right.max;
+        return res;
+    }
+
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        TreeNode t2 = new TreeNode(2);
-        TreeNode t3 = new TreeNode(3);
-        TreeNode t4 = new TreeNode(4);
-        TreeNode t5 = new TreeNode(5);
-        TreeNode t6 = new TreeNode(6);
-        TreeNode t7 = new TreeNode(7);
+        TreeNode root = new TreeNode(3);
+        TreeNode t2 = new TreeNode(1);
+        TreeNode t3 = new TreeNode(0);
+        TreeNode t4 = new TreeNode(2);
+        TreeNode t5 = new TreeNode(3);
+        //TreeNode t6 = new TreeNode(6);
+        //TreeNode t7 = new TreeNode(7);
         root.left = t2;
-        root.right = t3;
-        t2.left = t4;
-        t2.right = t5;
-        t3.left = t6;
-        t3.right = t7;
+        //root.right = t3;
+        t2.left = t3;
+        t2.right = t4;
+        t4.right = t5;
+
 //        LinkedList<TreeNode> anc2 = root.ancestors(root, t2);
 //        for (TreeNode t : anc2) {
 //            System.out.print(t.val + " ");
@@ -687,10 +719,10 @@ public class TreeNode {
 //            System.out.println("end\n");
 //        }
         //root.hasPathSum(root, 7);
-        String[] codes = {"a\t100100", "b\t100101", "c\t110001","d\t100000", "[newline]\t111111"};
+        /*String[] codes = {"a\t100100", "b\t100101", "c\t110001","d\t100000", "[newline]\t111111"};
 
-        String encoded = "100100111111110001";
-        System.out.print(root.decode(codes, encoded));
+        String encoded = "100100111111110001";*/
+        System.out.print(root.isValidBST(root));
     }
 
 
