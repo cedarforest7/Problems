@@ -693,6 +693,69 @@ public class TreeNode {
         return res;
     }
 
+    //236
+    class Result236{
+        boolean findP;
+        boolean findQ;
+        TreeNode LCA;
+        public Result236() {
+            findP = false;
+            findQ = false;
+            LCA = null;
+        }
+        public Result236(boolean findP, boolean findQ, TreeNode LCA) {
+            this.findP = findP;
+            this.findQ = findQ;
+            this.LCA = LCA;
+        }
+    }
+
+    public TreeNode lowestCommonAncestor236(TreeNode root, TreeNode p, TreeNode q) {
+        return LCAHelper(root, p, q).LCA;
+    }
+
+    private Result236 LCAHelper(TreeNode root, TreeNode p, TreeNode q) {
+        Result236 res = new Result236();
+        if (root == null) {
+            return res;
+        }
+        Result236 left = LCAHelper(root.left, p, q);
+        Result236 right = LCAHelper(root.right, p, q);
+        res.findP = left.findP || right.findP || root == p;
+        res.findQ = left.findQ || right.findQ || root == q;
+        if (res.findP && res.findQ) {
+            if (left.LCA != null) {
+                res.LCA = left.LCA;
+            } else if (right.LCA != null) {
+                res.LCA = right.LCA;
+            } else {
+                res.LCA = root;
+            }
+        }
+        return res;
+    }
+
+    public TreeNode lowestCommonAncestor236x(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        if (root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) {
+            return root;
+        }
+        if (left != null) {
+            return left;
+        }
+        if (right != null) {
+            return right;
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
         TreeNode t2 = new TreeNode(1);
