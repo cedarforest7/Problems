@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Number {
     //lintcode 513
@@ -147,9 +145,94 @@ public class Number {
         return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
     }
 
+    class Entry<String, Double> implements Map.Entry<String, Double> {
+        private String key;
+        private Double val;
+
+        public Entry(String key, Double val) {
+            this.key = key;
+            this.val = val;
+        }
+
+        @Override
+        public String getKey() {
+            return key;
+        }
+
+        @Override
+        public Double getValue() {
+            return val;
+        }
+
+        @Override
+        public Double setValue(Double value) {
+            Double old = val;
+            val = value;
+            return val;
+        }
+    }
+
+    //No.399
+    public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
+        if (equations == null || values == null || queries == null) {
+            return null;
+        }
+        double[] res = new double[queries.length];
+        Map<String, List<Entry<String, Double>>> adj = new HashMap<>();     //adjacency list
+        for (int i = 0; i < equations.length; i++) {
+            String[] str = equations[i];
+            adj.putIfAbsent(str[0], new ArrayList<>());
+            adj.get(str[0]).add(new Entry(str[1], values[i]));
+            adj.putIfAbsent(str[1], new ArrayList<>());
+            adj.get(str[1]).add(new Entry(str[0], 1 / values[i]));
+        }
+
+        for (int i = 0; i < queries.length; i++) {
+            String start = queries[i][0];
+            String end = queries[i][1];
+            if (!adj.containsKey(start)) {
+                res[i] = -1;
+                continue;
+            }
+            res[i] = dfs(adj, start, end, 1, new HashSet<>());
+        }
+        return res;
+    }
+
+    private double dfs (Map<String, List<Entry<String, Double>>> adj, String start, String end, double pre, Set<String> visited) {
+        if (start.equals(end)) {
+            return pre;
+        }
+        if (!adj.containsKey(start)) {
+            return -1;
+        }
+
+        List<Entry<String, Double>> lis = adj.get(start);
+        for (Entry ent : lis) {
+            double val = (double)ent.getValue();
+            String temp = (String)ent.getKey();
+            if (visited.contains(temp)) {
+                continue;
+            }
+            visited.add(temp);
+            double res = dfs(adj, temp, end, pre * val, visited);
+            if (res != -1) {
+                return res;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         Number nb = new Number();
-        int[] coins = {1, 9, 4};
-        System.out.println(nb.coinChange(coins, 12));
+        //int[] coins = {1, 9, 4};
+        //System.out.println(nb.coinChange(coins, 12));
+        String[][] equations = {{"a","b"},{"b","c"}};
+        double[] values = {2.0, 3.0};
+        String[][] queries = {{"a","c"},{"b","c"},{"a","e"},{"a","a"},{"a","x"}};
+        double[] res = nb.calcEquation(equations, values, queries);
+        for (double x : res) {
+            System.out.println(x + " ");
+        }
     }
 }
