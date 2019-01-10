@@ -154,7 +154,49 @@ public class Bitwise {
         return res;
     }
 
+    //No. 393
+    public boolean validUtf8(int[] data) {
+        if (data == null || data.length == 0) {
+            return false;
+        }
+        int i = 0;
+        while (i < data.length) {
+            int n = 1;      //n byte char
+            if ((data[i] & (1 << 7)) != 0) {
+                // > 1 byte char
+                if ((data[i] & (1 << 6)) == 0) {
+                    return false;
+                }
+                int k = 6;
+                while ((data[i] & (1 << k)) != 0 && k >= 3) {
+                    k--;
+                    n++;
+                }
+            }
+            if (!validChar(data, i, n)) {
+                return false;
+            }
+            i += n;
+        }
+        return true;
+    }
+
+    private boolean validChar(int[] data, int i, int n) {
+        if (n > 4 || i + n > data.length) {
+            return false;
+        }
+        for (int j = i + 1; j < i + n; j++) {
+            if ((data[j] & (1 << 7)) == 0 || (data[j] & (1 << 6)) != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        System.out.println(hammingWeight(11));
+        Bitwise bw = new Bitwise();
+        int[] data = {197};
+        System.out.println(bw.validUtf8(data));
+        //System.out.println(130 & (1 << 7));
     }
 }
