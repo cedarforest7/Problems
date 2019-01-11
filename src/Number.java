@@ -223,16 +223,81 @@ public class Number {
         return -1;
     }
 
+    //621
+    public int leastInterval(char[] tasks, int n) {
+        if (tasks == null || tasks.length == 0) {
+            return 0;
+        }
+        int[] freq = new int[26];
+        int[] lastOccur = new int[26];
+
+        for (char c : tasks) {
+            freq[c - 'A']++;
+            Arrays.fill(lastOccur, - n - 1);
+        }
+        int intervals = 0;
+        Comparator<Character> cmp = new Comparator<Character>() {
+            @Override
+            public int compare(Character c1, Character c2) {
+                if (lastOccur[c1 - 'A'] != lastOccur[c2 - 'A']) {
+                    //last occur smaller, higher priority
+                    return lastOccur[c1 - 'A'] - lastOccur[c2 - 'A'];
+
+                }
+                //higher freq, higher priority
+                return freq[c2 - 'A'] - freq[c1 - 'A'];
+            }
+        };
+        PriorityQueue<Character> pq = new PriorityQueue<>(26, cmp);
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] != 0) {
+                pq.offer((char)('A' + i));
+            }
+
+        }
+        while (!pq.isEmpty()) {
+            char temp = pq.poll();  //task is executed once
+            int f = freq[temp - 'A'] - 1;
+            int last = lastOccur[temp - 'A'];
+            if (intervals - last < n) {
+                System.out.print("idle"+ (last + n - intervals) + " ");
+                intervals = last + n;
+            }
+            System.out.print(temp + " ");
+            intervals++;
+            //update frequency and occurrence
+            freq[temp - 'A'] = f;
+            lastOccur[temp - 'A'] = intervals;
+            if (f > 0) {
+                pq.offer(temp);
+            }
+            if (intervals % (n + 1) == 0) {
+                //reset
+                Arrays.fill(lastOccur, - n - 1);
+                pq = new PriorityQueue<>(26, cmp);
+                for (int i = 0; i < 26; i++) {
+                    if (freq[i] != 0) {
+                        pq.offer((char)('A' + i));
+                    }
+                }
+
+            }
+        }
+        return intervals;
+    }
+
     public static void main(String[] args) {
         Number nb = new Number();
         //int[] coins = {1, 9, 4};
         //System.out.println(nb.coinChange(coins, 12));
-        String[][] equations = {{"a","b"},{"b","c"}};
+        /*String[][] equations = {{"a","b"},{"b","c"}};
         double[] values = {2.0, 3.0};
         String[][] queries = {{"a","c"},{"b","c"},{"a","e"},{"a","a"},{"a","x"}};
         double[] res = nb.calcEquation(equations, values, queries);
         for (double x : res) {
             System.out.println(x + " ");
-        }
+        }*/
+        char[] tasks = {'A', 'A','A', 'A', 'B', 'B', 'B', 'C', 'C', 'D', 'E'};
+        System.out.println(nb.leastInterval(tasks, 3));
     }
 }
