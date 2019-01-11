@@ -288,7 +288,30 @@ public class Others {
         return h;
     }
 
+    //91
+    public int numDecodings(String s) {
+        if (s == null || s.length() == 0 || s.charAt(0) == '0') {
+            return 0;
+        }
 
+        int[] dp = new int[s.length() + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == '0') {
+                if (s.charAt(i - 1) == '1' || s.charAt(i - 1) == '2') {
+                    dp[i + 1] = dp[i - 1];
+                    continue;
+                }
+                return 0;
+            }
+            dp[i + 1] = dp[i];
+            if (s.charAt(i - 1) != '0' && (s.charAt(i - 1) - '0') * 10 + (s.charAt(i) - '0') < 27) {
+                dp[i + 1] += dp[i - 1];
+            }
+        }
+        return dp[s.length()];
+    }
 
 
     public static void main(String[] args) {
