@@ -627,6 +627,37 @@ public class Matrix {
         spiralHelper(res, matrix, k + 1, m, n);
     }
 
+    //695
+    public int maxAreaOfIsland(int[][] grid) {
+        if (grid == null || grid.length == 0 ||grid[0].length == 0) {
+            return 0;
+        }
+        int m = grid.length, n = grid[0].length;
+        int max = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 0) {
+                    continue;
+                }
+                max = Math.max(max, dfsMaxIsland(grid, i, j, 0, m, n));
+            }
+        }
+        return max;
+    }
+
+    private int dfsMaxIsland(int[][] grid, int i, int j, int area, int m, int n) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0) {
+            return area;
+        }
+        area++;
+        grid[i][j] = 0;
+        area = dfsMaxIsland(grid, i - 1, j, area, m, n);
+        area = dfsMaxIsland(grid, i + 1, j, area, m, n);
+        area = dfsMaxIsland(grid, i, j - 1, area, m, n);
+        area = dfsMaxIsland(grid, i, j + 1, area, m, n);
+        return area;
+    }
+
     public static void main(String[] args) {
         Matrix m = new Matrix();
         int[][] grid = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
