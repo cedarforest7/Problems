@@ -658,17 +658,48 @@ public class Matrix {
         return area;
     }
 
+    //547
+    public int findCircleNum(int[][] M) {
+        if (M == null || M.length == 0 || M.length != M[0].length) {
+            return 0;
+        }
+        int n = M.length;
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (M[i][i] == 0) {
+                continue;
+            }
+            count++;
+            dfsCircle(M, i, n);
+        }
+        return count;
+    }
 
+    private void dfsCircle(int[][] M, int i, int n) {
+        if (i < 0 || i >= n || M[i][i] == 0) {
+            return;
+        }
+        for (int j = 0; j < n; j++) {
+            if (j == i || M[i][j] == 0) {
+                continue;       //skip self
+            }
+            M[i][j] = 0;   //visited
+            M[j][i] = 0;
+            dfsCircle(M, j, n);
+        }
+        M[i][i] = 0;
+    }
 
     public static void main(String[] args) {
         Matrix m = new Matrix();
-        int[][] grid = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+        int[][] grid = {{1, 0, 0, 1}, {0,1,1,0}, {0,1,1,1}, {1,0,1,1}};
         int[][] grid1 = {{1},{2},{3}};
         int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
-        List<Integer> res = m.spiralOrder(grid1);
+        /*List<Integer> res = m.spiralOrder(grid1);
         for (int x : res) {
             System.out.print(x + " ");
-        }
+        }*/
+        System.out.println(m.findCircleNum(grid));
 
 
     }
