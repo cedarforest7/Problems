@@ -1186,7 +1186,29 @@ public class Array2 {
         return res;
     }
 
-    //lintcode 138
+    //560
+    public int subarraySum(int[] nums, int k) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int count = 0;
+        //prefixSum[i + 1 = Sum[0, i]
+        int[] prefixSum = new int[nums.length + 1];
+
+        for (int i = 0; i < nums.length; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        //key: ps, value: count of ps
+        for (int i = 0; i <= nums.length; i++) {
+            if (map.containsKey(prefixSum[i] - k)) {
+                count += map.get(prefixSum[i] - k);
+            }
+            map.putIfAbsent(prefixSum[i], 0);
+            map.put(prefixSum[i], map.get(prefixSum[i]) + 1);
+        }
+        return count;
+    }
 
 
     public static void main(String[] args) {
