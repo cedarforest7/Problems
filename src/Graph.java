@@ -1,3 +1,4 @@
+import javax.naming.ldap.UnsolicitedNotification;
 import java.util.*;
 
 public class Graph {
@@ -346,6 +347,35 @@ public class Graph {
         return next;
     }
 
+    //133
+    class UndirectedGraphNode {
+        int label;
+        List<UndirectedGraphNode> neighbors;
+        UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
+    }
+
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null) {
+            return null;
+        }
+        //build up the mapping and then clone graph
+        Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+        Queue<UndirectedGraphNode> fringe = new LinkedList<>();
+        fringe.offer(node);
+        map.put(node, new UndirectedGraphNode(node.label));
+        while (!fringe.isEmpty()) {
+            UndirectedGraphNode temp = fringe.poll();
+            UndirectedGraphNode temp2 = map.get(temp);
+            for (UndirectedGraphNode neib : temp.neighbors) {
+                if (!map.containsKey(neib)) {
+                    fringe.offer(neib);
+                    map.put(neib, new UndirectedGraphNode(neib.label));
+                }
+                temp2.neighbors.add(map.get(neib));
+            }
+        }
+        return map.get(node);
+    }
 
     public static void main(String[] args) {
         Graph g = new Graph();
