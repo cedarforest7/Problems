@@ -306,6 +306,36 @@ public class Number {
         return intervals;
     }
 
+    //79
+    public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0 || board[0].length == 0 || word.length() == 0) {
+            return false;
+        }
+        int m = board.length, n = board[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                boolean[][] visited = new boolean[m][n];
+                if (dfs79(board, word, i, j, 0, visited)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs79(char[][] board, String word, int i, int j, int k, boolean[][] visited) {
+        if (k == word.length()) {
+            return true;
+        }
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(k) || visited[i][j]) {
+            return false;
+        }
+        visited[i][j] = true;
+        return dfs79(board, word, i + 1, j, k + 1, visited) || dfs79(board, word, i - 1, j, k + 1, visited)
+                || dfs79(board, word, i, j + 1, k + 1, visited) || dfs79(board, word, i, j - 1, k + 1, visited);
+    }
+
+
     public static void main(String[] args) {
         Number nb = new Number();
         //int[] coins = {1, 9, 4};
