@@ -472,6 +472,65 @@ public class Strings {
         return sb.toString();
     }
 
+    //8
+    public int myAtoi(String str) {
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+        int res = 0;
+
+        int i = 0;
+        boolean isNeg = false;
+        while (i < str.length() && str.charAt(i) == ' ') {
+            i++;
+        }
+        if (i >= str.length()) {
+            return 0;
+        }
+        if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+            if (str.charAt(i) == '-') {
+                isNeg = true;
+                i++;
+            } else if (str.charAt(i) == '+') {
+                i++;
+            } else {
+                return 0;
+            }
+        }
+        int firstNonZero = Integer.MAX_VALUE;
+        for (int j = i; j < str.length() && str.charAt(j) >= '0' && str.charAt(j) <= '9'; j++) {
+            int temp = str.charAt(j) - '0';
+            if (temp != 0 && firstNonZero == Integer.MAX_VALUE) {
+                firstNonZero = j;
+            }
+            if (j - firstNonZero == 9) {
+                //10 digits now
+                if (res > Integer.MAX_VALUE / 10) {
+                    return isNeg ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+                }
+                if (res == Integer.MAX_VALUE / 10) {
+
+                    if (isNeg && temp >= 8) {
+                        return Integer.MIN_VALUE;
+                    }
+                    if (!isNeg && temp >= 7) {
+                        return Integer.MAX_VALUE;
+                    }
+                }
+            }
+            if (j - firstNonZero == 10) {
+                // > 10 digits
+                return isNeg ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            }
+            res = res * 10 + temp;
+
+        }
+        if (isNeg) {
+            res = -res;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
@@ -489,7 +548,7 @@ public class Strings {
         for (String s : res132) {
             System.out.println(s);
         }*/
-        System.out.println(r.reverseWords("   "));
+        System.out.println(r.myAtoi("   002147483648"));
     }
 
 
