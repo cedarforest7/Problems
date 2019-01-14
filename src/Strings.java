@@ -454,11 +454,29 @@ public class Strings {
         return '0';
     }
 
+    //151
+    public String reverseWords(String s) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        String[] s1 = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = s1.length - 1; i >= 0; i--) {
+            if (s1[i].length() != 0) {
+                sb.append(s1[i] + " ");
+            }
+        }
+        if (sb.length() != 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
         //System.out.println(r.wordPatternMatch("aa", "def"));
-        char[][] board = {{'d', 'o', 'a', 'f'}, {'a', 'g', 'a', 'i'}, {'d', 'c', 'a', 'n'}};
+        /*char[][] board = {{'d', 'o', 'a', 'f'}, {'a', 'g', 'a', 'i'}, {'d', 'c', 'a', 'n'}};
         char[][] board2 = {{'d', 'o'}, {'a', 'g'}};
         List<String> words = new ArrayList<>();
 
@@ -470,8 +488,8 @@ public class Strings {
         List<String> res132= r.wordSearchII(board, words);
         for (String s : res132) {
             System.out.println(s);
-        }
-
+        }*/
+        System.out.println(r.reverseWords("   "));
     }
 
 
