@@ -229,11 +229,31 @@ public class Number {
             return 0;
         }
         int[] freq = new int[26];
+        for (char c : tasks) {
+            freq[c - 'A']++;
+        }
+        Arrays.sort(freq);
+        int rowNum = freq[25];
+        int idles = (rowNum - 1) * n;
+        for (int i = 24; i >= 0; i--) {
+            if (freq[i] == 0) {
+                continue;
+            }
+            idles = idles - Math.min(freq[i], rowNum - 1);
+        }
+        return tasks.length + (idles > 0 ? idles : 0);
+    }
+
+    public int leastInterval1(char[] tasks, int n) {
+        if (tasks == null || tasks.length == 0) {
+            return 0;
+        }
+        int[] freq = new int[26];
         int[] lastOccur = new int[26];
 
         for (char c : tasks) {
             freq[c - 'A']++;
-            Arrays.fill(lastOccur, - n - 1);
+            Arrays.fill(lastOccur, - n - 1);        //O(26) = O(1)
         }
         int intervals = 0;
         Comparator<Character> cmp = new Comparator<Character>() {
