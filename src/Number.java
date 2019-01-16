@@ -374,7 +374,58 @@ public class Number {
         return res;
     }
 
-    //
+    //lintcoed 918
+    public int threeSumSmaller(int[] nums, int target) {
+        if (nums == null || nums.length < 3) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int count = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int j = i + 1, k = n - 1;
+            while (j < k) {
+                int sum = nums[j] + nums[k];
+                //2sum
+                if (sum < target - nums[i]) {
+                    //System.out.println(nums[i] + " " + nums[j] + " " + nums[k]);
+                    count += k - j;
+                    j++;
+                } else {
+                    //sum >= target - nums[i]
+                    k--;
+                }
+            }
+        }
+        return count;
+    }
+
+    //16
+    public int threeSumClosest(int[] nums, int target) {
+        if (nums == null || nums.length < 3) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int res = 0, n = nums.length, dif = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int j = i + 1, k = n - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == target) {
+                    return target;
+                }
+                if (Math.abs(sum - target) < dif) {
+                    res = sum;
+                    dif = Math.abs(sum - target);
+                }
+                if (sum < target) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
         Number nb = new Number();
