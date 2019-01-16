@@ -454,7 +454,6 @@ public class Number {
 
     public static void main(String[] args) {
         Number nb = new Number();
-        //int[] coins = {1, 9, 4};
         //System.out.println(nb.coinChange(coins, 12));
         /*String[][] equations = {{"a","b"},{"b","c"}};
         double[] values = {2.0, 3.0};

@@ -72,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Number.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-235">
-              <caret line="429" column="8" lean-forward="true" selection-start-line="429" selection-start-column="8" selection-end-line="429" selection-end-column="8" />
+            <state relative-caret-position="91">
+              <caret line="455" column="33" selection-start-line="455" selection-start-column="33" selection-end-line="455" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -159,7 +159,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Interval.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547674079426" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547678116902" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -507,8 +507,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Number.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-235">
-          <caret line="429" column="8" lean-forward="true" selection-start-line="429" selection-start-column="8" selection-end-line="429" selection-end-column="8" />
+        <state relative-caret-position="91">
+          <caret line="455" column="33" selection-start-line="455" selection-start-column="33" selection-end-line="455" selection-end-column="33" />
         </state>
       </provider>
     </entry>
