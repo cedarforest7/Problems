@@ -427,6 +427,31 @@ public class Number {
         return res;
     }
 
+    //67
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sba = new StringBuilder(a);
+        sba = sba.reverse();
+        StringBuilder sbb = new StringBuilder(b);
+        sbb = sbb.reverse();
+        int nextBit = 0, i = 0;
+        for (; i < Math.max(a.length(), b.length()); i++) {
+            int x = i < a.length() ? sba.charAt(i) - '0' : 0, y = i < b.length() ? sbb.charAt(i) - '0' : 0;
+            int sum = x + y + nextBit;
+            switch(sum) {
+                case 0: sb.append('0'); nextBit = 0; break;
+                case 1: sb.append('1'); nextBit = 0; break;
+                case 2: sb.append('0'); nextBit = 1; break;
+                case 3: sb.append('1'); nextBit = 1; break;
+                default: return "";
+            }
+        }
+        if (nextBit == 1) {
+            sb.append('1');
+        }
+        return sb.reverse().toString();
+    }
+
     public static void main(String[] args) {
         Number nb = new Number();
         //int[] coins = {1, 9, 4};
