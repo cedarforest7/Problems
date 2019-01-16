@@ -335,6 +335,46 @@ public class Number {
                 || dfs79(board, word, i, j + 1, k + 1, visited) || dfs79(board, word, i, j - 1, k + 1, visited);
     }
 
+    //lintcode 57
+    public List<List<Integer>> threeSum(int[] numbers) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (numbers == null || numbers.length < 3) {
+            return res;
+        }
+        Arrays.sort(numbers);
+        for (int i = 0; i < numbers.length; i++) {
+            if (i > 0 && numbers[i] == numbers[i - 1]) {
+                continue;
+            }
+            int j = i + 1, k = numbers.length - 1;
+            while (j < k) {
+                int sum = numbers[j] + numbers[k];
+                //2sum
+                if (sum == -numbers[i]) {
+                    List<Integer> lis = new ArrayList<>();
+                    lis.add(numbers[i]);
+                    lis.add(numbers[j]);
+                    lis.add(numbers[k]);
+                    res.add(lis);
+                    while (j + 1 < numbers.length && numbers[j + 1] == numbers[j]) {
+                        j++;
+                    }
+                    while (k - 1 >= 0 && numbers[k - 1] == numbers[k]) {
+                        k--;
+                    }
+                    j++;
+                    k--;
+                } else if (sum < -numbers[i]) {
+                    j++;
+                } else if (sum > -numbers[i]) {
+                    k--;
+                }
+            }
+        }
+        return res;
+    }
+
+    //
 
     public static void main(String[] args) {
         Number nb = new Number();
