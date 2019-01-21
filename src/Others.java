@@ -1,7 +1,4 @@
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Others {
     //There is a heap of stones on the table, each time one of you take turns to remove 1 to 3 stones.
@@ -311,6 +308,26 @@ public class Others {
             }
         }
         return dp[s.length()];
+    }
+
+    //412
+    public List<String> fizzBuzz(int n) {
+        List<String> res = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if (i % 3 != 0 && i % 5 != 0) {
+                res.add(String.valueOf(i));
+                continue;
+            }
+            String current = "";
+            if (i % 3 == 0) {
+                current += "Fizz";
+            }
+            if (i % 5 == 0) {
+                current += "Buzz";
+            }
+            res.add(current);
+        }
+        return res;
     }
 
 
