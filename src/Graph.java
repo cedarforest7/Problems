@@ -377,6 +377,57 @@ public class Graph {
         return map.get(node);
     }
 
+    //127
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> dict = new HashSet<>(wordList);
+        if (beginWord.equals(endWord) || !dict.contains(endWord)) {
+            return 0;
+        }
+        //build adjacency list, O(mn)
+        wordList.add(beginWord);
+        Map<String, Set<String>> adj = new HashMap<>();
+        for (String word : wordList) {
+            adj.put(word, new HashSet<>());
+            for (int i = 0; i < word.length(); i++) {
+                StringBuilder sb = new StringBuilder(word);
+                for (char c = 'a'; c <= 'z'; c++) {
+                    if (c == word.charAt(i)) {
+                        continue;
+                    }
+                    sb.setCharAt(i, c);
+                    String neib = sb.toString();
+                    if (dict.contains(neib)) {
+                        adj.get(word).add(neib);
+                    }
+                }
+            }
+        }
+
+        //BFS
+        Queue<String> queue = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+        queue.offer(beginWord);
+        visited.add(beginWord);
+        int res = 0;
+        while (!queue.isEmpty()) {
+            res++;
+            int size = queue.size();
+            for(int i = 0; i < size; i++) {
+                String temp = queue.poll();
+                if (temp.equals(endWord)) {
+                    return res;
+                }
+                for (String neib : adj.get(temp)) {
+                    if (!visited.contains(neib)) {
+                        queue.offer(neib);
+                        visited.add(neib);
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         Graph g = new Graph();
         Set<String> dict = new HashSet<>();
