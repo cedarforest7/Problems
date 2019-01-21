@@ -531,6 +531,62 @@ public class Strings {
         return res;
     }
 
+    //394
+    int pos = 0;
+    public String decodeString(String s) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        String res = "";
+        while (pos < s.length()) {
+            res += decodeString(s, pos);
+        }
+        return res;
+    }
+
+    private String decodeString(String s, int start) {
+        int i = start;
+        String res = "";
+        while (i < s.length()) {
+            int n = 0;
+            String str = "";
+            while(s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+                n = 10 * n + s.charAt(i) - '0';
+                i++;
+            }
+
+            if (i < s.length() && s.charAt(i) == '[') {
+                i++;
+            }
+            while (i < s.length() && s.charAt(i) != ']') {
+                if (s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+                    pos = i;
+                    str += decodeString(s, pos);
+                    i = pos;
+                } else {
+                    str += s.charAt(i);
+                    i++;
+                }
+            }
+            if (i < s.length() && s.charAt(i) == ']') {
+                res += decodeHelper(str, n);
+                i++;
+                break;
+            }
+            res = str;
+        }
+        pos = i;
+        return res;
+    }
+
+    private String decodeHelper(String str, int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(str);
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
@@ -548,7 +604,7 @@ public class Strings {
         for (String s : res132) {
             System.out.println(s);
         }*/
-        System.out.println(r.myAtoi("   002147483648"));
+        System.out.println(r.decodeString("2[ab2[c]1[v]k]"));
     }
 
 
