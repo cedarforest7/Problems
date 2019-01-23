@@ -587,6 +587,75 @@ public class Strings {
         return sb.toString();
     }
 
+    //844
+    public boolean backspaceCompare(String S, String T) {
+        if (S == null || T == null) {
+            return false;
+        }
+        int i = S.length() - 1, j = T.length() - 1;
+        int bs1 = 0, bs2 = 0;
+        while (i >= 0 && j >= 0) {
+            while (i >= 0 && S.charAt(i) == '#') {
+                i--;
+                bs1++;
+            }
+            while (j >= 0 && T.charAt(j) == '#') {
+                j--;
+                bs2++;
+            }
+            while (i >= 0 && S.charAt(i) != '#' && bs1 > 0) {
+                i--;
+                bs1--;
+            }
+            while (j >= 0 && T.charAt(j) != '#' && bs2 > 0) {
+                j--;
+                bs2--;
+            }
+            if (i >= 0 && j >= 0 && bs1 == 0 && bs2 == 0 && S.charAt(i) != '#' && T.charAt(j) != '#') {
+                if (S.charAt(i) != T.charAt(j)) {
+                    return false;
+                } else {
+                    i--;
+                    j--;
+                }
+            }
+
+        }
+
+        if (i < 0) {
+            while (j >= 0) {
+                while (j >= 0 && T.charAt(j) == '#') {
+                    j--;
+                    bs2++;
+                }
+                while (j >= 0 && T.charAt(j) != '#' && bs2 > 0) {
+                    j--;
+                    bs2--;
+                }
+                if (j >= 0 && bs2 == 0 && T.charAt(j) != '#') {
+                    return false;
+                }
+            }
+        } else {
+            while (i >= 0) {
+                while (i >= 0 && S.charAt(i) == '#') {
+                    i--;
+                    bs1++;
+                }
+                while (i >= 0 && S.charAt(i) != '#' && bs1 > 0) {
+                    i--;
+                    bs1--;
+                }
+                if (i >= 0 && bs1 == 0 && S.charAt(i) != '#') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
@@ -604,7 +673,7 @@ public class Strings {
         for (String s : res132) {
             System.out.println(s);
         }*/
-        System.out.println(r.decodeString("2[ab2[c]1[v]k]"));
+        System.out.println(r.backspaceCompare("cca#", "cck#b#"));
     }
 
 

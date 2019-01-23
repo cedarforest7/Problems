@@ -50,12 +50,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="37235" />
+          <entry key="java" value="38351" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="37235" />
+          <entry key="JAVA" value="38351" />
         </counts>
       </usages-collector>
     </session>
@@ -65,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Strings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-62">
-              <caret line="553" column="47" lean-forward="true" selection-start-line="553" selection-start-column="47" selection-end-line="553" selection-end-column="47" />
+            <state relative-caret-position="156">
+              <caret line="616" column="24" lean-forward="true" selection-start-line="616" selection-start-column="24" selection-end-line="616" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -155,7 +155,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Interval.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548110664561" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548262661712" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -252,8 +252,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30427048" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.35409254" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30427048" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.35409254" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -317,15 +317,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Strings.java</url>
-          <line>547</line>
+          <line>596</line>
           <properties />
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Strings.java</url>
-          <line>570</line>
-          <properties />
-          <option name="timeStamp" value="38" />
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -555,8 +549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Strings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-62">
-          <caret line="553" column="47" lean-forward="true" selection-start-line="553" selection-start-column="47" selection-end-line="553" selection-end-column="47" />
+        <state relative-caret-position="156">
+          <caret line="616" column="24" lean-forward="true" selection-start-line="616" selection-start-column="24" selection-end-line="616" selection-end-column="24" />
         </state>
       </provider>
     </entry>
