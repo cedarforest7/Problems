@@ -488,6 +488,75 @@ public class Number {
         return res;
     }
 
+    //312
+    public int maxCoins(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        nums = addBoundary(nums);
+        int[][] coins = new int[n + 2][n + 2];
+        for (int len = 1; len <= n; len++) {
+            for (int start = 1; start <= n + 1 - len; start++) {
+                int end = start + len - 1;
+                for (int k = start; k <= end; k++) {
+                    coins[start][end] = Math.max(coins[start][end], coins[start][k - 1]
+                            + nums[k] * nums[start - 1] * nums[end + 1] + coins[k + 1][end]);
+                }
+            }
+        }
+        return coins[1][n];
+    }
+
+    private int[] addBoundary(int[] nums) {
+        int[] ar = new int[nums.length + 2];
+        ar[0] = 1;
+        ar[ar.length - 1] = 1;
+        for (int i = 0; i < nums.length; i++) {
+            ar[i + 1] = nums[i];
+        }
+        return ar;
+    }
+
+    public int maxCoins1(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        //burst all 0's first
+        List<Integer> lis = new ArrayList<>();
+        for (int x : nums) {
+            if (x == 0) {
+                continue;
+            }
+            lis.add(x);
+        }
+        int n = lis.size();
+        //record maxCoins from i to j
+        int[][] maxCoin = new int[n][n];
+        maxCoinHelper(lis, 0, n - 1, maxCoin);
+        return maxCoin[0][n - 1];
+    }
+
+    private void maxCoinHelper(List<Integer> lis, int i, int j, int[][] maxCoin) {
+        //get the max coins from i to j and store in the maxCoin array
+        int n = lis.size();
+        if (i > j || j >= n || i < 0 || maxCoin[i][j] != 0) {
+            return;
+        }
+
+        int max = 0;
+        int before = i - 1 >= 0 ? lis.get(i - 1) : 1;
+        int after = j + 1 < n ? lis.get(j + 1) : 1;
+        for (int k = i; k <= j; k++) {
+            maxCoinHelper(lis, i, k - 1, maxCoin);
+            maxCoinHelper(lis, k + 1, j, maxCoin);
+            max = Math.max(max, (k - 1 >= i ? maxCoin[i][k - 1] : 0) + lis.get(k) *  before * after
+                    + (k + 1 <= j ? maxCoin[k + 1][j] : 0));
+        }
+        maxCoin[i][j] = max;
+    }
+
+
     public static void main(String[] args) {
         Number nb = new Number();
         //System.out.println(nb.coinChange(coins, 12));
@@ -498,7 +567,8 @@ public class Number {
         for (double x : res) {
             System.out.println(x + " ");
         }*/
-        char[] tasks = {'A', 'A','A', 'A', 'B', 'B', 'B', 'C', 'C', 'D', 'E'};
-        System.out.println(nb.leastInterval(tasks, 3));
+        //char[] tasks = {'A', 'A','A', 'A', 'B', 'B', 'B', 'C', 'C', 'D', 'E'};
+        int[] nums = {3, 1, 5, 8};
+        System.out.println(nb.maxCoins(nums));
     }
 }
