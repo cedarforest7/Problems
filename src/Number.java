@@ -451,7 +451,43 @@ public class Number {
         }
         return sb.reverse().toString();
     }
-    
+
+    //347
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        List<Integer> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        Map<Integer, Integer> count = new HashMap<>();
+        Comparator<Integer> cmp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer x, Integer y) {
+                return count.get(x) - count.get(y);
+            }
+        };
+        //top k frequent--need a min heap
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k, cmp);
+
+        for (int x : nums) {
+            count.putIfAbsent(x, 0);
+            count.put(x, count.get(x) + 1);
+        }
+
+        for (int x : count.keySet()) {
+            if (pq.size() < k) {
+                pq.offer(x);
+                continue;
+            }
+            //size is k
+            if (count.get(x) > count.get(pq.peek())) {
+                pq.poll();
+                pq.offer(x);
+            }
+        }
+        res.addAll(pq);
+        return res;
+    }
+
     public static void main(String[] args) {
         Number nb = new Number();
         //System.out.println(nb.coinChange(coins, 12));
