@@ -330,6 +330,75 @@ public class Others {
         return res;
     }
 
+    //273
+    public String numberToWords(int num) {
+        int billion = 1000000000, million = 1000000, thousand = 1000;
+        if (num == 0) {
+            return "Zero";
+        }
+        StringBuilder sb = new StringBuilder();
+        if (num / billion > 0) {
+            sb.append(intToText(num / billion) + " " + "Billion" + " ");
+            num = num % billion;
+        }
+        if (num / million > 0) {
+            sb.append(intToText(num / million) + " " + "Million" + " ");
+            num = num % million;
+        }
+        if (num / thousand > 0) {
+            sb.append(intToText(num / thousand) + " " + "Thousand" + " ");
+            num = num % thousand;
+        }
+        sb.append(intToText(num));
+        if (sb.charAt(sb.length() - 1) == ' ') {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
+
+
+
+    private String intToText(int n) {
+        if(n < 0 || n >= 1000) {
+            return null;
+        }
+        if (n >= 100) {
+            return intToText(n / 100) + " " + "Hundred" + (n % 100 == 0 ? "" : (" " + intToText(n % 100) ));
+        }
+        switch (n) {
+            case 0: return "";
+            case 1: return "One";
+            case 2: return "Two";
+            case 3: return "Three";
+            case 4: return "Four";
+            case 5: return "Five";
+            case 6: return "Six";
+            case 7: return "Seven";
+            case 8: return "Eight";
+            case 9: return "Nine";
+            case 10: return "Ten";
+            case 11: return "Eleven";
+            case 12: return "Twelve";
+            case 13: return "Thirteen";
+            case 14: return "Fourteen";
+            case 15: return "Fifteen";
+            case 16: return "Sixteen";
+            case 17: return "Seventeen";
+            case 18: return "Eighteen";
+            case 19: return "Nineteen";
+            case 20: return "Twenty";
+            case 30: return "Thirty";
+            case 40: return "Forty";
+            case 50: return "Fifty";
+            case 60: return "Sixty";
+            case 70: return "Seventy";
+            case 80: return "Eighty";
+            case 90: return "Ninety";
+            default: return intToText(n - n % 10) + " " + intToText(n % 10);
+        }
+    }
+
+
 
     public static void main(String[] args) {
         Others o = new Others();
@@ -344,12 +413,14 @@ public class Others {
 //        printList(crossList(l1, l2, '+'));
 //        printList(computeHelper("12*2+1*2", 4));
 //        printList((LinkedList<Integer>) diffWaysToCompute("12*2+1*2"));
-        int[] a = {1, 2, 3};
+        /*int[] a = {1, 2, 3};
         List<List<Integer>> l = o.subsets(a);
         for (List<Integer> x : l) {
             printList((LinkedList<Integer>) x);
             System.out.print("\n");
-        }
+        }*/
+
+        System.out.println(o.numberToWords(100000));
 
     }
 }
