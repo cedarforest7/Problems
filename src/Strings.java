@@ -654,7 +654,70 @@ public class Strings {
         return true;
     }
 
+    //301
 
+
+
+    public List<String> removeInvalidParentheses(String s) {
+        List<String> res = new ArrayList<>();
+
+        int left = 0, right = 0;
+        //left and right are the # of parentheses to remove
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                left++;
+            } else if (c == ')') {
+                //this part is essential!!
+                if (left > 0) {
+                    left--;
+                } else {
+                    right++;
+                }
+            }
+        }
+        Helper(res, s, 0, left, right);
+        return res;
+    }
+
+    private boolean isValid(String s) {
+        int netPar = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                netPar++;
+            } else if (c == ')') {
+                netPar--;
+            }
+            if (netPar < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void Helper(List<String> res, String s, int start, int left, int right) {
+        if (left == 0 && right == 0) {
+            if (isValid(s)) {
+                res.add(s);
+            }
+            return;
+        }
+
+        for (int i = start; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (i > start && c == s.charAt(i - 1)) {
+                //belongs to the same group (identical), skip to avoid duplicate
+                //only the first element of the same group would be deleted
+                continue;
+            }
+            if (left > 0 && c == '(') {
+                Helper(res, s.substring(0, i) + s.substring(i + 1), i, left - 1, right);
+            } else if (right > 0 && c == ')') {
+                Helper(res, s.substring(0, i) + s.substring(i + 1), i, left, right - 1);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         Strings r = new Strings();
@@ -673,7 +736,9 @@ public class Strings {
         for (String s : res132) {
             System.out.println(s);
         }*/
-        System.out.println(r.backspaceCompare("cca#", "cck#b#"));
+        String s = "()()))r)";
+        Helper.printList(r.removeInvalidParentheses(s));
+        //System.out.println();
     }
 
 
