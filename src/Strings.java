@@ -719,6 +719,57 @@ public class Strings {
         }
     }
 
+    //242
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] count = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            count[c - 'a']--;
+            if (count[c - 'a'] < 0) {
+                return false;
+            }
+        }
+        for (int i = 0; i < 26; i++) {
+            if (count[i] != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isAnagram1(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        Map<Character, Integer> count = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            count.putIfAbsent(c, 0);
+            count.put(c, count.get(c) + 1);
+        }
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            if (!count.containsKey(c)) {
+                return false;
+            } else {
+                int charCOunt = count.get(c) - 1;
+                if (charCOunt == 0) {
+                    count.remove(c);
+                } else {
+                    count.put(c, charCOunt);
+                }
+
+            }
+        }
+        return count.isEmpty();
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
