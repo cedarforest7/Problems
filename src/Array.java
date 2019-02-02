@@ -1059,6 +1059,88 @@ public class Array {
         return subsets.get(maxInd);
     }
 
+    //735
+    public int[] asteroidCollision(int[] asteroids) {
+        //Each asteroid is a non-zero integer
+        if (asteroids == null || asteroids.length < 2) {
+            return asteroids;
+        }
+        Stack<Integer> st = new Stack<>();      //store index of positive ints
+        int zeroCount = 0;
+        for (int i = 0; i < asteroids.length; i++) {
+            if (asteroids[i] > 0) {
+                st.push(i);
+            } else {
+                while (!st.isEmpty()) {
+                    int j = st.pop();
+                    if (asteroids[j] + asteroids[i] < 0) {
+                        asteroids[j] = 0;
+                        zeroCount++;
+                    } else if (asteroids[j] + asteroids[i] == 0) {
+                        asteroids[j] = 0;
+                        asteroids[i] = 0;
+                        zeroCount += 2;
+                        break;
+                    } else {
+                        asteroids[i] = 0;
+                        zeroCount++;
+                        st.push(j);
+                        break;
+                    }
+                }
+            }
+        }
+        int[] res = new int[asteroids.length - zeroCount];
+        int i = 0;
+        for (int x : asteroids) {
+            if (x != 0) {
+                res[i] = x;
+                i++;
+            }
+        }
+        return res;
+    }
+
+    public int[] asteroidCollision1(int[] asteroids) {
+        //Each asteroid is a non-zero integer
+        if (asteroids == null || asteroids.length < 2) {
+            return asteroids;
+        }
+        List<Integer> lis = new ArrayList<>();
+        for (int x : asteroids) {
+            lis.add(x);
+        }
+        int lastSize = 0;
+
+        while (lis.size() != lastSize) {
+            lastSize = lis.size();
+            int i = 1;
+            while(i > 0 && i < lis.size()) {
+                int left = lis.get(i - 1), right = lis.get(i);
+                if (left * right >= 0 || (left < 0 && right > 0)) {
+                    i++;
+                    continue;
+                }
+
+                if(left + right < 0) {
+                    lis.remove(i - 1);
+                } else if (left + right == 0) {
+                    lis.remove(i);
+                    lis.remove(i - 1);
+                    i--;
+                } else {
+                    lis.remove(i);
+                }
+            }
+        }
+        int[] res = new int[lis.size()];
+        for (int i = 0; i < lis.size(); i++) {
+            res[i] = lis.get(i);
+        }
+        return res;
+
+    }
+
     public static void main(String[] args) {
         Array ar = new Array();
         int[] a = {1,1,1,2,2,3};
@@ -1075,8 +1157,12 @@ public class Array {
             }
             System.out.println("end\n");
         }*/
-        int[][] nums = {{10}, {2,4}, {2,5}};
-        System.out.println(ar.findMedian(nums));
+        //int[][] nums = {{10}, {2,4}, {2,5}};
+        int[] temp = ar.asteroidCollision(new int[]{1,-1,-2,-2});
+        for (int x : temp) {
+            System.out.print(x + " ");
+        }
+
     }
 
 }
