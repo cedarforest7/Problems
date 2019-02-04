@@ -556,6 +556,32 @@ public class Number {
         maxCoin[i][j] = max;
     }
 
+    //636
+    public int[] exclusiveTime(int n, List<String> logs) {
+        Stack<Integer> stack = new Stack<>();
+        int[] res = new int[n];
+        Stack<Integer> start = new Stack<>();
+        for (String s : logs) {
+            String[] temp = s.split(":");
+            int func = Integer.parseInt(temp[0]);
+            int time = Integer.parseInt(temp[2]);
+            if (temp[1].equals("start")) {
+                stack.push(func);
+                start.push(time);
+            } else {
+                //end
+                stack.pop();
+                int lastFuncStart = start.pop();
+                int interval = time - lastFuncStart + 1;
+                res[func] += interval;
+                if (!stack.isEmpty()) {
+                    res[stack.peek()] -= interval;
+                }
+            }
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
         Number nb = new Number();
@@ -569,6 +595,7 @@ public class Number {
         }*/
         //char[] tasks = {'A', 'A','A', 'A', 'B', 'B', 'B', 'C', 'C', 'D', 'E'};
         int[] nums = {3, 1, 5, 8};
+
         System.out.println(nb.maxCoins(nums));
     }
 }
