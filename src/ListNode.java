@@ -393,6 +393,75 @@ public class ListNode {
 
     }
 
+    //143
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        ListNode fast = head, slow = head, prev = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            if (slow != head) {
+                prev = prev.next;
+            }
+            slow = slow.next;
+        }
+        if (fast != null) {
+            slow = slow.next;
+            prev = prev.next;
+        }
+        prev.next = null;
+        slow = reverseListNode(slow);
+        combineList(head, slow);
+    }
+
+    private ListNode reverseListNode(ListNode node) {
+        ListNode prev = null, cur = node, next = node.next;
+        while (next != null) {
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+            next = cur.next;
+        }
+        cur.next = prev;
+        return cur;
+    }
+
+    private void combineList(ListNode first, ListNode second) {
+        ListNode p = first, q = second;
+        while (p != second && q != null) {
+            ListNode nextP = p.next;
+            ListNode nextQ = q.next;
+            p.next = q;
+            q.next = nextP;
+            p = nextP;
+            q = nextQ;
+        }
+    }
+
+    public void reorderList1(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        Map<ListNode, ListNode> pre = new HashMap<>();
+        ListNode prev = dummy;
+        for(ListNode node = head; node != null; node = node.next, prev = prev.next) {
+            pre.put(node, prev);
+        }
+        ListNode tail = prev;
+        while(head.next != null && head.next != tail) {
+            ListNode current = head;
+            head = head.next;
+            current.next = tail;
+            tail.next = head;
+            tail = pre.get(tail);
+            tail.next = null;
+        }
+        head = dummy.next;
+    }
+
     public static void main(String[] args) {
 //        ListNode lx6 = new ListNode(9);
 //        ListNode lx5 = new ListNode(9);
@@ -403,11 +472,11 @@ public class ListNode {
 //        lx3.next = lx4;
 //        ListNode lx2 = new ListNode(9);
 //        lx2.next = lx3;
-        ListNode lx1 = new ListNode(2);
+        ListNode lx1 = new ListNode(5);
 //        lx1.next = lx2;
-        ListNode l1 = new ListNode(2);
-        l1.next = lx1;
-        ListNode l2 = new ListNode(2);
+        ListNode l1 = new ListNode(4);
+        //l1.next = lx1;
+        ListNode l2 = new ListNode(3);
         l2.next = l1;
         ListNode l3 = new ListNode(2);
         l3.next = l2;
@@ -422,6 +491,7 @@ public class ListNode {
 //        printList(l6);
 //        printList(addTwoNumbers(lx1, l6));
 //        printList(swapPairs(l6));
-        printList(deleteDuplicates(l6));
+        l6.reorderList(l6);
+        printList(l6);
     }
 }
