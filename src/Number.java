@@ -582,6 +582,45 @@ public class Number {
         return res;
     }
 
+    //159
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        if(s == null || s.length() == 0) {
+            return 0;
+        }
+        char[] lastTwo = new char[2];   //can also use a list, or two variables
+        //dp[i] is the length of the LongestSubstringTwoDistinct [ended with] s[i]
+        int[] dp = new int[s.length()];
+        dp[0] = 1;
+        Arrays.fill(lastTwo, s.charAt(0));
+        int lastBegin = 0;  // the start of the LongestSubstringOneDistinct ended with s[i - 1]
+        for (int i = 1; i < s.length(); i++) {
+            char c = s.charAt(i);
+            int tempLastBegin = c == lastTwo[1] ? lastBegin : i;
+            if (lastTwo[0] == lastTwo[1]) {
+                //add c to lastTwo[1]
+                lastTwo[1] = c;
+                dp[i] = dp[i - 1] + 1;
+            } else if (lastTwo[0] == c) {
+                //switch 0 and 1
+                lastTwo[0] = lastTwo[1];
+                lastTwo[1] = c;
+                dp[i] = dp[i - 1] + 1;
+            } else if (lastTwo[1] == c) {
+                dp[i] = dp[i - 1] + 1;
+            } else {
+                lastTwo[0] = lastTwo[1];
+                lastTwo[1] = c;
+                dp[i] = i - lastBegin + 1;
+            }
+            lastBegin = tempLastBegin;
+        }
+        int max = 0;
+        for(int x : dp) {
+            max = Math.max(max, x);
+        }
+        return max;
+    }
+
 
     public static void main(String[] args) {
         Number nb = new Number();
@@ -594,8 +633,11 @@ public class Number {
             System.out.println(x + " ");
         }*/
         //char[] tasks = {'A', 'A','A', 'A', 'B', 'B', 'B', 'C', 'C', 'D', 'E'};
-        int[] nums = {3, 1, 5, 8};
+        /*int[] nums = {3, 1, 5, 8};
+        System.out.println(nb.maxCoins(nums));*/
 
-        System.out.println(nb.maxCoins(nums));
+        System.out.println(nb.lengthOfLongestSubstringTwoDistinct("cccaacbbcccc"));
+
+
     }
 }
