@@ -621,6 +621,39 @@ public class Number {
         return max;
     }
 
+    //340
+    public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        if (s == null || s.length() == 0 || k <= 0) {
+            return 0;
+        }
+        Map<Character, Integer> count = new HashMap<>();
+        int start = 0, end = 0;  // the start of the LongestSubstringOneDistinct ended with s[i - 1]
+        //count.put(s.charAt(0), 1);
+        int max = 0;
+        while(end < s.length()) {
+            char c = s.charAt(end);
+            if (count.size() < k || count.containsKey(c)) {
+                //add c to lastK or increment by 1 if already exists
+                count.put(c, count.getOrDefault(c, 0) + 1);
+            } else {
+                //not in the last K, a new char
+                while (count.size() == k) {
+                    char startChar = s.charAt(start);
+                    int tempCount = count.get(startChar) - 1;
+                    if (tempCount == 0) {
+                        count.remove(startChar);
+                    } else {
+                        count.put(startChar, tempCount);
+                    }
+                    start++;
+                }
+                count.put(c, 1);
+            }
+            max = Math.max(max, end - start + 1);
+            end++;
+        }
+        return max;
+    }
 
     public static void main(String[] args) {
         Number nb = new Number();
@@ -636,7 +669,7 @@ public class Number {
         /*int[] nums = {3, 1, 5, 8};
         System.out.println(nb.maxCoins(nums));*/
 
-        System.out.println(nb.lengthOfLongestSubstringTwoDistinct("cccaacbbcccc"));
+        System.out.println(nb.lengthOfLongestSubstringKDistinct("abcabc", 2));
 
 
     }
