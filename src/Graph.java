@@ -428,9 +428,78 @@ public class Graph {
         return 0;
     }
 
+    //269
+    public String alienOrder(String[] words) {
+        if (words == null || words.length == 0) {
+            return "";
+        }
+        if (words.length == 1) {
+            return words[0];
+        }
+        int[] degree = new int[26];
+        Map<Character, Set<Character>> adj = new HashMap<>();   //adjacency list
+
+        //build a graph
+        for (int i = 0; i < words.length - 1; i++) {
+            //compare two adjacent words only
+            int len1 = words[i].length(), len2 = words[i + 1].length();
+            int j = 0;
+            for (; j < Math.min(len1, len2); j++) {
+                char c1 = words[i].charAt(j), c2 = words[i + 1].charAt(j);
+                adj.putIfAbsent(c1, new HashSet<>());
+                adj.putIfAbsent(c2, new HashSet<>());
+                if (c1 != c2) {
+                    if (!adj.get(c1).contains(c2)) {
+                        degree[c2 - 'a']++;
+                        adj.get(c1).add(c2);
+                    }
+                    break;
+                }
+            }
+            for (int k = j; k < len1; k++) {
+                adj.putIfAbsent(words[i].charAt(k), new HashSet<>());
+            }
+            for (; j < len2; j++) {
+                adj.putIfAbsent(words[i + 1].charAt(j), new HashSet<>());
+            }
+        }
+
+        //topological sorting
+        Queue<Character> queue = new LinkedList<>();
+
+        for (char c : adj.keySet()) {
+            if (degree[c - 'a'] == 0) {
+                //in-degree is 0
+                queue.offer(c);
+            }
+        }
+
+        List<Character> res = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            char cur = queue.poll();
+            res.add(cur);
+            for(char c : adj.get(cur)) {
+                degree[c - 'a']--;
+                if (degree[c - 'a'] == 0) {
+                    queue.offer(c);
+                }
+            }
+        }
+        if (res.size() != adj.size()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (char c : res) {
+            sb.append(c);
+        }
+        return  sb.toString();
+    }
+
+
+
     public static void main(String[] args) {
         Graph g = new Graph();
-        Set<String> dict = new HashSet<>();
+        /*Set<String> dict = new HashSet<>();
         dict.add("hot");
         dict.add("dot");
         dict.add("dog");
@@ -439,6 +508,9 @@ public class Graph {
         String start = "hit";
         String end = "cog";
         List<List<String>> lis = g.findLadders(start, end, dict);
-        Helper.printListofList(lis);
+        Helper.printListofList(lis);*/
+        //String[] words = { "wrt", "wrf", "er", "ett", "rftt"};
+        String[] words = {"vlxpwiqbsg","cpwqwqcd"};
+        System.out.println(g.alienOrder(words));
     }
 }
