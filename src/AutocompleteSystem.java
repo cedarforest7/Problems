@@ -64,10 +64,9 @@ public class AutocompleteSystem {
             }
         }
         trie = dummy;
-        //lis = new ArrayList<>();
         constructTop3(dummy);
     }
-
+    
     private void insertNode(String s, int i, TrieNode node) {
         //backtrack
         if (i == s.length()) {
