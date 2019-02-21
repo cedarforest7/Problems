@@ -108,7 +108,6 @@ public class AutocompleteSystem {
         }
         node.top3 = pq;
     }
-
     private PriorityQueue<String> constructTop3(TrieNode node){
         //post order traversal, only get called once
         Map<Character, TrieNode> map = node.children;
