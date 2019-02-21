@@ -655,6 +655,103 @@ public class Number {
         return max;
     }
 
+    //829
+    public int consecutiveNumbersSum(int N) {
+        if (N <= 0) {
+            return 0;
+        }
+        int res = 1;
+        for (int n = 2; n * (n - 1) / 2 < N; n++) {
+            if ((N - n * (n - 1) / 2) % n == 0) {
+                res++;
+            }
+        }
+        return res;
+    }
+    /*public int consecutiveNumbersSum(int N) {
+        if (N <= 0) {
+            return 0;
+        }
+        int res = 0;
+        for (int m = 1; m * m <= N; m++) {
+            if (N % m == 0) {
+                //N = m * n
+                int n = N / m;
+                if (m % 2 != 0 && n % 2 != 0 && m != n) {
+                    res++;
+                }
+                if (m % 2 != 0 || n % 2 != 0) {
+                    res++;
+                }
+            }
+        }
+        return res;
+
+    }*/
+
+    //41
+    public int firstMissingPositive1(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 1;
+        }
+        Set<Integer> set = new HashSet<>();
+        int n = nums.length;
+        //check if 1 exists
+        for (int x : nums) {
+            set.add(x);
+            if (x <= 0) {
+                n--;
+            }
+        }
+        if (!set.contains(1)) {
+            return 1;
+        }
+        int miss = n + 1;
+        for (int i = 2; i <= n; i++) {
+            if (!set.contains(i)) {
+                miss = Math.min(miss, i);
+            }
+        }
+        return miss;
+    }
+
+    public int firstMissingPositive(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 1;
+        }
+
+        int n = nums.length;       //n is the numbers of positive numbers
+        //check if 1 exists
+        boolean flag = false;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] < 1) {
+                nums[i] = 1;
+                n--;
+            } else if (nums[i] == 1) {
+                flag = true;
+            }
+        }
+        if (!flag) {
+            return 1;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > n) {
+                continue;
+            }
+            int index = Math.abs(nums[i]) - 1;
+            if (nums[index] > 0) {
+                nums[index] = - nums[index];    //nums[i-1] is negative means that i exists
+            }
+        }
+        for (int i = 1; i <= n; i++) {
+            if (nums[i - 1] > 0) {
+                return i;
+            }
+        }
+        return n + 1;
+    }
+
     public static void main(String[] args) {
         Number nb = new Number();
         //System.out.println(nb.coinChange(coins, 12));
@@ -669,7 +766,7 @@ public class Number {
         /*int[] nums = {3, 1, 5, 8};
         System.out.println(nb.maxCoins(nums));*/
 
-        System.out.println(nb.lengthOfLongestSubstringKDistinct("abcabc", 2));
+        System.out.println(nb.consecutiveNumbersSum(9));
 
 
     }

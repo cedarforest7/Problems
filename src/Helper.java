@@ -5,6 +5,7 @@ public class Helper {
         for (String x : lis) {
             System.out.print(x + " ");
         }
+        System.out.print("\n");
     }
 
     public static void printListofList(List<List<String>> lis) {

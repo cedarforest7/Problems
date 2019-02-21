@@ -690,6 +690,72 @@ public class Matrix {
         M[i][i] = 0;
     }
 
+    //924
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        if (graph == null || initial == null|| initial.length == 0) {
+            return 0;
+        }
+        int n = graph.length;
+        int[] parent = new int[n];         //ith node's parent is parent[i]
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            count.put(i, 1);
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (graph[i][j] == 0) {
+                    continue;
+                }
+                //union the two nodes, change the count of elements in each disjoint set accordingly
+                int iRoot = findRoot(parent, i);
+                int jRoot = findRoot(parent, j);
+                if (iRoot == jRoot) {
+                    continue;
+                }
+                //union root node
+                if (count.get(iRoot) > count.get(jRoot)) {
+                    parent[jRoot] = iRoot;
+                    parent[j] = iRoot;
+                    count.put(iRoot, count.get(iRoot) + count.get(jRoot));
+                    count.remove(jRoot);
+                } else {
+                    parent[iRoot] = jRoot;
+                    parent[i] = jRoot;
+                    count.put(jRoot, count.get(iRoot) + count.get(jRoot));
+                    count.remove(iRoot);
+                }
+            }
+        }
+        int res = initial[0];
+        for (int i = 1; i < initial.length; i++) {
+            int iCount = count.get(findRoot(parent, initial[i]));
+            int rCount = count.get(findRoot(parent, res));
+            if ( iCount > rCount || ( iCount == rCount && initial[i] < res)) {
+                res = initial[i];
+            }
+        }
+        return res;
+    }
+
+    private int findRoot1(int[] parent, int i) {
+        if (parent[i] == i) {
+            return i;
+        }
+        //parent[i] != i
+        return findRoot(parent, parent[i]);
+    }
+
+    //with path compression
+    private int findRoot(int[] parent, int i) {
+        if (parent[i] != i) {
+            parent[i] = findRoot(parent, parent[i]);
+        }
+        return parent[i];
+    }
+
+
+
     public static void main(String[] args) {
         Matrix m = new Matrix();
         int[][] grid = {{1, 0, 0, 1}, {0,1,1,0}, {0,1,1,1}, {1,0,1,1}};

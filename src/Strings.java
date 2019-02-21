@@ -770,6 +770,65 @@ public class Strings {
         return count.isEmpty();
     }
 
+    //76
+    public String minWindow(String s, String t) {
+        if (s == null || t == null || s.length() == 0 || t.length() == 0) {
+            return "";
+        }
+
+        //count chars in t
+        Map<Character, Integer> countT = new HashMap<>();
+
+        for (char c : t.toCharArray()) {
+            countT.put(c, countT.getOrDefault(c, 0) + 1);
+        }
+        Map<Character, Integer> countS = new HashMap<>();
+        //traverse substrings of s
+        int start = 0, end = 0;
+        int lastStart = 0, lastEnd = s.length();
+
+
+        Set<Character> visited = new HashSet<>();       //count is enough for chars in the set
+        while(end < s.length()) {
+            char c = s.charAt(end);
+            int count = countS.getOrDefault(c, 0) + 1;
+            if (!countT.containsKey(c)) {
+                end++;
+                continue;
+            }
+            countS.put(c, count);
+            int targetCount = countT.get(c);
+            if (count == targetCount) {
+                visited.add(c);
+                if (visited.size() == countT.size()) {
+                    //move start
+                    while(visited.size() == countT.size()){
+                        char startChar = s.charAt(start);
+                        if (countT.containsKey(startChar)) {
+                            int startCount = countS.get(startChar) - 1;
+                            countS.put(startChar, startCount);
+                            if (startCount < countT.get(startChar)) {
+                                visited.remove(startChar);
+                            }
+                        }
+                        start++;
+                    }
+                    //start--;
+                    if (end - start + 1 < lastEnd - lastStart) {
+                        lastStart = start - 1;
+                        lastEnd = end;
+                    }
+                }
+            }
+            end++;
+        }
+
+        if(lastEnd == s.length()) {
+            return "";
+        }
+        return s.substring(lastStart, lastEnd + 1);
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
@@ -787,9 +846,11 @@ public class Strings {
         for (String s : res132) {
             System.out.println(s);
         }*/
-        String s = "()()))r)";
-        Helper.printList(r.removeInvalidParentheses(s));
-        //System.out.println();
+        //String s = "()()))r)";
+        //Helper.printList(r.removeInvalidParentheses(s));
+        System.out.println(r.minWindow("ADOBECODEBANC", "ABKC"));
+
+
     }
 
 
