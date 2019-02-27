@@ -752,6 +752,57 @@ public class Number {
         return n + 1;
     }
 
+    //46
+    public List<List<Integer>> permute(int[] nums) {
+        //dfs
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        boolean[] visited = new boolean[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            dfs46(res, new ArrayList<>(), nums, visited, i);
+        }
+        return res;
+    }
+
+    private void dfs46(List<List<Integer>> res, List<Integer> lis, int[] nums, boolean[] visited, int k) {
+        //add all left elements start with nums[k]
+        visited[k] = true;
+        lis.add(nums[k]);
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i]) {
+                continue;
+            }
+            dfs46(res, lis, nums, visited, i);
+        }
+        if (lis.size() == nums.length) {
+            res.add(new ArrayList<>(lis));
+        }
+        visited[k] = false;
+        lis.remove(lis.size() - 1);
+    }
+
+    public List<List<Integer>> subset(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+
+        //bit operation
+        //n -> 0 - 2 ^ n - 1 integers stands for 2 ^ n permutations
+        int n =  nums.length;
+        for (int i = 0; i < (1 << n); i++ ) {
+            List<Integer> lis = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                if ((i & (1 << j)) > 0) {
+                    lis.add(nums[j]);
+                }
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Number nb = new Number();
         //System.out.println(nb.coinChange(coins, 12));
@@ -766,7 +817,7 @@ public class Number {
         /*int[] nums = {3, 1, 5, 8};
         System.out.println(nb.maxCoins(nums));*/
 
-        System.out.println(nb.consecutiveNumbersSum(9));
+        nb.permute(new int[] {1,2,3});
 
 
     }
