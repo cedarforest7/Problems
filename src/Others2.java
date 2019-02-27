@@ -318,19 +318,47 @@ public class Others2 {
         return digits;
     }
 
+    //609
+    public List<List<String>> findDuplicate(String[] paths) {
+        List<List<String>> res = new ArrayList<>();
+        if (paths == null || paths.length == 0) {
+            return res;
+        }
+        Map<String, Set<String>> map = new HashMap<>();     //key is content, value is dir
+        for (String s : paths) {
+            String[] strs = s.split(" ");
+            String dir = strs[0];
+            for(int i = 1; i < strs.length; i++) {
+                String[] temp = strs[i].split("\\(");
+                String fileName = temp[0];
+                String content = temp[1].substring(0, temp[1].length() - 1);
+                map.putIfAbsent(content, new HashSet<>());
+                map.get(content).add(dir + "/" + fileName);
+            }
+        }
+
+        for (String s : map.keySet()) {
+            if (map.get(s).size() > 1) {
+                res.add(new ArrayList<>(map.get(s)));
+            }
+        }
+        return res;
+    }
 
 
 
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         //System.out.println(combination(2, 8));
-        int[] candidates = {2, 3, 7, 1};
+        /*int[] candidates = {2, 3, 7, 1};
         List<List<Integer>> l1 = combinationSum(candidates, 7);
         for (List l : l1) {
             for (Object x : l) {
                 System.out.print(x + " ");
             }
             System.out.println("\n");
-        }
+        }*/
+        Others2 o = new Others2();
+        o.findDuplicate(new String[] {"root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)","root 4.txt(efgh)"});
     }
 }
