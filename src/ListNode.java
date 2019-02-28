@@ -462,6 +462,35 @@ public class ListNode {
         head = dummy.next;
     }
 
+    //23
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+        ListNode dummy = new ListNode(-1);
+        /*PriorityQueue<ListNode> pq = new PriorityQueue<>(lists.length, new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode o1, ListNode o2) {
+                return o1.val - o2.val;
+            }
+        });*/
+        //PriorityQueue<ListNode> pq = new PriorityQueue<>(lists.length, (ListNode o1, ListNode o2) -> o1.val - o2.val);
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(lists.length, Comparator.comparing((ListNode o)->o.val));
+        for (ListNode lis : lists) {
+            if (lis != null) {
+                pq.offer(lis);
+            }
+        }
+        ListNode curr = dummy;
+        while(!pq.isEmpty()) {
+            ListNode temp = pq.poll();
+            curr.next = new ListNode(temp.val);
+            curr = curr.next;
+            if (temp.next != null) {pq.offer(temp.next);}
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
 //        ListNode lx6 = new ListNode(9);
 //        ListNode lx5 = new ListNode(9);
