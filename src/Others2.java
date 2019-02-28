@@ -346,7 +346,31 @@ public class Others2 {
     }
 
 
+    //811
+    public List<String> subdomainVisits(String[] cpdomains) {
+        List<String> res = new ArrayList<>();
+        Map<String, Integer> count = new HashMap<>();
+        for (String s : cpdomains){
+            String[] strs = s.split(" ");
+            int ct = Integer.valueOf(strs[0]);
+            String[] domains = strs[1].split("\\.");
+            //build domains from the end to start
+            String dom = "";
+            for (int i = domains.length - 1; i >= 0; i--) {
+                if (i == domains.length - 1) {
+                    dom = domains[i];
+                } else {
+                    dom = domains[i] + "." + dom;
+                }
 
+                count.put(dom, count.getOrDefault(dom, 0) + ct);
+            }
+        }
+        for (String dom : count.keySet()) {
+            res.add(String.valueOf(count.get(dom)) + " " + dom);
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
         //System.out.println(combination(2, 8));
