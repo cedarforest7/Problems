@@ -834,15 +834,58 @@ public class Strings {
         if (s == null || p == null) {
             return false;
         }
+        //clean duplicated adjacent * and remove all leading *
         StringBuilder sb = new StringBuilder(p);
-        for (int i = 1; i <sb.length(); i++) {
+        int k = 0;
+        while(k < sb.length() && sb.charAt(k) == '*') {
+            sb.deleteCharAt(k);
+        }
+        for (int i = 1; i < sb.length(); i++) {
             if (sb.charAt(i) == '*' && sb.charAt(i - 1) == '*') {
                 sb.deleteCharAt(i);
                 i--;
             }
         }
         p = sb.toString();
-        boolean[][] match = new boolean[s.length()][p.length()];
+
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];   //whether substring s[0-i] and p[0-j] match
+        dp[0][0] = true;
+        //first need to initialize all dp[0][j]
+        for(int j = 1; j <= p.length(); j++) {
+            if(p.charAt(j - 1) == '*' || (j < p.length() && p.charAt(j) == '*')) {
+                dp[0][j] = true;
+            } else {
+                break;
+            }
+        }
+
+        for(int i = 1; i <= s.length(); i++) {
+            for (int j = 1; j <= p.length(); j++) {
+                if(s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (p.charAt(j - 1) == '*') {
+                    dp[i][j] =  (dp[i][j - 1]
+                            || (dp[i - 1][j] && j - 2 >= 0 && (p.charAt(j - 2) == s.charAt(i - 1) || p.charAt(j - 2) == '.'))
+                            || (j - 2 >= 0 && dp[i][j - 2]));
+                }
+            }
+        }
+        return dp[s.length()][p.length()];
+    }
+
+    public boolean isMatch1(String s, String p) {
+        if (s == null || p == null) {
+            return false;
+        }
+        StringBuilder sb = new StringBuilder(p);
+        for (int i = 1; i < sb.length(); i++) {
+            if (sb.charAt(i) == '*' && sb.charAt(i - 1) == '*') {
+                sb.deleteCharAt(i);
+                i--;
+            }
+        }
+        p = sb.toString();
+        boolean[][] match = new boolean[s.length()][p.length()];        //whether s and p match if we match s.i and p.j(?)
         return matchHelper(s, p, 0, 0, match);
     }
 
@@ -900,7 +943,7 @@ public class Strings {
         }*/
         //String s = "()()))r)";
         //Helper.printList(r.removeInvalidParentheses(s));
-        System.out.println(r.isMatch("a", "ab*"));
+        System.out.println(r.isMatch("aab", ""));
     }
 
 
