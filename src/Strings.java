@@ -829,6 +829,58 @@ public class Strings {
         return s.substring(lastStart, lastEnd + 1);
     }
 
+    //10
+    public boolean isMatch(String s, String p) {
+        if (s == null || p == null) {
+            return false;
+        }
+        StringBuilder sb = new StringBuilder(p);
+        for (int i = 1; i <sb.length(); i++) {
+            if (sb.charAt(i) == '*' && sb.charAt(i - 1) == '*') {
+                sb.deleteCharAt(i);
+                i--;
+            }
+        }
+        p = sb.toString();
+        boolean[][] match = new boolean[s.length()][p.length()];
+        return matchHelper(s, p, 0, 0, match);
+    }
+
+    private boolean matchHelper(String s, String p, int i, int j, boolean[][] match) {
+        if (i == s.length() && j == p.length()) {
+            //at the end of both strings, finish comparing
+            return true;
+        }
+        if (i >= s.length() && j < p.length()) {
+            if (p.charAt(j) == '*') {
+                return matchHelper(s, p, i, j + 1, match);
+            }
+            if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
+                return matchHelper(s, p, i, j + 2, match);
+            }
+        }
+        if (i >= s.length() || j >= p.length()) {
+            return false;
+        }
+        if (match[i][j]) {
+            return true;
+        }
+        if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') {
+            match[i][j] = matchHelper(s, p, i + 1, j + 1, match) ||
+                    (j + 1 < p.length() && p.charAt(j + 1) == '*' && matchHelper(s, p, i, j + 2, match));
+
+        } else if (p.charAt(j) != '*') {
+            //s.charAt(i) != p.charAt(j)
+            match[i][j] =  j + 1 < p.length() && p.charAt(j + 1) == '*' && matchHelper(s, p, i, j + 2, match);
+        } else {
+            //p.charAt(j) == '*'
+            // * = 1, 2, 3
+            match[i][j] =  matchHelper(s, p, i, j + 1, match) ||
+                    (j - 1 >= 0 && (p.charAt(j - 1) == s.charAt(i) || p.charAt(j - 1) == '.') && matchHelper(s, p, i + 1, j, match));
+        }
+        return match[i][j];
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
@@ -848,9 +900,7 @@ public class Strings {
         }*/
         //String s = "()()))r)";
         //Helper.printList(r.removeInvalidParentheses(s));
-        System.out.println(r.minWindow("ADOBECODEBANC", "ABKC"));
-
-
+        System.out.println(r.isMatch("a", "ab*"));
     }
 
 
