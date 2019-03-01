@@ -803,6 +803,55 @@ public class Number {
         return res;
     }
 
+    //973
+    public int[][] kClosest(int[][] points, int K) {
+        //quick select
+        if (points.length <= K) {
+            return points;
+        }
+        quickSelect(points, K - 1, 0, points.length - 1);
+        return Arrays.copyOf(points, K);
+    }
+
+    private void quickSelect(int[][] points, int k, int start, int end) {
+        //index 0 - k
+        if(start == end) {
+            return;
+        }
+        int left = start, right = end;
+        int[] pivot = points[left + (right - left) / 2];
+        while (left <= right) {
+            while(left <= right && comparePoints(points[left], pivot) < 0) {
+                left++;
+            }
+            while(left <= right && comparePoints(pivot, points[right]) < 0) {
+                right--;
+            }
+            if(left <= right) {
+                swap(points, left, right);
+                left++;
+                right--;
+            }
+        }
+
+        if (right >= k && start <= right) {
+            quickSelect(points, k, start, right);
+        } else if (left <= k && left <= end) {
+            quickSelect(points, k, left, end);
+        }
+    }
+
+    private int comparePoints(int[] p1, int[] p2) {
+        return p1[0] * p1[0] + p1[1] * p1[1] - p2[0] * p2[0] - p2[1] * p2[1];
+    }
+
+    private void swap(int[][] points, int left, int right) {
+        int[] temp = points[left];
+        points[left] = points[right];
+        points[right] = temp;
+    }
+
+
     public static void main(String[] args) {
         Number nb = new Number();
         //System.out.println(nb.coinChange(coins, 12));
@@ -817,8 +866,8 @@ public class Number {
         /*int[] nums = {3, 1, 5, 8};
         System.out.println(nb.maxCoins(nums));*/
 
-        nb.permute(new int[] {1,2,3});
-
-
+        //nb.permute(new int[] {1,2,3});
+        int[][] points = {{3,3},{5,-1},{-2,4}};
+        nb.kClosest(points, 2);
     }
 }
