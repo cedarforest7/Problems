@@ -755,17 +755,98 @@ public class Matrix {
     }
 
 
+    //85
+    public int maximalRectangle(char[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        //int[] height = new int[n];
+        int[][] left = new int[m][n];
+        int[][] right = new int[m][n];
+        int[][] height = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            int l = n;
+
+            for(int j = 0; j < n; j++) {
+                if (matrix[i][j] == '0') {
+                    l = n;
+                    left[i][j] = n;
+                } else {
+                    l = Math.min(l, j);
+                    left[i][j] = (i == 0 || matrix[i - 1][j] == '0') ? l : Math.max(left[i - 1][j], l == n ? -1 : l);
+                }
+
+            }
+            int r = -1;
+            for(int j = n - 1; j >= 0; j--) {
+                if (matrix[i][j] == '0') {
+                    r = -1;
+                    right[i][j] = -1;
+                } else {
+                    r = Math.max(r, j);
+                    right[i][j] = (i == 0 || matrix[i - 1][j] == '0') ? r : Math.min(right[i - 1][j], r == -1 ? n : r);
+                }
+
+            }
+        }
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if (matrix[i][j] == '0') {
+                    height[i][j] = 0;
+                } else {
+                    height[i][j] = i == 0 ? 1 : height[i - 1][j] + 1;
+                }
+            }
+        }
+
+        int max = 0;
+        for(int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == '0') {
+                    continue;
+                }
+                max = Math.max(max, (right[i][j] - left[i][j] + 1) * height[i][j]);
+            }
+        }
+        return max;
+    }
+
+    public int maximalRectangl1(char[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        int[][] dp = new int[m+1][n+1];
+        int max = 0;
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                dp[i][j] = matrix[i - 1][j - 1] == '0' ? 0 : dp[i][j - 1] + 1;
+                int minLen = n;
+                for (int k = i; k > 0; k--) {
+                    if (matrix[k - 1][j - 1] == '0') {
+                        break;
+                    }
+                    minLen = Math.min(minLen, dp[k][j]);
+                    max = Math.max(max, minLen * (i - k + 1));
+                }
+            }
+        }
+        return max;
+    }
+
 
     public static void main(String[] args) {
         Matrix m = new Matrix();
-        int[][] grid = {{1, 0, 0, 1}, {0,1,1,0}, {0,1,1,1}, {1,0,1,1}};
+        //int[][] grid = {{1, 0, 0, 1}, {0,1,1,0}, {0,1,1,1}, {1,0,1,1}};
+        char[][] grid = {{'1', '0', '1', '0', '0'}, {'1','0','1','1','1'}, {'1','1','1','1','1'}, {'1','0','0','1','0'}};
         int[][] grid1 = {{1},{2},{3}};
         int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
         /*List<Integer> res = m.spiralOrder(grid1);
         for (int x : res) {
             System.out.print(x + " ");
         }*/
-        System.out.println(m.findCircleNum(grid));
+        System.out.println(m.maximalRectangle(grid));
 
 
     }
