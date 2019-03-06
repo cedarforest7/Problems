@@ -851,6 +851,67 @@ public class Number {
         points[right] = temp;
     }
 
+    //923
+    public int threeSumMulti(int[] A, int target) {
+        if (A == null || A.length < 3) {
+            return 0;
+        }
+        int res = 0;
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int x : A) {
+            count.put(x, count.getOrDefault(x, 0) + 1);
+        }
+        int[] B = new int[count.size()];
+        int k = 0;
+        for (int x : count.keySet()) {
+            B[k] = x;
+            k++;
+        }
+        Arrays.sort(B);
+        if (target % 3 == 0 && count.containsKey(target / 3)) {
+            int temp = count.get(target / 3);
+            if (temp >= 3) {
+                res += temp * (temp - 1) * (temp - 2) / 6;
+            }
+        }
+        for (int i = 0; i < B.length; i++) {
+            int temp = count.get(B[i]);
+            //contains one B[i]
+            res += temp * twoSum(B, target - B[i], i + 1, count);
+            //contains two B[i]
+            if (temp >= 2 && target > B[i] * 3) {
+                res += temp * (temp - 1) / 2 * (count.containsKey(target - B[i] * 2) ? count.get(target - B[i] * 2) : 0);
+            }
+
+        }
+        return res;
+    }
+
+    private int twoSum(int[] B, int target, int start, Map<Integer, Integer> count) {
+        int res = 0;
+        int l = start, r = B.length - 1;
+        while (l < r) {
+            if (B[l] + B[r] == target) {
+                res += count.get(B[l]) * count.get(B[r]);
+                l++;
+                r--;
+            } else if (B[l] + B[r] < target) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+        if (l == r && B[l] + B[r] == target) {
+            int temp = count.get(B[l]);
+            if (temp >= 2) {
+                res += temp * (temp - 1) / 2;
+            }
+        }
+        return res;
+    }
+
+
+
 
     public static void main(String[] args) {
         Number nb = new Number();
@@ -867,7 +928,7 @@ public class Number {
         System.out.println(nb.maxCoins(nums));*/
 
         //nb.permute(new int[] {1,2,3});
-        int[][] points = {{3,3},{5,-1},{-2,4}};
-        nb.kClosest(points, 2);
+        //int[][] points = {{3,3},{5,-1},{-2,4}};
+        System.out.println(nb.threeSumMulti(new int[] {1,1,2,2,3,3,4,4,5,5}, 8));
     }
 }
