@@ -910,7 +910,45 @@ public class Number {
         return res;
     }
 
-
+    //755
+    public int[] pourWater(int[] heights, int V, int K) {
+        if (heights == null || heights.length == 0 || K < 0 || K >= heights.length) {
+            return heights;
+        }
+        if (heights.length == 1) {
+            heights[0] += V;
+            return heights;
+        }
+        int left = K, right = K, n = heights.length;
+        for (int i = 0; i < V; i++) {
+            int nextLeft = K;
+            while (nextLeft - 1 >= 0 && heights[nextLeft - 1] <= heights[nextLeft]) {
+                if (heights[nextLeft - 1] < heights[nextLeft]) {
+                    left = nextLeft - 1;
+                }
+                nextLeft--;
+            }
+            if (left != K) {
+                heights[left]++;
+                left = K;
+                continue;
+            }
+            int nextRight = K;
+            while (nextRight + 1 < n && heights[nextRight + 1] <= heights[nextRight]) {
+                if (heights[nextRight + 1] < heights[nextRight]) {
+                    right = nextRight + 1;
+                }
+                nextRight++;
+            }
+            if (right != K) {
+                heights[right]++;
+                right = K;
+                continue;
+            }
+            heights[K]++;
+        }
+        return heights;
+    }
 
 
     public static void main(String[] args) {
@@ -929,6 +967,10 @@ public class Number {
 
         //nb.permute(new int[] {1,2,3});
         //int[][] points = {{3,3},{5,-1},{-2,4}};
-        System.out.println(nb.threeSumMulti(new int[] {1,1,2,2,3,3,4,4,5,5}, 8));
+        int[] a = nb.pourWater(new int[] {1,1,2,2,3,3,4,4,5,5}, 7, 3);
+        for (int x : a) {
+            System.out.print(x + " ");
+        }
+
     }
 }
