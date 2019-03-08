@@ -950,6 +950,54 @@ public class Number {
         return heights;
     }
 
+    //224
+    public int calculate(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        //integers to be calculated are non-negative
+        Stack<Integer> nums = new Stack<>();       //store numbers
+        Stack<Boolean> ops = new Stack<>();         //store operators, +, - are true, false
+        nums.push(0);
+        ops.push(true);
+        int curr = 0;
+        for (int i = 0; i < s.length(); i++) {
+            while(s.charAt(i) == '(') {
+                nums.push(0);
+                ops.push(true);
+                i++;
+            }
+            char c = s.charAt(i);
+            if (c == ' ') {
+                continue;
+            } else if (c == '+') {
+                ops.push(true);
+            } else if (c == '-') {
+                ops.push(false);
+            } else if (c == ')') {
+                int last = nums.pop();
+                if (ops.pop()) {
+                    nums.push(nums.pop() + last);
+                } else {
+                    nums.push(nums.pop() - last);
+                }
+            } else {
+                //c is a number
+                curr = curr * 10 + c - '0';
+                if (i == s.length() - 1 || s.charAt(i + 1) < '0') {
+                    //end of a number
+                    if (ops.pop()) {
+                        nums.push(nums.pop() + curr);
+                    } else {
+                        nums.push(nums.pop() - curr);
+                    }
+                    curr = 0;   //reset curr
+                }
+            }
+
+        }
+        return nums.peek();
+    }
 
     public static void main(String[] args) {
         Number nb = new Number();
@@ -967,10 +1015,11 @@ public class Number {
 
         //nb.permute(new int[] {1,2,3});
         //int[][] points = {{3,3},{5,-1},{-2,4}};
-        int[] a = nb.pourWater(new int[] {1,1,2,2,3,3,4,4,5,5}, 7, 3);
+        /*int[] a = nb.pourWater(new int[] {1,1,2,2,3,3,4,4,5,5}, 7, 3);
         for (int x : a) {
             System.out.print(x + " ");
-        }
+        }*/
+        System.out.println(nb.calculate("10-(2-(4-6)"));
 
     }
 }
