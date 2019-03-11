@@ -999,6 +999,149 @@ public class Number {
         return nums.peek();
     }
 
+    //975
+    /*private class Heap{
+        int[] nums;
+        Comparator<Integer> cmp;
+        int limit;
+        int size;
+
+        Heap(int limit, Comparator<Integer> cmp) {
+            //for this problem no need to resize heap
+            this.limit = limit;
+            nums = new int[limit + 1];
+            this.cmp = cmp;
+            size = 0;
+        }
+
+        public void insert(int val) {
+            size++;
+            int index = size;
+            nums[index] = val;
+
+            bubbleUp(index);
+        }
+
+        public void bubbleUp(int k) {
+            //k means its index is k in nums array
+            while (hasPerant(k) && cmp.compare(nums[parent(k)], nums[k]) > 0) {
+                swap(k, parent(k));
+                k = parent(k);
+            }
+        }
+
+        public void bubbleDown(int k) {
+            while (hasLeft(k)) {
+                // which of my children is smaller?
+                int smallerChild = leftChild(k);
+
+                // bubble with the smaller child, if I have a smaller child
+                if (hasRight(k)
+                        && cmp.compare(nums[leftChild(k)], nums[rightChild(k)]) > 0) {
+                    smallerChild = rightChild(k);
+                }
+
+                if (cmp.compare(nums[k], nums[smallerChild]) > 0) {
+                    //swap with the smaller child
+                    swap(k, smallerChild);
+                } else {
+                    // otherwise, get outta here!
+                    break;
+                }
+
+                // make sure to update loop counter/index of where last el is put
+                k = smallerChild;
+            }
+        }
+
+        public boolean hasPerant(int k) {
+            return k > 1;
+        }
+
+        public boolean hasLeft(int k) {
+            return leftChild(k) <= size;
+        }
+
+        public boolean hasRight(int k) {
+            return rightChild(k) <= size;
+        }
+
+        public int parent(int k) {
+            return k / 2;
+        }
+
+        public int leftChild(int k){
+            return k * 2;
+        }
+
+        public int rightChild(int k) {
+            return k * 2 + 1;
+        }
+
+        public void swap(int i, int j) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+    }*/
+
+
+    public int oddEvenJumps(int[] A) {
+        if (A == null || A.length == 0) {
+            return 0;
+        }
+        int n = A.length;
+        //2 comparators
+        Comparator<Integer> oddCmp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer m, Integer k) {
+                if (A[m] != A[k]) {
+                    return A[m] - A[k];
+                }
+                return m - k;
+            }
+        };
+
+        Comparator<Integer> evenCmp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer m, Integer k) {
+                if (A[m] != A[k]) {
+                    return A[m] - A[k];
+                }
+                return k - m;
+            }
+        };
+
+        //2 BSTs
+        TreeMap<Integer, Boolean> oddJump = new TreeMap<>(oddCmp);
+        TreeMap<Integer, Boolean> evenJump = new TreeMap<>(evenCmp);
+
+        oddJump.put(n - 1, true);
+        evenJump.put(n - 1, true);
+        int res = 1;
+        for (int i = n - 2; i >= 0; i--) {
+            Integer oddJumpTo = oddJump.higherKey(i);
+            Integer evenJumpTo = evenJump.lowerKey(i);
+            oddJump.put(i, false);
+            evenJump.put(i, false);
+            if (oddJumpTo != null) {
+                if (oddJump.get(oddJumpTo)) {
+                    evenJump.put(i, true);
+                    //System.out.print(i + " ");
+                    res++;
+                }
+            }
+            if (evenJumpTo != null) {
+                if (evenJump.get(evenJumpTo)) {
+                    oddJump.put(i, true);
+                }
+            }
+        }
+        return res;
+    }
+
+
+
     public static void main(String[] args) {
         Number nb = new Number();
         //System.out.println(nb.coinChange(coins, 12));
@@ -1019,7 +1162,7 @@ public class Number {
         for (int x : a) {
             System.out.print(x + " ");
         }*/
-        System.out.println(nb.calculate("10-(2-(4-6)"));
+        System.out.println("\n" + nb.oddEvenJumps(new int[]{10,13,12, 14,15}));
 
     }
 }
