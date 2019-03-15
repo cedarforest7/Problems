@@ -924,6 +924,168 @@ public class Strings {
         return match[i][j];
     }
 
+    //336
+    class Trie {
+        class TrieNode {
+            Map<Character, TrieNode> children;
+            boolean isWord;
+            int index;
+            public TrieNode() {
+                //an empty node
+                children = new HashMap<>();
+                isWord = false;
+                index = -1;
+            }
+
+        }
+
+        TrieNode root;
+        public Trie() {
+           root = new TrieNode();
+        }
+
+        public void insert(String s, int ind) {
+            if (s == null) {
+                return;
+            }
+            TrieNode curr = root;
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (!curr.children.containsKey(c)) {
+                    //insert a new char to children
+                    curr.children.put(c, new TrieNode());
+                }
+                curr = curr.children.get(c);
+            }
+            curr.isWord = true;
+            curr.index = ind;
+        }
+
+        //if Trie contains the String, return index, else return -1
+        public int contains(String s) {
+            if (s == null) {
+                return -1;
+            }
+            TrieNode curr = root;
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (curr.children.containsKey(c)) {
+                    curr = curr.children.get(c);
+                } else {
+                    return -1;
+                }
+            }
+            return curr.index;
+        }
+
+
+    }
+
+    public List<List<Integer>> palindromePairs(String[] words) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (words == null || words.length < 2) {
+            return res;
+        }
+        Trie root = getTrie(words);
+        for (int i = 0; i < words.length; i++) {
+            getPair(i, root, words, false, res);
+            getPair(i, root, words, true, res);
+        }
+        return res;
+    }
+
+    private void getPair(int i, Trie root, String[] words, boolean isRev, List<List<Integer>> res) {
+        String s = words[i];
+        if (isRev) {
+            s = new StringBuilder(s).reverse().toString();
+        }
+        for (int p = s.length() * 2; p >= s.length(); p--) {
+            //p is the length of resulting palindrome
+            if (isRev && p == s.length() * 2) {
+                continue;
+            }
+            int left, right;
+            if (p % 2 == 0) {
+                //pivot is between 2 letters
+                left = p / 2 - 1;
+                right = p / 2;
+            } else {
+                //pivot falls on a letter
+                left = p / 2 - 1;
+                right = p / 2 + 1;
+            }
+            while (right < s.length()) {
+                if (s.charAt(left) != s.charAt(right)) {
+                    break;
+                }
+                left--;
+                right++;
+            }
+            if (right == s.length()) {
+                String temp = new StringBuilder(s.substring(0, left + 1)).reverse().toString();
+                if (isRev) {
+                    temp = new StringBuilder(temp).reverse().toString();
+                }
+                if (temp.equals(s)) {
+                    continue;
+                }
+                int pair = root.contains(temp);
+                if (pair != -1) {
+                    List<Integer> lis = new ArrayList<>();
+                    if (isRev) {
+                        lis.add(pair);
+                        lis.add(i);
+                    } else {
+                        lis.add(i);
+                        lis.add(pair);
+                    }
+                    res.add(lis);
+                }
+            }
+        }
+
+    }
+
+    private Trie getTrie(String[] words) {
+        //construct a Trie based on the array
+        Trie root = new Trie();
+        for (int i = 0; i < words.length; i++) {
+            root.insert(words[i], i);
+        }
+        return root;
+    }
+
+
+    public List<List<Integer>> palindromePairs1(String[] words) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (words == null || words.length < 2) {
+            return res;
+        }
+        for (int i = 0; i < words.length; i++) {
+            for (int j = 0; j < words.length; j++) {
+                if (i == j) {
+                    continue;
+                }
+                if (isPalindrome(words[i] + words[j])) {
+                    List<Integer> lis = new ArrayList<>();
+                    lis.add(i);
+                    lis.add(j);
+                    res.add(lis);
+                }
+            }
+        }
+        return res;
+    }
+
+    private boolean isPalindrome(String s) {
+        for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
@@ -943,7 +1105,7 @@ public class Strings {
         }*/
         //String s = "()()))r)";
         //Helper.printList(r.removeInvalidParentheses(s));
-        System.out.println(r.isMatch("aab", ""));
+        Helper.printListofListInt(r.palindromePairs(new String[]{"a","aa","aaa"}));
     }
 
 

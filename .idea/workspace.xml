@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="" />
+    <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/test/Helper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Helper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/test/Number$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Number$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/test/Number$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Number$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/test/Number.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Number.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/test/Strings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/test/Strings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Strings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Strings.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,33 +39,34 @@
           <entry key="project.open.time.19" value="3" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.32" value="2" />
           <entry key="project.open.time.4" value="3" />
-          <entry key="project.opened" value="59" />
+          <entry key="project.opened" value="60" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="109" />
+          <entry key="java" value="111" />
           <entry key="js" value="1" />
           <entry key="kt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="109" />
+          <entry key="JAVA" value="111" />
           <entry key="JavaScript" value="1" />
           <entry key="Kotlin" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="69509" />
+          <entry key="java" value="72123" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="69509" />
+          <entry key="JAVA" value="72123" />
         </counts>
       </usages-collector>
     </session>
@@ -64,14 +74,23 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Number.java">
+        <entry file="file://$PROJECT_DIR$/src/Strings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="1133" column="37" lean-forward="true" selection-start-line="1133" selection-start-column="37" selection-end-line="1133" selection-end-column="37" />
+            <state relative-caret-position="269">
+              <caret line="1045" selection-start-line="1045" selection-end-line="1046" />
               <folding>
-                <element signature="e#14347#14348#0" expanded="true" />
-                <element signature="e#14413#14414#0" expanded="true" />
+                <element signature="e#29252#29253#0" expanded="true" />
+                <element signature="e#29297#29298#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Helper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -119,13 +138,13 @@
         <option value="$PROJECT_DIR$/src/Others.java" />
         <option value="$PROJECT_DIR$/src/Array.java" />
         <option value="$PROJECT_DIR$/src/Graph.java" />
-        <option value="$PROJECT_DIR$/src/Helper.java" />
         <option value="$PROJECT_DIR$/src/AutocompleteSystem.java" />
         <option value="$PROJECT_DIR$/src/Others2.java" />
         <option value="$PROJECT_DIR$/src/ListNode.java" />
-        <option value="$PROJECT_DIR$/src/Strings.java" />
         <option value="$PROJECT_DIR$/src/Matrix.java" />
         <option value="$PROJECT_DIR$/src/Number.java" />
+        <option value="$PROJECT_DIR$/src/Helper.java" />
+        <option value="$PROJECT_DIR$/src/Strings.java" />
       </list>
     </option>
   </component>
@@ -139,8 +158,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -157,11 +174,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Interval.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552418449340" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552623813346" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -179,7 +198,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Number">
+  <component name="RunManager" selected="Application.Strings">
     <configuration name="AutocompleteSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AutocompleteSystem" />
       <module name="test" />
@@ -224,9 +243,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Strings" />
         <item itemvalue="Application.Number" />
         <item itemvalue="Application.Matrix" />
-        <item itemvalue="Application.Strings" />
         <item itemvalue="Application.Others2" />
         <item itemvalue="Application.AutocompleteSystem" />
       </list>
@@ -246,10 +265,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18299595" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18623482" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -258,8 +277,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30427048" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.40569395" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.09252669" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.29181495" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -332,6 +351,13 @@
           <line>822</line>
           <properties />
           <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="i == 2" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/Strings.java</url>
+          <line>994</line>
+          <properties />
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -498,13 +524,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Helper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AutocompleteSystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -534,13 +553,6 @@
             <element signature="e#10219#10220#0" expanded="true" />
             <element signature="e#10279#10280#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Strings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="881" column="65" lean-forward="true" selection-start-line="881" selection-start-column="65" selection-end-line="881" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -582,10 +594,28 @@
     <entry file="file://$PROJECT_DIR$/src/Number.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="1133" column="37" lean-forward="true" selection-start-line="1133" selection-start-column="37" selection-end-line="1133" selection-end-column="37" />
+          <caret line="1133" column="37" selection-start-line="1133" selection-start-column="37" selection-end-line="1133" selection-end-column="37" />
           <folding>
             <element signature="e#14347#14348#0" expanded="true" />
             <element signature="e#14413#14414#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Helper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Strings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="1045" selection-start-line="1045" selection-end-line="1046" />
+          <folding>
+            <element signature="e#29252#29253#0" expanded="true" />
+            <element signature="e#29297#29298#0" expanded="true" />
           </folding>
         </state>
       </provider>
