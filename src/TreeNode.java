@@ -756,19 +756,50 @@ public class TreeNode {
         return root;
     }
 
+    //124
+    int maxSum = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        maxHalf(root);
+        return maxSum;
+    }
+    /*
+     * @return the max sum of paths contains root and either left of right nodes (cannot be both)
+     * and needs to update the global maxSum
+     */
+    private int maxHalf(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftMax = maxHalf(root.left);
+        int rightMax = maxHalf(root.right);
+        int maxHalf = root.val;
+        int localMax = root.val;
+        if (leftMax > 0 || rightMax > 0) {
+            maxHalf += Math.max(leftMax, rightMax);
+        }
+        if (leftMax > 0) {
+            localMax += leftMax;
+        }
+        if (rightMax > 0) {
+            localMax += rightMax;
+        }
+        maxSum = Math.max(maxSum, localMax);
+        return maxHalf;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
-        TreeNode t2 = new TreeNode(1);
+        TreeNode t2 = new TreeNode(-1);
         TreeNode t3 = new TreeNode(0);
         TreeNode t4 = new TreeNode(2);
-        TreeNode t5 = new TreeNode(3);
+        TreeNode t5 = new TreeNode(2);
         //TreeNode t6 = new TreeNode(6);
         //TreeNode t7 = new TreeNode(7);
         root.left = t2;
         //root.right = t3;
         t2.left = t3;
         t2.right = t4;
-        t4.right = t5;
+        root.right = t5;
 
 //        LinkedList<TreeNode> anc2 = root.ancestors(root, t2);
 //        for (TreeNode t : anc2) {
@@ -785,7 +816,7 @@ public class TreeNode {
         /*String[] codes = {"a\t100100", "b\t100101", "c\t110001","d\t100000", "[newline]\t111111"};
 
         String encoded = "100100111111110001";*/
-        System.out.print(root.isValidBST(root));
+        System.out.print(root.maxPathSum(root));
     }
 
 
