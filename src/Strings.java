@@ -1055,6 +1055,64 @@ public class Strings {
         return root;
     }
 
+    //68
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> res = new ArrayList<>();
+        int start = 0, end = 0;
+        //end - start = # of intervals between words
+        //determine the words in the next line
+        while(end < words.length) {
+            int numChars = words[start].length();
+            while (end + 1 < words.length && numChars + end - start <= maxWidth) {
+                end++;
+                numChars += words[end].length();
+            }
+            if(end == words.length - 1 && numChars + end - start <= maxWidth) {
+                //the last word is in this line
+                res.add(wordsToLine(words, start, end, numChars, maxWidth));
+                break;
+            }
+            if (end != start) {
+                numChars -= words[end].length();
+                end--;
+            }
+            res.add(wordsToLine(words, start, end, numChars, maxWidth));
+            end++;
+            start = end;
+        }
+
+        return res;
+    }
+
+
+    //convert words to a justified line
+    private String wordsToLine(String[] words, int start, int end, int numChars, int width) {
+        StringBuilder sb = new StringBuilder();
+        if (end == words.length - 1) {
+            //last line
+            for (int i = start; i < end; i++) {
+                sb.append(words[i]);
+                sb.append(' ');
+            }
+        } else if (end != start){
+            int shortSpace = (width - numChars) / (end - start);
+            int longSpace = shortSpace + 1;
+            int numLong= (width - numChars) % (end - start);
+            for (int i = start; i < end; i++) {
+                sb.append(words[i]);
+                int space = i - start < numLong ? longSpace : shortSpace;
+                while (space > 0) {
+                    sb.append(' ');
+                    space--;
+                }
+            }
+        }
+        sb.append(words[end]);
+        while (sb.length() < width) {
+            sb.append(' ');
+        }
+        return sb.toString();
+    }
 
     public List<List<Integer>> palindromePairs1(String[] words) {
         List<List<Integer>> res = new ArrayList<>();
@@ -1105,7 +1163,11 @@ public class Strings {
         }*/
         //String s = "()()))r)";
         //Helper.printList(r.removeInvalidParentheses(s));
-        Helper.printListofListInt(r.palindromePairs(new String[]{"a","aa","aaa"}));
+        List<String> lis = r.fullJustify(new String[]{"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"
+        }, 20);
+        for (String s : lis) {
+            System.out.println(s);
+        }
     }
 
 
