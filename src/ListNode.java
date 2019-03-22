@@ -491,6 +491,97 @@ public class ListNode {
         return dummy.next;
     }
 
+    //25
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || head.next == null || k == 1) {
+            return head;
+        }
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        reversePart(dummy, k);
+        return dummy.next;
+    }
+
+    private void reversePart(ListNode prev, int k) {
+        if (prev.next == null || prev.next.next == null) {
+            return;
+        }
+        ListNode p = prev.next, q = p.next, r = q.next;
+        for (int i = 0; i < k - 1; i++) {
+            q.next = p;
+            p = q;
+            q = r;
+            if (q == null) {
+                //reached the end of list
+                if (i != k - 2) {
+                    //reverse back until prev.next
+                    withdrawReverse(p, prev.next);
+                    return;
+                } else {
+                    break;
+                }
+            }
+            r = q.next;
+        }
+        ListNode last = prev.next;
+        last.next = q;
+        prev.next = p;
+        reversePart(last, k);
+    }
+
+    private void withdrawReverse(ListNode end, ListNode start) {
+        ListNode p = end, q = p.next, r = q.next;
+        while (q != start) {
+            q.next = p;
+            p = q;
+            q = r;
+            r = q.next;
+        }
+        end.next = null;
+    }
+
+    public ListNode reverseKGroup1(ListNode head, int k) {
+        if (head == null || k == 1) {
+            return head;
+        }
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        Map<ListNode, ListNode> map = new HashMap<>();
+        ListNode scan = dummy;
+        while (scan.next != null) {
+            map.put(scan.next, scan);
+            scan = scan.next;
+        }
+
+        reversePart1(dummy, k, map);
+        return dummy.next;
+    }
+
+    private void reversePart1(ListNode prev, int k, Map<ListNode, ListNode> map) {
+        //go to the kth node
+        ListNode first = prev;
+        for (int i = 0; i < k; i++) {
+            first = first.next;
+            if (first == null) {
+                //reaches the end of the list
+                return;
+            }
+        }
+        ListNode tail = first.next;
+        ListNode scan = first;
+        while (scan != prev) {
+            ListNode prevNode = map.get(scan);
+            scan.next = prevNode;
+            scan = prevNode;
+        }
+        scan = prev.next;
+        scan.next = tail;
+        map.put(tail, scan);
+        prev.next = first;
+
+        reversePart1(scan, k, map);
+    }
+
     public static void main(String[] args) {
 //        ListNode lx6 = new ListNode(9);
 //        ListNode lx5 = new ListNode(9);
@@ -499,12 +590,12 @@ public class ListNode {
 //        lx4.next = lx5;
 //        ListNode lx3 = new ListNode(9);
 //        lx3.next = lx4;
-//        ListNode lx2 = new ListNode(9);
+        ListNode lx2 = new ListNode(6);
 //        lx2.next = lx3;
         ListNode lx1 = new ListNode(5);
-//        lx1.next = lx2;
+        lx1.next = lx2;
         ListNode l1 = new ListNode(4);
-        //l1.next = lx1;
+        l1.next = lx1;
         ListNode l2 = new ListNode(3);
         l2.next = l1;
         ListNode l3 = new ListNode(2);
@@ -514,13 +605,8 @@ public class ListNode {
 //        System.out.println(hasCycle1(l3));
         ListNode l6 = new ListNode(1);
         l6.next = l3;
-//        ListNode l5 = removeElements(l6, 2);
-//        printList(l5);
-//        printList(lx1);
-//        printList(l6);
-//        printList(addTwoNumbers(lx1, l6));
-//        printList(swapPairs(l6));
-        l6.reorderList(l6);
-        printList(l6);
+        //1,2,3,4,5
+
+        printList(l6.reverseKGroup(l6, 4));
     }
 }
