@@ -1172,23 +1172,7 @@ public class Strings {
 
     public static void main(String[] args) {
         Strings r = new Strings();
-        //System.out.print(r.numJewelsInStones("aA", "bbbb"));
-        //System.out.println(r.wordPatternMatch("aa", "def"));
-        /*char[][] board = {{'d', 'o', 'a', 'f'}, {'a', 'g', 'a', 'i'}, {'d', 'c', 'a', 'n'}};
-        char[][] board2 = {{'d', 'o'}, {'a', 'g'}};
-        List<String> words = new ArrayList<>();
 
-        words.add("dog");
-        words.add("dad");
-        words.add("dgdg");
-        words.add("can");
-        words.add("again");
-        List<String> res132= r.wordSearchII(board, words);
-        for (String s : res132) {
-            System.out.println(s);
-        }*/
-        //String s = "()()))r)";
-        //Helper.printList(r.removeInvalidParentheses(s));
         List<String> lis = r.fullJustify(new String[]{"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"
         }, 20);
         for (String s : lis) {
