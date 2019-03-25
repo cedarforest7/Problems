@@ -1144,6 +1144,32 @@ public class Strings {
         return true;
     }
 
+    //692
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> freq = new HashMap<>();
+        for (String s : words) {
+            freq.put(s, freq.getOrDefault(s, 0) + 1);
+        }
+        //PriorityQueue<String> pq = new PriorityQueue<>(k, (String s1, String s2) -> freq.get(s1) - freq.get(s2));
+        Comparator<String> cmp = Comparator.comparing((String s)->freq.get(s)).thenComparing(Comparator.reverseOrder());
+        PriorityQueue<String> pq = new PriorityQueue<>(k, cmp);
+        List<String> res = new ArrayList<>();
+        for (String s : freq.keySet()) {
+            if (pq.size() < k || cmp.compare(s, pq.peek()) > 0) {
+                //freq is higher
+                pq.offer(s);
+            }
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+        while(!pq.isEmpty()) {
+            res.add(pq.poll());
+        }
+        Collections.reverse(res);
+        return res;
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
         //System.out.print(r.numJewelsInStones("aA", "bbbb"));
