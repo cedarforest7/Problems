@@ -54,12 +54,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="76963" />
+          <entry key="java" value="77658" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="76963" />
+          <entry key="JAVA" value="77658" />
         </counts>
       </usages-collector>
     </session>
@@ -69,8 +69,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Strings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="1174" column="8" selection-start-line="1174" selection-start-column="8" selection-end-line="1174" selection-end-column="8" />
+            <state relative-caret-position="110">
+              <caret line="1181" column="76" lean-forward="true" selection-start-line="1181" selection-start-column="34" selection-end-line="1181" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -129,7 +129,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-3" />
     <option name="y" value="60" />
     <option name="width" value="1890" />
@@ -162,7 +162,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Strings.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553548572174" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553702312184" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -180,7 +180,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.MaxStack">
+  <component name="RunManager" selected="Application.Strings">
     <configuration name="ListNode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ListNode" />
       <module name="test" />
@@ -225,9 +225,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Strings" />
         <item itemvalue="Application.MaxStack" />
         <item itemvalue="Application.ListNode" />
-        <item itemvalue="Application.Strings" />
         <item itemvalue="Application.TreeNode" />
         <item itemvalue="Application.Number" />
       </list>
@@ -247,10 +247,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="40" width="1260" height="620" extended-state="0" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1925" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18704453" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -259,8 +259,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3613963" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.47227925" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24021353" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.14234875" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -602,8 +602,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Strings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="1174" column="8" selection-start-line="1174" selection-start-column="8" selection-end-line="1174" selection-end-column="8" />
+        <state relative-caret-position="110">
+          <caret line="1181" column="76" lean-forward="true" selection-start-line="1181" selection-start-column="34" selection-end-line="1181" selection-end-column="76" />
         </state>
       </provider>
     </entry>

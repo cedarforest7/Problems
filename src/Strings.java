@@ -1170,14 +1170,50 @@ public class Strings {
         return res;
     }
 
+    //32
+    public int longestValidParentheses(String s) {
+        if (s == null || s.length() < 2) {
+            return 0;
+        }
+        int max = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                stack.push(1);  //add a new layer every time there's a new (
+            } else {
+                //c is )
+                if (stack.isEmpty() || stack.peek() % 2 == 0) {
+                    //superfluous )
+                    stack.clear();
+                } else {
+                    int prev = stack.pop() + 1;
+
+                    if (!stack.isEmpty()) {
+                        prev += stack.pop();
+                    }
+                    stack.push(prev);
+                    if (prev % 2 == 0) {
+                        max = Math.max(max, prev);
+                    } else {
+                        max = Math.max(max, prev - 1);
+                    }
+
+                }
+            }
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         Strings r = new Strings();
 
-        List<String> lis = r.fullJustify(new String[]{"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"
+        /*List<String> lis = r.fullJustify(new String[]{"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"
         }, 20);
         for (String s : lis) {
             System.out.println(s);
-        }
+        }*/
+
+        System.out.println(r.longestValidParentheses("(()"));
     }
 
 
