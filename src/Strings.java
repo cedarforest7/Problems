@@ -1175,6 +1175,62 @@ public class Strings {
         if (s == null || s.length() < 2) {
             return 0;
         }
+
+        int max = 0;
+        int pars = 0;   //('s - )'s
+        int len = 0;    //length of current valid substring
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                pars++;
+                len++;
+            } else {
+                //c is )
+                if (pars > 0) {
+                    pars--;
+                    len++;
+                    if (pars == 0) {
+                        max = Math.max(max, len);
+                    }
+                } else {
+                    // pars = 0, start a new valid substring
+                    len = 0;
+                }
+            }
+        }
+
+        pars = 0;   //)'s - ('s
+        len = 0;    //length of current valid substring
+        //traverse reversely
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char c = s.charAt(i);
+            if (c == ')') {
+                pars++;
+                len++;
+            } else {
+                //c is (
+                if (pars > 0) {
+                    pars--;
+                    len++;
+                    if (pars == 0) {
+                        max = Math.max(max, len);
+                    }
+                } else {
+                    // pars = 0, start a new valid substring
+                    len = 0;
+                }
+            }
+        }
+
+        return max;
+    }
+
+
+
+    public int longestValidParentheses1(String s) {
+        if (s == null || s.length() < 2) {
+            return 0;
+        }
         int max = 0;
         Stack<Integer> stack = new Stack<>();
         for (char c : s.toCharArray()) {
@@ -1213,7 +1269,7 @@ public class Strings {
             System.out.println(s);
         }*/
 
-        System.out.println(r.longestValidParentheses("(()"));
+        System.out.println(r.longestValidParentheses("())())"));
     }
 
 
