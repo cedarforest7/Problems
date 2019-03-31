@@ -1226,7 +1226,6 @@ public class Strings {
     }
 
 
-
     public int longestValidParentheses1(String s) {
         if (s == null || s.length() < 2) {
             return 0;
