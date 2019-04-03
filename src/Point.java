@@ -1,7 +1,7 @@
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.*;
 
 public class Point {
     int x;
@@ -104,11 +104,79 @@ public class Point {
     private boolean visited(boolean[][] grid, Point p) {
         return grid[p.x][p.y];
     }
+
+
+    public int maxPoints(Point[] points) {
+        if (points == null || points.length == 0) {
+            return 0;
+        }
+        //deal with duplicates
+        Map<Integer, Map<Integer, Integer>> coord = new HashMap<>();
+        Set<Integer> dups = new HashSet<>();
+        for (int i = 0; i < points.length; i++) {
+            int x1 = points[i].x;
+            int y1 = points[i].y;
+            coord.putIfAbsent(x1, new HashMap<>());
+            Map<Integer, Integer> temp = coord.get(x1);
+            int count = temp.getOrDefault(y1, 0) + 1;
+            if (count != 1) {
+                dups.add(i);
+            }
+            temp.put(y1, count);
+        }
+
+        if (points.length < 3) {
+            return points.length;
+        }
+        int max = 0;
+
+        //line has the form of x = const
+        Map<Integer, Integer> xCount = new HashMap<>();
+        for (int i = 0; i < points.length; i++) {
+            int x = points[i].x;
+            int count = xCount.getOrDefault(x, 0) + 1;
+            max = Math.max(max, count);
+            xCount.put(x, count);
+        }
+
+        //line has the form of y = kx + b
+        Map<Integer, Map<BigDecimal, Integer>> map = new HashMap<>();
+        //in map: key is the index of Point in points, value is the slope of lines that the point is on and its corresponding # points
+        //traverse all possible lines
+        for (int i = 0; i < points.length; i++) {
+            if (dups.contains(i)) {
+                continue;
+            }
+            Map<BigDecimal, Integer> count = new HashMap<>();
+            map.put(i, count);
+            int x1 = points[i].x;
+            int y1 = points[i].y;
+            int dupCount = coord.get(x1).get(y1);
+            for(int j = i + 1; j < points.length; j++) {
+                if (dups.contains(j)) {
+                    continue;
+                }
+                int x2 = points[j].x;
+                int y2 = points[j].y;
+                if (x1 == x2) {
+                    continue;
+                }
+                BigDecimal k = new BigDecimal(y2 - y1).divide(new BigDecimal(x2 - x1), 16, RoundingMode.HALF_UP);
+                int kCount = count.getOrDefault(k, dupCount) + coord.get(x2).get(y2);
+                max = Math.max(max, kCount);
+                count.put(k, kCount);
+            }
+        }
+
+        return max;
+    }
+
     public static void main(String[] args) {
-        boolean[][] grid = new boolean[3][3];
+        /*boolean[][] grid = new boolean[3][3];
         grid[0][1] = true;
         Point a = new Point(2, 0);
         Point b = new Point(2, 2);
-        System.out.println(a.shortestPath(grid, a, b));
+        System.out.println(a.shortestPath(grid, a, b));*/
+        System.out.println(new BigDecimal(1234, MathContext.DECIMAL64).divide(new BigDecimal(5678, MathContext.DECIMAL64)));
     }
 }
