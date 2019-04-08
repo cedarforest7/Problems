@@ -496,8 +496,49 @@ public class Graph {
     }
 
     //207
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-
+    public boolean canFinish1(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0 || prerequisites == null || prerequisites.length == 0) {
+            return true;
+        }
+        //get neighbors and in-degrees
+        Map<Integer, Set<Integer>> neib = new HashMap<>();
+        int[] degree = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            neib.put(i, new HashSet<>());
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+            int pre = prerequisites[i][0];
+            int next = prerequisites[i][1];
+            if (pre == next) {
+                return false;
+            }
+            if (neib.get(pre).contains(next)) {
+                continue;
+            }
+            neib.get(pre).add(next);
+            degree[next]++;
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        int visited = 0;
+        //BFS, topological sorting
+        for (int i = 0; i < degree.length; i++) {
+            if (degree[i] == 0) {
+                queue.offer(i);
+                visited++;
+            }
+        }
+        while(!queue.isEmpty()) {
+            int temp = queue.poll();
+            Set<Integer> neibs = neib.get(temp);
+            for (int k : neibs) {
+                degree[k]--;
+                if (degree[k] == 0) {
+                    queue.offer(k);
+                    visited++;
+                }
+            }
+        }
+        return visited == numCourses;
     }
 
 
