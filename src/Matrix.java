@@ -835,6 +835,77 @@ public class Matrix {
         return max;
     }
 
+    //37
+    public void solveSudoku(char[][] board) {
+        List<Set<Integer>> rows = new ArrayList<>();
+        List<Set<Integer>> cols = new ArrayList<>();
+        List<Set<Integer>> boxes = new ArrayList<>();
+        //initialize sets, store 'visited'
+        for(int k = 0; k < 9; k++) {
+            rows.add(new HashSet<Integer>());
+            cols.add(new HashSet<Integer>());
+            boxes.add(new HashSet<Integer>());
+        }
+        //put all info into 3 lists
+        for (int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                if(board[i][j] == '.') {
+                    continue;
+                }
+                int boxInd = (i / 3) * 3 + j / 3;
+                int c = board[i][j] - '0';
+                rows.get(i).add(c);
+                cols.get(j).add(c);
+                boxes.get(boxInd).add(c);
+            }
+        }
+        //DFS
+        sudokuHelper(board, rows, cols, boxes, 0, 0);
+    }
+
+    private boolean sudokuHelper(char[][] board, List<Set<Integer>> rows, List<Set<Integer>> cols, List<Set<Integer>> boxes,
+                                 int i, int j) {
+        if (i == 9) {
+            return true;
+        }
+        int inext, jnext;
+        if (j == 8) {
+            //start from the next row
+            inext = i + 1;
+            jnext = 0;
+        } else {
+            inext = i;
+            jnext = j + 1;
+        }
+        //definition of DFS: solve the puzzle start from (i, j) (included)
+        if (board[i][j] != '.') {
+            return sudokuHelper(board, rows, cols, boxes, inext, jnext);
+        }
+
+        Set<Integer> row = rows.get(i);
+        Set<Integer> col = cols.get(j);
+        Set<Integer> box = boxes.get((i / 3) * 3 + j / 3);
+
+        for (int k = 1; k < 10; k++) {
+            if (row.contains(k) || col.contains(k) || box.contains(k)) {
+                continue;
+            }
+            //put k into board
+            board[i][j] = (char)('0' + k);
+            row.add(k);
+            col.add(k);
+            box.add(k);
+            if (sudokuHelper(board, rows, cols, boxes, inext, jnext)) {
+                return true;
+            }
+            //backtrack
+            board[i][j] = '.';
+            row.remove(k);
+            col.remove(k);
+            box.remove(k);
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         Matrix m = new Matrix();

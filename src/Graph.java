@@ -495,6 +495,11 @@ public class Graph {
         return  sb.toString();
     }
 
+    //207
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+
+    }
+
 
 
     public static void main(String[] args) {
