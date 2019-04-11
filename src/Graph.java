@@ -557,6 +557,7 @@ public class Graph {
         Helper.printListofList(lis);*/
         //String[] words = { "wrt", "wrf", "er", "ett", "rftt"};
         String[] words = {"vlxpwiqbsg","cpwqwqcd"};
-        System.out.println(g.alienOrder(words));
+        //System.out.println(g.alienOrder(words));
+        System.out.println(-10 % 3);
     }
 }
