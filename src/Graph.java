@@ -541,23 +541,131 @@ public class Graph {
         return visited == numCourses;
     }
 
+    //126
+    /*All words have the same length.
+    All words contain only lowercase alphabetic characters.
+    You may assume no duplicates in the word list.
+    You may assume beginWord and endWord are non-empty and are not the same.*/
 
+
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        List<List<String>> res = new ArrayList<>();
+        if (wordList == null || wordList.size() == 0) {
+            return res;
+        }
+        Set<String> words = new HashSet<>(wordList);
+        words.add(beginWord);
+        if (!wordList.contains(endWord)) {
+            return res;
+        }
+        //build adjacency list
+        Map<String, Set<String>> adj = new HashMap<>();
+        adj.put(beginWord, getNeighbors(beginWord, words));
+        for (String s : wordList) {
+            adj.put(s, getNeighbors(s, words));
+        }
+        Map<String, Integer> distance = new HashMap<>();
+        //BFS, start to end
+        getShortest(beginWord, endWord, adj, distance);
+        if (!distance.containsKey(endWord)) {
+            return res;
+        }
+        //System.out.println(distance.get(endWord));
+        //DFS, end to start
+        getPaths(distance.get(endWord), endWord, beginWord, adj, res, new ArrayList<>(), new HashSet<>(), distance, distance.get(endWord));
+        return res;
+    }
+
+    private Set<String> getNeighbors(String s, Set<String> words) {
+        Set<String> neib = new HashSet<>();
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < s.length(); i++){
+            char temp = chars[i];
+            for (char c = 'a'; c <= 'z'; c++) {
+                if (c == temp) {
+                    continue;
+                }
+                chars[i] = c;
+                String str = new String(chars);
+                if(words.contains(str)) {
+                    neib.add(str);
+                }
+            }
+            chars[i] = temp;
+        }
+        return neib;
+    }
+
+    private void getShortest(String beginWord, String endWord, Map<String, Set<String>> adj, Map<String, Integer> distance) {
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+        visited.add(beginWord);
+        distance.put(beginWord, 0);
+        int level = 0;
+        int ladderSize = Integer.MAX_VALUE;
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            level++;
+            if (level > ladderSize) {
+                return;
+            }
+            for (int i = 0; i < size; i++) {
+                String cur = queue.poll();
+                for (String s : adj.get(cur)) {
+                    if (s.equals(endWord)) {
+                        ladderSize = level;
+                    }
+                    if (!visited.contains(s)) {
+                        queue.offer(s);
+                        visited.add(s);
+                        distance.put(s, level);
+                    }
+                }
+
+            }
+        }
+    }
+
+    private void getPaths(int len, String begin, String end, Map<String, Set<String>> adj,
+                          List<List<String>> res, List<String> lis, Set<String> visited, Map<String, Integer> distance, int level) {
+        if(lis.size() > len) {
+            return;
+        }
+        //lis.size() < distance end
+        lis.add(begin);
+        visited.add(begin);
+        if (begin.equals(end)) {
+            List<String> temp = new ArrayList<>(lis);
+            Collections.reverse(temp);
+            res.add(temp);
+            lis.remove(lis.size() - 1);
+            visited.remove(begin);
+            return;
+        }
+        for (String s : adj.get(begin)) {
+            if (visited.contains(s) || !distance.containsKey(s) || distance.get(s) != level - 1) {
+                continue;
+            }
+            getPaths(len, s, end, adj, res, lis, visited, distance, level - 1);
+        }
+        lis.remove(lis.size() - 1);
+        visited.remove(begin);
+    }
 
     public static void main(String[] args) {
         Graph g = new Graph();
-        /*Set<String> dict = new HashSet<>();
+        List<String> dict = new ArrayList<>();
         dict.add("hot");
         dict.add("dot");
         dict.add("dog");
         dict.add("lot");
         dict.add("log");
+        dict.add("cog");
         String start = "hit";
         String end = "cog";
         List<List<String>> lis = g.findLadders(start, end, dict);
-        Helper.printListofList(lis);*/
-        //String[] words = { "wrt", "wrf", "er", "ett", "rftt"};
-        String[] words = {"vlxpwiqbsg","cpwqwqcd"};
-        //System.out.println(g.alienOrder(words));
-        System.out.println(-10 % 3);
+        Helper.printListofListString(lis);
+
     }
 }
