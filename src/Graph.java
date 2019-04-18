@@ -547,7 +547,6 @@ public class Graph {
     You may assume no duplicates in the word list.
     You may assume beginWord and endWord are non-empty and are not the same.*/
 
-
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         List<List<String>> res = new ArrayList<>();
         if (wordList == null || wordList.size() == 0) {
