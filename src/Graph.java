@@ -570,7 +570,6 @@ public class Graph {
         if (!distance.containsKey(endWord)) {
             return res;
         }
-        //System.out.println(distance.get(endWord));
         //DFS, end to start
         getPaths(distance.get(endWord), endWord, beginWord, adj, res, new ArrayList<>(), new HashSet<>(), distance, distance.get(endWord));
         return res;
