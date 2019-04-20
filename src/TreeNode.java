@@ -787,6 +787,46 @@ public class TreeNode {
         return maxHalf;
     }
 
+    //222
+    boolean isEnd = false;
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int res = 1;
+        int height = getHeightComplete(root);
+
+        for (int i = 0; i < height - 1; i++) {
+            res *= 2;
+        }
+        res -= 1;       //res = 2^(h-1) - 1
+
+        return res + countNodesHelper(root, height, 1);
+    }
+    //find # nodes whose level = height
+    private int countNodesHelper(TreeNode root, int height, int level) {
+        if (isEnd) {
+            return 0;
+        }
+        if (root == null) {
+            isEnd = true;
+            return 0;
+        }
+        if (level < height) {
+            return countNodesHelper(root.left, height, level + 1) + countNodesHelper(root.right, height, level + 1);
+        } else if (level == height) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private int getHeightComplete(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return getHeightComplete(root.left) + 1;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
         TreeNode t2 = new TreeNode(-1);

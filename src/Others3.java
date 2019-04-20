@@ -1562,6 +1562,10 @@ public class Others3 {
         return (int)res;
     }
 
+    //772
+    public int calculate(String s) {
+        return 0;
+    }
 
 
     public static void main(String[] args) {
