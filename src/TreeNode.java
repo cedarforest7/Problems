@@ -814,10 +814,8 @@ public class TreeNode {
         }
         if (level < height) {
             return countNodesHelper(root.left, height, level + 1) + countNodesHelper(root.right, height, level + 1);
-        } else if (level == height) {
-            return 1;
         }
-        return 0;
+        return 1;
     }
 
     private int getHeightComplete(TreeNode root) {

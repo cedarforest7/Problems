@@ -109,9 +109,112 @@ public class Array3 {
         return flag ? min : 0;
     }
 
+    //18
+    /*public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        *//*Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            threeSum(nums, target, i,  res);
+        }*//*
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            count.put(nums[i], count.getOrDefault(nums[i], 0) + 1);
+        }
+        List<Integer> numbers = new ArrayList<>(count.keySet());
+        Map<Integer, Map<Integer, Integer>> twoSum = new HashMap<>();  //key: sum, val: (key, val are a pair of ints, key <= val)
+        //get all tuples
+        for (int i = 0; i < numbers.size(); i++) {
+            int cur = numbers.get(i);
+            if (count.get(cur) > 1) {
+                twoSum.putIfAbsent(cur * 2, new HashMap<>());
+                twoSum.get(cur * 2).put(cur, cur);
+            }
+            for (int j = i + 1; j < numbers.size(); j++) {
+                int next = numbers.get(j);
+                int sum = cur + next;
+                twoSum.putIfAbsent(sum, new HashMap<>());
+                if (cur <= next) {
+                    twoSum.get(sum).put(cur, next);
+                } else {
+                    twoSum.get(sum).put(next, cur);
+                }
+            }
+        }
+
+        //traverse all tuples
+        List<Integer> sums = new ArrayList<>(twoSum.keySet());
+        Collections.sort(sums);
+        for (int i = 0; i < sums.size(); i++) {
+            int sum = sums.get(i);
+            Map<Integer, Integer> pairs = twoSum.get(sum);
+            for (int j = sums.size() - 1; j >= i; j--) {
+                Map<Integer, Integer> pairs2 = twoSum.get(target - sum);
+                List<Integer> lis = new ArrayList<>();
+                for (int k1 : pairs.keySet()) {
+                    int m = pairs.get(k1);
+                    for (int k2 : pairs2.keySet()) {
+                        int n = pairs.get(k2);
+                    }
+                }
+            }
+        }
+    }*/
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            threeSum(nums, target, i,  res);
+        }
+        return res;
+    }
+
+    private void threeSum(int[] nums, int target, int index, List<List<Integer>> res) {
+        int sum = target - nums[index];
+
+        for (int i = index + 1; i < nums.length; i++) {
+            if (i > index + 1 &&  nums[i] == nums[i - 1]) {
+                continue;
+            }
+            List<Integer> lis = new ArrayList<>();
+            lis.add(nums[index]);
+            lis.add(nums[i]);
+            twoSum(nums, sum - nums[i], i + 1, lis, res);
+        }
+    }
+
+    private void twoSum(int[] nums, int target, int start, List<Integer> lis, List<List<Integer>> res) {
+        int i = start, j = nums.length - 1;
+        while (j > i) {
+            if (nums[i] + nums[j] > target) {
+                j--;
+            } else if (nums[i] + nums[j] < target) {
+                i++;
+            } else {
+                List<Integer> temp = new ArrayList<>(lis);
+                temp.add(nums[i]);
+                temp.add(nums[j]);
+                res.add(temp);
+                i++;
+                j--;
+                while (i < nums.length && nums[i] == nums[i - 1]) {
+                    i++;
+                }
+                while (j >= start && nums[j] == nums[j + 1]) {
+                    j--;
+                }
+
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Array3 ar = new Array3();
-        int[][] points = {{1,1},{1,3},{3,1},{3,3},{2,2}};
-        System.out.println(ar.minAreaRect(points));
+//        int[][] points = {{1,1},{1,3},{3,1},{3,3},{2,2}};
+//        System.out.println(ar.minAreaRect(points));
+        int[] nums = {1, 0, 0, 0, -1, 0, -2, 2};
+        Helper.printListofListInt(ar.fourSum(nums, 0));
     }
 }
