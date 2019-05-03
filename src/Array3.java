@@ -210,6 +210,33 @@ public class Array3 {
         }
     }
 
+    //974
+    public int subarraysDivByK(int[] A, int K) {
+        if (A == null || A.length == 0) {
+            return 0;
+        }
+        if (K < 0) {
+            K = -K;
+        }
+        int count = 0;
+        int[] ps = new int [A.length + 1];      //prefix sum
+        int[] mods = new int[K];
+        for (int i = 0; i < A.length; i++) {
+            ps[i + 1] = ps[i] + A[i];
+        }
+        for (int i = 0; i < A.length; i++) {
+            for (int j = i; j < A.length; j++) {
+                int sum = ps[j + 1] - ps[i];
+                int mod = sum % K;
+                mods[mod < 0 ? mod + K: mod]++;
+            }
+        }
+        for (int i = 0; i < K; i++) {
+            count += mods[i] * (mods[i] - 1) /2;     //Cn2
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         Array3 ar = new Array3();
 //        int[][] points = {{1,1},{1,3},{3,1},{3,3},{2,2}};
