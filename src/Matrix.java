@@ -907,18 +907,54 @@ public class Matrix {
         return false;
     }
 
+    //329
+    int longest = 0;
+    public int longestIncreasingPath(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+
+        int[][] path = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < path.length; i++) {
+            Arrays.fill(path[i], -1);
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                longestPathHelper(matrix, path, i, j);
+            }
+        }
+        return longest;
+    }
+
+    final int[][] moves = {{0,1}, {1,0}, {0, -1}, {-1, 0}};
+    private void longestPathHelper(int[][] matrix, int[][] path, int i, int j) {
+        if (path[i][j] != -1) {
+            return;
+        }
+        path[i][j] = 1;
+        for (int k = 0; k < 4; k++) {
+            int m = i + moves[k][0], n = j + moves[k][1];
+            if (m < 0 || m >= matrix.length
+                    || n < 0 || n >= matrix[0].length
+                    || matrix[m][n] <= matrix[i][j]) {
+                continue;
+            }
+            longestPathHelper(matrix, path, m, n);
+            path[i][j] = Math.max(path[i][j], path[m][n] + 1);
+        }
+        longest = Math.max(longest, path[i][j]);
+    }
+
     public static void main(String[] args) {
         Matrix m = new Matrix();
         //int[][] grid = {{1, 0, 0, 1}, {0,1,1,0}, {0,1,1,1}, {1,0,1,1}};
         char[][] grid = {{'1', '0', '1', '0', '0'}, {'1','0','1','1','1'}, {'1','1','1','1','1'}, {'1','0','0','1','0'}};
         int[][] grid1 = {{1},{2},{3}};
         int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
-        /*List<Integer> res = m.spiralOrder(grid1);
-        for (int x : res) {
-            System.out.print(x + " ");
-        }*/
-        System.out.println(m.maximalRectangle(grid));
 
+        int[][] mat = {{9,9,4}, {6,6,8}, {2,2,1}};
+        System.out.println(m.longestIncreasingPath(mat));
 
     }
 
