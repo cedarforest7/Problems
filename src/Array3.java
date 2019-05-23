@@ -237,6 +237,39 @@ public class Array3 {
         return count;
     }
 
+    //4
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n = nums1.length + nums2.length;
+        if (n % 2 == 0) {
+            //even
+            return (findKth(nums1, 0, nums2, 0, n / 2) + findKth(nums1, 0, nums2, 0, n / 2 + 1)) / 2.0;
+        }
+        //odd
+        return findKth(nums1, 0, nums2, 0, n / 2 + 1);
+    }
+
+    //find kth in two sorted arrays
+    private double findKth(int[] A, int startA, int[] B, int startB, int k) {
+        if (startA >= A.length) {
+            return B[startB + k - 1];
+        }
+        if (startB >= B.length) {
+            return A[startA + k - 1];
+        }
+        if (k == 1) {
+            return Math.min(A[startA], B[startB]);
+        }
+        int i = startA + k / 2 - 1;     //From startA (inclusive), k/2 numbers on the left (include i)
+        int j = startB + k / 2 - 1;
+        int midA = i < A.length ? A[i] : Integer.MAX_VALUE;     //if i >= A.length, discard the first half of B
+        int midB = j < B.length ? B[j] : Integer.MAX_VALUE;
+        if (midA > midB) {
+            return findKth(A, startA, B, startB + k / 2, k - k / 2);
+        } else {
+            return findKth(A, startA + k / 2, B, startB, k - k / 2);
+        }
+    }
+
     public static void main(String[] args) {
         Array3 ar = new Array3();
 //        int[][] points = {{1,1},{1,3},{3,1},{3,3},{2,2}};
