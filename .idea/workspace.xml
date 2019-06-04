@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f9ccfa8-356d-4ef3-b310-7cf02603867d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Strings2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Array3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Array3.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,13 +19,13 @@
     <session id="50349074">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="53" />
+          <entry key="project.closed" value="54" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="8" />
           <entry key="project.open.time.12" value="9" />
           <entry key="project.open.time.13" value="12" />
-          <entry key="project.open.time.14" value="6" />
+          <entry key="project.open.time.14" value="7" />
           <entry key="project.open.time.15" value="4" />
           <entry key="project.open.time.16" value="5" />
           <entry key="project.open.time.17" value="3" />
@@ -36,42 +36,63 @@
           <entry key="project.open.time.23" value="2" />
           <entry key="project.open.time.32" value="2" />
           <entry key="project.open.time.4" value="3" />
-          <entry key="project.opened" value="69" />
+          <entry key="project.opened" value="70" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="129" />
+          <entry key="java" value="133" />
           <entry key="js" value="1" />
           <entry key="kt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="129" />
+          <entry key="JAVA" value="133" />
           <entry key="JavaScript" value="1" />
           <entry key="Kotlin" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="93692" />
+          <entry key="java" value="94517" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="93692" />
+          <entry key="JAVA" value="94517" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Array3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="260" column="9" lean-forward="true" selection-start-line="260" selection-start-column="9" selection-end-line="260" selection-end-column="9" />
+            <state relative-caret-position="313">
+              <caret line="268" column="68" selection-start-line="268" selection-start-column="68" selection-end-line="268" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Strings2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="361">
+              <caret line="100" column="56" lean-forward="true" selection-start-line="100" selection-start-column="56" selection-end-line="100" selection-end-column="56" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Strings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="331">
+              <caret line="709" column="47" selection-start-line="709" selection-start-column="47" selection-end-line="709" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -99,6 +120,7 @@
       <find>union</find>
       <find>lowestcom</find>
       <find>canf</find>
+      <find>removein</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -122,7 +144,6 @@
         <option value="$PROJECT_DIR$/src/Helper.java" />
         <option value="$PROJECT_DIR$/src/ListNode.java" />
         <option value="$PROJECT_DIR$/src/MaxStack.java" />
-        <option value="$PROJECT_DIR$/src/Strings.java" />
         <option value="$PROJECT_DIR$/src/Point.java" />
         <option value="$PROJECT_DIR$/src/Graph.java" />
         <option value="$PROJECT_DIR$/src/Others3.java" />
@@ -131,6 +152,8 @@
         <option value="$PROJECT_DIR$/src/TrieProblem.java" />
         <option value="$PROJECT_DIR$/src/Matrix.java" />
         <option value="$PROJECT_DIR$/src/Array3.java" />
+        <option value="$PROJECT_DIR$/src/Strings.java" />
+        <option value="$PROJECT_DIR$/src/Strings2.java" />
       </list>
     </option>
   </component>
@@ -145,6 +168,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -162,12 +186,11 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YJC/Desktop/CS/LeetCode/test/src/Matrix.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557440378411" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559529095260" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -185,7 +208,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Matrix">
+  <component name="RunManager" selected="Application.Strings2">
     <configuration name="Array3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Array3" />
       <module name="test" />
@@ -207,8 +230,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Point" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Point" />
+    <configuration name="Strings2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Strings2" />
       <module name="test" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -222,19 +245,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Point" />
       <item itemvalue="Application.Graph" />
       <item itemvalue="Application.Array3" />
       <item itemvalue="Application.TrieProblem" />
       <item itemvalue="Application.Matrix" />
+      <item itemvalue="Application.Strings2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Strings2" />
         <item itemvalue="Application.Matrix" />
         <item itemvalue="Application.TrieProblem" />
         <item itemvalue="Application.Array3" />
         <item itemvalue="Application.Graph" />
-        <item itemvalue="Application.Point" />
       </list>
     </recent_temporary>
   </component>
@@ -255,7 +278,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19271255" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19595142" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -264,8 +287,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.22241993" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.42882562" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31494662" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.37366548" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -284,6 +307,36 @@
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.32955465" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19595142" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31494662" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.37366548" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Style Checker" order="7" weight="0.3291815" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3291815" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24939272" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24939272" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.32955465" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -552,13 +605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Strings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="1225" column="5" selection-start-line="1225" selection-start-column="5" selection-end-line="1225" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Point.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1228">
@@ -632,8 +678,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Array3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="260" column="9" lean-forward="true" selection-start-line="260" selection-start-column="9" selection-end-line="260" selection-end-column="9" />
+        <state relative-caret-position="313">
+          <caret line="268" column="68" selection-start-line="268" selection-start-column="68" selection-end-line="268" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10/lib/src.zip!/java.base/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="3743" selection-start-line="3743" selection-end-line="3743" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Strings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="709" column="47" selection-start-line="709" selection-start-column="47" selection-end-line="709" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Strings2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="100" column="56" lean-forward="true" selection-start-line="100" selection-start-column="56" selection-end-line="100" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
