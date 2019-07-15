@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Strings2 {
     public List<String> removeInvalidParentheses(String s) {
@@ -95,9 +97,55 @@ public class Strings2 {
         return new int[]{misLeft, misRight};
     }
 
+    //76
+    public String minWindow(String s, String t) {
+        Map<Character, Integer> lack = new HashMap<>();
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            lack.put(c, lack.getOrDefault(c, 0) + 1);
+        }
+        int i = 0, j = 0;     //substring, both inclusive
+        int min = Integer.MAX_VALUE;
+        int start = 0, end = 0;
+
+        int totalNeed = t.length();
+
+        while (j < s.length()) {
+            char c = s.charAt(j);
+            if (lack.containsKey(c)) {
+                if (lack.get(c) > 0) {
+                    totalNeed--;
+                }
+                lack.put(c, lack.get(c) - 1);
+            }
+            //squeeze i
+            while (totalNeed == 0) {
+                char temp = s.charAt(i);
+                if (lack.containsKey(temp)) {
+                    lack.put(temp, lack.get(temp) + 1);
+                    if (lack.get(temp) > 0) {
+                        if (j - i + 1 < min) {
+                            min = j - i + 1;
+                            start = i;
+                            end = j;
+                        }
+                        totalNeed++;
+                    }
+                }
+                i++;
+            }
+            j++;
+        }
+
+        if (min == Integer.MAX_VALUE) {
+            return "";
+        }
+        return s.substring(start, end + 1);
+    }
+
     public static void main(String[] args) {
         Strings2 r = new Strings2();
 
-        System.out.println(r.removeInvalidParentheses(")()a)(()("));
+        System.out.println(r.minWindow("ABCBALCA", "ABCC"));
     }
 }

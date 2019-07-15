@@ -946,6 +946,86 @@ public class Matrix {
         longest = Math.max(longest, path[i][j]);
     }
 
+    class Point {
+        int x;
+        int y;
+        int h;
+        public Point(int x, int y, int h) {
+            this.x = x;
+            this.y = y;
+            this.h = h;
+        }
+    }
+
+    //407
+    public int trapRainWater(int[][] heightMap) {
+        if (heightMap == null || heightMap.length <= 1 || heightMap[0].length <= 1) {
+            return 0;
+        }
+        int m = heightMap.length, n = heightMap[0].length;
+        int water = 0;
+        //use a heap tp keep track of the current position where water will leak from (lowest block in the outer layer)
+        PriorityQueue<Point> heap = new PriorityQueue<>(2 * m + 2 * n, new Comparator<Point>(){
+            @Override
+            public int compare(Point a, Point b) {
+                return a.h - b.h;
+            }
+        });
+        //initialize the heap with the out-most layer
+        int[] dx = {1, 0, -1, 0};
+        int[] dy = {0, 1, 0, -1};
+        boolean[][] visited = new boolean[m][n];
+        //traverse the out-most layer
+        int x = 1, y = 0, k = 0;
+        while(k < 4) {
+            heap.offer(new Point(x, y, heightMap[x][y]));
+            visited[x][y] = true;
+            int x1 = x + dx[k];
+            int y1 = y + dy[k];
+            if (x1 < 0 || x1 > m - 1 || y1 < 0 || y1 > n - 1) {
+                k++;
+                if (k == 4) {
+                    break;
+                }
+                x += dx[k];
+                y += dy[k];
+            } else {
+                x = x1;
+                y = y1;
+            }
+        }
+
+        //traverse the matrix from outside to inside
+        while(!heap.isEmpty()) {
+            Point p = heap.poll();
+            int px = p.x, py = p.y;
+            //System.out.println(px + " " + py);
+            //if isWall when moving in all directions, poll it
+            //traverse in 4 directions (put all neighbors in heap)
+            for (int i = 0; i < 4; i++) {
+                int x1 = px + dx[i], y1 = py + dy[i];
+                if (x1 >= 0 && x1 <= m - 1 && y1 >= 0 && y1 <= n - 1 && !visited[x1][y1]) {
+                    //can continue in current direction
+                    visited[x1][y1] = true;
+                    if (heightMap[x1][y1] >= p.h) {
+                        //limit becomes higher
+                        heap.offer(new Point(x1, y1, heightMap[x1][y1]));
+                    } else {
+                        //limit unchanged
+                        heap.offer(new Point(x1, y1, p.h));
+                        water += p.h - heightMap[x1][y1];
+                    }
+                }
+            }
+
+        }
+
+        return water;
+    }
+
+
+
+
     public static void main(String[] args) {
         Matrix m = new Matrix();
         //int[][] grid = {{1, 0, 0, 1}, {0,1,1,0}, {0,1,1,1}, {1,0,1,1}};
@@ -954,7 +1034,8 @@ public class Matrix {
         int[][] grid5 = {{1, 2, 3, 4, 5}, {6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
 
         int[][] mat = {{9,9,4}, {6,6,8}, {2,2,1}};
-        System.out.println(m.longestIncreasingPath(mat));
+        int[][] height = {{5,5,5,1},{5,1,1,5},{5,1,5,5},{5,2,5,8}};
+        System.out.println(m.trapRainWater(height));
 
     }
 

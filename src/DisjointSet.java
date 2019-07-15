@@ -45,13 +45,76 @@ public class DisjointSet {
         return dSet.size();
     }
 
+    class DisjointSet1{
+        private int[] parent;
+
+        public DisjointSet1(int size) {
+            parent = new int[size];
+            //initialization
+            for (int i = 0; i < size; i++) {
+                parent[i] = i;
+            }
+        }
+
+        //find highest ancestor
+        public int find(int k) {
+            if (parent[k] != k) {
+                parent[k] = find(parent[k]);
+            }
+            return parent[k];
+        }
+
+        //union two set of nodes
+        public boolean union(int i, int j) {
+            int par1 = find(i);
+            int par2 = find(j);
+            if (par1 != par2) {
+                parent[par1] = par2;
+                return true;
+            }
+            return false;
+        }
+
+    }
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        boolean[][] grid = new boolean[m][n];
+        DisjointSet1 ds = new DisjointSet1(m * n);
+        List<Integer> res = new ArrayList<>();
+
+        int[][] dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};   //go left, right, up, down
+        for (int i = 0; i < positions.length; i++) {
+            int[] pos = positions[i];
+            if (grid[pos[0]][pos[1]]) {
+                res.add(res.get(i - 1));
+                continue;
+            }
+            int index = pos[0] * n + pos[1];
+            int lands = i == 0 ? 1 : (res.get(i - 1) + 1);
+            grid[pos[0]][pos[1]] = true;
+            for (int j = 0; j < 4; j++) {
+                int p = pos[0] + dir[j][0], q = pos[1] + dir[j][1];
+                if (inBoard(p, q, m, n) && grid[p][q]) {
+                    if(ds.union(index, p * n + q)) {
+                        lands--;
+                    }
+                }
+            }
+            res.add(lands);
+        }
+        return res;
+    }
+
+    private boolean inBoard(int i, int j, int m, int n) {
+        return i >= 0 && j >= 0 && i < m && j < n;
+    }
+
     public static void main(String[] args) {
         DisjointSet ds = new DisjointSet();
         char[][] grid = {{'1', '1', '0', '0', '0'}, {'1', '1', '1', '1', '0'}, {'1', '1', '0', '0', '0'},
                 {'0', '0', '1', '0', '0'}, {'0', '0', '0', '1', '1'}};
 //        int res = ds.numIslands(grid);
 //        System.out.println(res);
-
+        System.out.println(ds.numIslands2(3, 3, new int[][]{{0,0},{0,1},{1,2},{2,1},{1,0},{0,0},{2,2},{1,2},{1,1},{0,1}}));
     }
 
 }
